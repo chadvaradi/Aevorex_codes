@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+
+# Node.js / JS
+node_modules/
+dist/
+.env
+
+# IDE beállítások
+.vscode/
+.idea/
+
+# Log fájlok
+*.log
