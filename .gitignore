@@ -15,3 +15,13 @@ dist/
 
 # Log fájlok
 *.log
+
+# macOS
+.DS_Store
+
+# Környezeti változók
+.env
+*.env.*
+
+# Dokumentáció / Generált fájlok
+project_structure.txt
