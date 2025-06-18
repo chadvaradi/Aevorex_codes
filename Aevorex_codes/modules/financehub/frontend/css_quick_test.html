@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="hu" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceHub CSS Quick Test</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="static/css/main_combined_financehub.css">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .quick-test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .test-item {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.02);
+        }
+        
+        .test-title {
+            color: #c5a572;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .status-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000;
+            background: #ef4444;
+            color: white;
+        }
+        
+        .status-success {
+            background: #10b981 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="status" class="status-indicator">CSS Loading...</div>
+    
+    <div class="quick-test-container">
+        <h1 style="color: #c5a572; text-align: center; margin-bottom: 30px;">
+            🧪 FinanceHub CSS Quick Test
+        </h1>
+        
+        <!-- Header Test -->
+        <div class="test-item">
+            <div class="test-title">📋 Header Component</div>
+            <header class="fh-header">
+                <div class="fh-header__container">
+                    <div class="fh-header__brand">
+                        <h1 class="fh-header__title">FinanceHub</h1>
+                    </div>
+                    <div class="fh-header__actions">
+                        <button class="fh-header__theme-toggle">🌙</button>
+                    </div>
+                </div>
+            </header>
+        </div>
+        
+        <!-- Ticker Tape Test -->
+        <div class="test-item">
+            <div class="test-title">📊 Ticker Tape</div>
+            <div class="fh-ticker-tape">
+                <div class="fh-ticker-tape__container">
+                    <div class="fh-ticker-tape__content">
+                        <div class="fh-ticker-tape__item">
+                            <span class="fh-ticker-tape__symbol">AAPL</span>
+                            <span class="fh-ticker-tape__price">$150.25</span>
+                            <span class="fh-ticker-tape__change fh-ticker-tape__change--positive">+2.45%</span>
+                        </div>
+                        <div class="fh-ticker-tape__item">
+                            <span class="fh-ticker-tape__symbol">MSFT</span>
+                            <span class="fh-ticker-tape__price">$285.10</span>
+                            <span class="fh-ticker-tape__change fh-ticker-tape__change--negative">-1.20%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Search Test -->
+        <div class="test-item">
+            <div class="test-title">🔍 Search Component</div>
+            <section class="fh-search">
+                <form class="fh-search__form">
+                    <div class="fh-search__input-wrapper">
+                        <input type="text" class="fh-search__input" placeholder="Enter stock ticker" value="AAPL">
+                    </div>
+                    <button type="submit" class="fh-search__button">
+                        <span>🔍 Analyze</span>
+                    </button>
+                </form>
+            </section>
+        </div>
+        
+        <!-- Analysis Bubbles Test -->
+        <div class="test-item">
+            <div class="test-title">💡 Analysis Bubbles</div>
+            <section class="fh-analysis-bubbles">
+                <div class="fh-analysis-bubbles__grid">
+                    <div class="fh-analysis-bubble fh-analysis-bubble--company-overview">
+                        <div class="fh-analysis-bubble__header">
+                            <h3 class="fh-analysis-bubble__title">Company Overview</h3>
+                            <div class="fh-analysis-bubble__status">✅</div>
+                        </div>
+                        <div class="fh-analysis-bubble__content">
+                            <p>Apple Inc. is a technology company...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="fh-analysis-bubble fh-analysis-bubble--financial-metrics">
+                        <div class="fh-analysis-bubble__header">
+                            <h3 class="fh-analysis-bubble__title">Financial Metrics</h3>
+                            <div class="fh-analysis-bubble__status">📊</div>
+                        </div>
+                        <div class="fh-analysis-bubble__content">
+                            <p>Market Cap: $2.45T, P/E: 28.5</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- AI Chat Test -->
+        <div class="test-item">
+            <div class="test-title">🤖 AI Chat</div>
+            <section class="fh-ai-chat">
+                <div class="fh-ai-chat__container">
+                    <div class="fh-ai-chat__header">
+                        <h3 class="fh-ai-chat__title">AI Assistant</h3>
+                        <div class="fh-ai-chat__status">🟢 Online</div>
+                    </div>
+                    
+                    <div class="fh-ai-chat__messages">
+                        <div class="fh-ai-chat__message fh-ai-chat__message--ai">
+                            <div class="fh-ai-chat__message-avatar">🤖</div>
+                            <div class="fh-ai-chat__message-content">
+                                <p>Hello! How can I help you analyze stocks today?</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="fh-ai-chat__input">
+                        <div class="fh-ai-chat__input-wrapper">
+                            <input type="text" class="fh-ai-chat__input-field" placeholder="Ask about stocks...">
+                            <button class="fh-ai-chat__send-button">📤</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Button Test -->
+        <div class="test-item">
+            <div class="test-title">🔘 Buttons</div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn btn--primary">Primary</button>
+                <button class="btn btn--secondary">Secondary</button>
+                <button class="btn btn--outline">Outline</button>
+                <button class="btn btn--success">Success</button>
+                <button class="btn btn--warning">Warning</button>
+                <button class="btn btn--danger">Danger</button>
+            </div>
+        </div>
+        
+        <!-- Form Test -->
+        <div class="test-item">
+            <div class="test-title">📝 Forms</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="form-group">
+                    <label class="form-label">Stock Symbol</label>
+                    <input type="text" class="form-input" value="AAPL">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Time Period</label>
+                    <select class="form-select">
+                        <option>1 Day</option>
+                        <option>1 Week</option>
+                        <option>1 Month</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Theme Toggle Test -->
+        <div class="test-item">
+            <div class="test-title">🎨 Theme Toggle</div>
+            <button onclick="toggleTheme()" class="btn btn--primary">
+                Toggle Dark/Light Theme
+            </button>
+            <p style="margin-top: 10px; color: var(--text-secondary, #888);">
+                Current theme: <span id="current-theme">dark</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // CSS Loading Check
+        function checkCSS() {
+            const testEl = document.createElement('div');
+            testEl.className = 'fh-header';
+            testEl.style.position = 'absolute';
+            testEl.style.visibility = 'hidden';
+            document.body.appendChild(testEl);
+            
+            const style = window.getComputedStyle(testEl);
+            const loaded = style.display !== 'block' || 
+                          style.color !== 'rgb(0, 0, 0)' ||
+                          style.backgroundColor !== 'rgba(0, 0, 0, 0)';
+            
+            document.body.removeChild(testEl);
+            
+            const status = document.getElementById('status');
+            if (loaded) {
+                status.textContent = '✅ CSS Loaded';
+                status.className = 'status-indicator status-success';
+            } else {
+                status.textContent = '❌ CSS Failed';
+            }
+            
+            return loaded;
+        }
+        
+        // Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            document.getElementById('current-theme').textContent = newTheme;
+            console.log(`Theme: ${newTheme}`);
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(checkCSS, 300);
+            
+            // Log components
+            const components = ['fh-header', 'fh-ticker-tape', 'fh-search', 'fh-analysis-bubbles', 'fh-ai-chat'];
+            components.forEach(comp => {
+                const count = document.querySelectorAll(`.${comp}`).length;
+                console.log(`${comp}: ${count} found`);
+            });
+            
+            console.log('🧪 Quick CSS Test ready');
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,100 @@
+/* =============================================================== */ /* === PREMIUM MODULAR CSS ARCHITECTURE - CONTENTHUB v2.1 === */ /* =============================================================== */ /* * Architektúra: Moduláris, Prémium, Skálázható * Utolsó frissítés: 2025-06-10 * Cél: Harmonikus, letisztult UX a ContentHub modulhoz */ /* ===================== */ /* === BASE LAYER === */ /* ===================== */ @import url('./01-base/reset.css'); @import url('./01-base/variables.css'); @import url('./01-base/typography.css'); /* ===================== */ /* === COMPONENTS === */ /* ===================== */ @import url('./02-components/header.css'); @import url('./02-components/hero.css'); @import url('./02-components/navigation.css'); @import url('./02-components/buttons.css'); @import url('./02-components/cards.css'); @import url('./02-components/forms.css'); @import url('./02-components/module-cards.css'); @import url('./02-components/workflow.css'); @import url('./02-components/theme-system.css'); @import url('./02-components/layout-main.css'); @import url('./02-components/layout-dashboard.css'); @import url('./02-components/layout.css'); @import url('./02-components/footer.css'); /* ===================== */ /* === THEMES === */ /* ===================== */ @import url('./03-themes/light.css'); @import url('./03-themes/dark.css'); /* ===================== */ /* === UTILITIES === */ /* ===================== */ @import url('./04-utilities/accessibility.css'); @import url('./04-utilities/responsive.css'); @import url('./04-utilities/performance.css'); @import url('./04-utilities/print.css'); @import url('./04-utilities/fallback.css'); @import url('./04-utilities/animations.css'); @import url('./04-utilities/test-elements.css'); /* =============================================================== */ /* === CRITICAL ICON SYSTEM - HIGH SPECIFICITY FIXES === */ /* =============================================================== */ /* Specifikus hero-feature ikonok - reset.css felülírása */ .hero-feature .hero-feature__icon, .hero-feature .hero-feature__icon svg, .hero-feature__icon, .hero-feature__icon svg {
+  width: 24px !important;
+  height: 24px !important;
+  max-width: 24px !important;
+  max-height: 24px !important;
+  flex-shrink: 0 !important;
+  display: block !important;
+}
+/* Hero feature konténer layout */ .hero-feature {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  font-size: 16px !important;
+  padding: 12px !important;
+}
+/* Általános SVG korlátok - csak akkor ha nincs explicit méret */ svg:not([width]):not([height]):not(.hero-feature__icon) {
+  max-width: 100% !important;
+  height: auto !important;
+}
+/* Reset.css felülírása - hero ikonokra specifikusan */ .hero-feature svg, .hero-feature .hero-feature__icon svg {
+  display: block !important;
+  max-width: 24px !important;
+  max-height: 24px !important;
+  width: 24px !important;
+  height: 24px !important;
+}
+/* =============================================================== */ /* === ARCHITEKTÚRA VÉDELEM === */ /* =============================================================== */ /* * Ez a fájl a ContentHub CSS architektúra központi magja. * Módosítás előtt konzultálj az Aevorex Premium Team-mel. * Változtatásokat csak moduláris elven végezd! * * Import sorrend: KRITIKUS! Ne változtasd! * 1. Base (reset, variables, typography) * 2. Components (moduláris komponensek) * 3. Themes (light/dark) * 4. Utilities (responsive, accessibility) * 5. Critical Fixes (ez a rész) */ /* ========================================================================== CONTENTHUB MAIN CSS v1.2 - PRODUCTION READY ========================================================================== */ body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--ch-font-family-sans);
+  font-size: var(--ch-text-base);
+  font-weight: var(--ch-font-weight-normal);
+  line-height: var(--ch-line-height-base);
+  color: var(--ch-text-primary);
+  background: var(--ch-bg-primary);
+  transition: background-color 0.3s var(--ch-ease-in-out),;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+/* ========================================================================== GLOBAL CONTAINER ========================================================================== */ .app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+/* ========================================================================== MAIN CONTENT ========================================================================== */ main {
+  flex: 1;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--ch-space-6) var(--ch-space-4);
+  position: relative;
+}
+
+@media (max-width: 768px) {
+main {
+  padding: var(--ch-space-4) var(--ch-space-3);
+}
+} /* ========================================================================== TYPOGRAPHY ENHANCEMENTS ========================================================================== */ h1, h2, h3, h4, h5, h6 {
+  margin-bottom: var(--ch-space-4);
+  font-weight: var(--ch-font-weight-semibold);
+  line-height: var(--ch-line-height-tight);
+  color: var(--ch-text-primary);
+}
+p {
+  margin-bottom: var(--ch-space-3);
+  line-height: var(--ch-line-height-relaxed);
+  color: var(--ch-text-secondary);
+}
+/* ========================================================================== ACCESSIBILITY & FOCUS MANAGEMENT ========================================================================== */ :focus-visible {
+  outline: 2px solid var(--ch-brand-primary);
+  outline-offset: 2px;
+  border-radius: var(--ch-radius-sm);
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+*, *::before, *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+} /* ========================================================================== PERFORMANCE OPTIMIZATIONS ========================================================================== */ img {
+  max-width: 100%;
+  height: auto;
+}
+/* Will-change optimizations for animated elements */ .ch-module-card, .ch-btn, .ch-nav__link {
+  will-change: transform;
+}
+
+/* ==========================================================================
+   CONTENTHUB STATUS
+   ========================================================================== */
+/*
+ * ✅ PRODUCTION READY: Enhanced typography and layout
+ * ✅ CONSISTENT: Uses ContentHub design tokens
+ * ✅ ACCESSIBLE: Focus management and reduced motion support
+ * ✅ PERFORMANCE: Optimized will-change properties
+ * ✅ RESPONSIVE: Mobile-first approach
+*/

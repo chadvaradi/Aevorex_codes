@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="hu" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Premium Equity Research Platform - Professional AI-powered stock analysis with real-time data" />
+    <meta name="keywords" content="stock analysis, equity research, financial data, AI trading, market insights" />
+    <meta name="author" content="Aevorex" />
+    <meta name="theme-color" content="#1a1a1a" id="theme-color-meta" />
+
+    <title>FinanceHub - Premium Equity Research Platform (Optimized)</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- FinanceHub Global CSS Variables -->
+    <link rel="stylesheet" href="/static/css/01-base/variables.css?v=2.0">
+
+    <!-- Optimized CSS - Only used styles -->
+    <link rel="preload" href="/static/css/main_financehub.css?v=2.0" as="style">
+    <link rel="stylesheet" href="/static/css/main_financehub.css?v=2.0">
+    <noscript><link rel="stylesheet" href="/static/css/main_financehub.css?v=2.0"></noscript>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "FinanceHub",
+        "description": "Premium Equity Research Platform - Optimized",
+        "url": "http://localhost:8083",
+        "applicationCategory": "FinanceApplication"
+    }
+    </script>
+
+    <!-- Performance optimization -->
+    <style>
+        /* Critical CSS for loading screen - inline for immediate rendering */
+        #loading-screen { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: var(--bg-primary, #1a1a1a); 
+            z-index: 9999; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        #loading-screen.active { display: flex; }
+        .loading-content { text-align: center; color: var(--text-primary, #ffffff); }
+        .loading-spinner { 
+            width: 40px; 
+            height: 40px; 
+            border: 3px solid rgba(255,255,255,0.3); 
+            border-top: 3px solid var(--aevorex-brand-primary, #667eea); 
+            border-radius: 50%; 
+            animation: spin 1s linear infinite; 
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen active">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="loading-spinner"></div>
+                <h1>FinanceHub</h1>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p class="loading-text">Initializing premium equity research platform...</p>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app-container" class="app-container">
+        <!-- Header -->
+        <header class="premium-header">
+            <div class="fh-header__container header-container">
+                <!-- Logo Section -->
+                <div class="fh-header__brand header-brand">
+                    <div class="fh-header__logo brand-logo">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 2L26 8V24L16 30L6 24V8L16 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M16 10L20 13V19L16 22L12 19V13L16 10Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h1 class="fh-header__title brand-name">FinanceHub</h1>
+                </div>
+
+                <!-- Header Actions -->
+                <div class="fh-header__actions header-controls">
+                    <!-- Stock Symbol Display -->
+                    <div id="stock-symbol-display" class="fh-header__stock-display stock-price-display">
+                        <h2 class="stock-symbol stock-symbol-premium" id="fh-stock-symbol">AAPL</h2>
+                        <p class="stock-company-name" id="fh-stock-company-name">AAPL</p>
+                        <div class="stock-current-price stock-price-premium" id="fh-stock-current-price">N/A</div>
+                        <div class="stock-change-premium positive" id="fh-stock-change">
+                            <span class="fh-header__stock-text">Ready</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="fh-header__theme-toggle theme-toggle" aria-label="Toggle theme">
+                        <svg class="fh-header__theme-icon theme-icon theme-icon--light" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
+                        </svg>
+                        <svg class="fh-header__theme-icon theme-icon theme-icon--dark" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Market Ticker Tape -->
+        <div id="fh-ticker-tape" class="fh-ticker-tape">
+            <div id="ticker-tape-container" class="fh-ticker-tape__container">
+                <div id="ticker-tape" class="fh-ticker-tape__content">
+                    <div class="fh-ticker-tape__item" data-symbol="AAPL">
+                        <span class="fh-ticker-tape__symbol">AAPL</span>
+                        <span class="fh-ticker-tape__price">$150.25</span>
+                        <span class="fh-ticker-tape__change fh-ticker-tape__change--positive">+2.45%</span>
+                    </div>
+                    <div class="fh-ticker-tape__item" data-symbol="MSFT">
+                        <span class="fh-ticker-tape__symbol">MSFT</span>
+                        <span class="fh-ticker-tape__price">$285.10</span>
+                        <span class="fh-ticker-tape__change fh-ticker-tape__change--positive">+1.20%</span>
+                    </div>
+                    <div class="fh-ticker-tape__item" data-symbol="GOOGL">
+                        <span class="fh-ticker-tape__symbol">GOOGL</span>
+                        <span class="fh-ticker-tape__price">$2,456.78</span>
+                        <span class="fh-ticker-tape__change fh-ticker-tape__change--negative">-0.85%</span>
+                    </div>
+                    <div class="fh-ticker-tape__item" data-symbol="TSLA">
+                        <span class="fh-ticker-tape__symbol">TSLA</span>
+                        <span class="fh-ticker-tape__price">$742.91</span>
+                        <span class="fh-ticker-tape__change fh-ticker-tape__change--positive">+3.15%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stock Header Section -->
+        <section id="stock-header-section">
+            <div id="fh-stock-header" class="fh-stock-header__container stock-header-left stock-header-container">
+                <div class="stock-header-placeholder fh-stock-header__placeholder">
+                    <p class="fh-stock-header__message">Select a stock symbol to view detailed information</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chart Section -->
+        <section id="chart-section" class="fh-chart">
+            <div class="fh-chart__container">
+                <div class="fh-chart__header">
+                    <h2 class="fh-chart__title">Advanced Trading Chart</h2>
+                    <div class="fh-chart__controls">
+                        <div class="fh-chart__timeframes">
+                            <button class="fh-chart__timeframe-btn fh-chart__timeframe-btn--active" data-period="1D">1D</button>
+                            <button class="fh-chart__timeframe-btn" data-period="1W">1W</button>
+                            <button class="fh-chart__timeframe-btn" data-period="1M">1M</button>
+                            <button class="fh-chart__timeframe-btn" data-period="3M">3M</button>
+                            <button class="fh-chart__timeframe-btn" data-period="1Y">1Y</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="fh-chart-container" class="fh-chart__content">
+                    <div id="chart-container">
+                        <div id="tradingview_chart" class="fh-chart__tradingview"></div>
+                        <div id="chart-widget" style="display:none;"></div>
+                    </div>
+                    <div class="fh-chart__loading" id="chart-loading" style="display: none;">
+                        <div class="fh-chart__loading-spinner"></div>
+                    </div>
+                    <div class="fh-chart__placeholder" id="chart-placeholder">
+                        <div class="fh-chart__placeholder-content">
+                            <div class="fh-chart__placeholder-icon">📊</div>
+                            <h3>Select a Stock Symbol</h3>
+                            <p>Enter a ticker symbol above to view the interactive chart</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Stock Search Section -->
+            <section class="fh-search">
+                <form class="fh-search__form" id="fh-stock-search-form">
+                    <div class="fh-search__input-wrapper">
+                        <input 
+                            type="text" 
+                            id="ticker-input" 
+                            class="fh-search__input" 
+                            placeholder="Enter stock ticker (e.g. AAPL, TSLA, GOOGL)" 
+                            maxlength="10"
+                            required
+                        >
+                        <div class="fh-search__autocomplete" id="search-autocomplete">
+                            <!-- Autocomplete results will be populated here -->
+                        </div>
+                    </div>
+                    <button type="submit" class="fh-search__button" id="fetch-button">
+                        <span class="fh-search__button-icon">🔍</span>
+                        <span>Analyze Stock</span>
+                    </button>
+                </form>
+                
+                <div class="fh-search__suggestions">
+                    <h3 class="fh-search__suggestions-title">Popular Stocks</h3>
+                    <div class="fh-search__suggestions-list">
+                        <button class="fh-search__suggestion-tag" data-ticker="AAPL">AAPL</button>
+                        <button class="fh-search__suggestion-tag" data-ticker="TSLA">TSLA</button>
+                        <button class="fh-search__suggestion-tag" data-ticker="GOOGL">GOOGL</button>
+                        <button class="fh-search__suggestion-tag" data-ticker="AMZN">AMZN</button>
+                        <button class="fh-search__suggestion-tag" data-ticker="MSFT">MSFT</button>
+                        <button class="fh-search__suggestion-tag" data-ticker="NVDA">NVDA</button>
+                        <button class="fh-search__suggestion-tag" data-ticker="META">META</button>
+                        <button class="fh-search__suggestion-tag" data-ticker="NFLX">NFLX</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analysis Bubbles Grid -->
+            <section id="fh-analysis-bubbles" class="analysis-bubbles-container analysis-bubbles-container-legacy" data-legacy-id="analysis-bubbles-container">
+                <h2 class="section-title">Stock Analysis</h2>
+                <div class="bubbles-grid" id="bubbles-grid">
+                    <!-- Company Overview Bubble -->
+                    <div class="fh-analysis-bubble fh-analysis-bubble--company-overview" id="company-overview-bubble">
+                        <div class="bubble-header">
+                            <h3 class="fh-analysis-bubble__title">Company Overview</h3>
+                            <div class="bubble-status" id="company-status">
+                                <span class="status-indicator pending"></span>
+                                <span class="status-text">Ready</span>
+                            </div>
+                        </div>
+                        <div class="bubble-content" id="company-content">
+                            <p class="intro-text">Select a stock to view company information</p>
+                        </div>
+                    </div>
+
+                    <!-- Financial Metrics Bubble -->
+                    <div class="fh-analysis-bubble fh-analysis-bubble--financial-metrics" id="financial-metrics-bubble">
+                        <div class="bubble-header">
+                            <h3 class="fh-analysis-bubble__title">Financial Metrics</h3>
+                            <div class="bubble-status" id="financial-status">
+                                <span class="status-indicator pending"></span>
+                                <span class="status-text">Ready</span>
+                            </div>
+                        </div>
+                        <div class="bubble-content" id="financial-content">
+                            <p class="intro-text">Select a stock to view financial metrics</p>
+                        </div>
+                    </div>
+
+                    <!-- Technical Analysis Bubble -->
+                    <div class="fh-analysis-bubble fh-analysis-bubble--technical-analysis" id="technical-analysis-bubble">
+                        <div class="bubble-header">
+                            <h3 class="fh-analysis-bubble__title">Technical Analysis</h3>
+                            <div class="bubble-status" id="technical-status">
+                                <span class="status-indicator pending"></span>
+                                <span class="status-text">Ready</span>
+                            </div>
+                        </div>
+                        <div class="bubble-content" id="technical-content">
+                            <p class="intro-text">Select a stock to view technical analysis</p>
+                        </div>
+                    </div>
+
+                    <!-- News Highlights Bubble -->
+                    <div class="fh-analysis-bubble fh-analysis-bubble--news-highlights" id="news-highlights-bubble">
+                        <div class="bubble-header">
+                            <h3 class="fh-analysis-bubble__title">News Highlights</h3>
+                            <div class="bubble-status" id="news-status">
+                                <span class="status-indicator pending"></span>
+                                <span class="status-text">Ready</span>
+                            </div>
+                        </div>
+                        <div class="bubble-content" id="news-content">
+                            <p class="intro-text">Select a stock to view latest news</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- News Section -->
+            <section class="fh-news__container" id="news-section">
+                <div class="fh-news__header">
+                    <h2 class="fh-news__title">Market News</h2>
+                    <p class="fh-news__subtitle">Latest financial news and market updates</p>
+                </div>
+                <div class="fh-news__content" id="news-content">
+                    <div class="fh-news__list" id="news-list">
+                        <div class="news-placeholder">
+                            <div class="fh-news__placeholder-icon">📰</div>
+                            <p class="fh-news__placeholder-text">Loading latest market news...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Chat Section -->
+            <section class="fh-ai-chat__container" id="ai-chat-section">
+                <div class="chat-header">
+                    <h2 class="fh-ai-chat__title">AI Financial Assistant</h2>
+                    <div class="fh-ai-chat__status">
+                        <span class="fh-ai-chat__status-indicator"></span>
+                        <span class="fh-ai-chat__status-text">Ready</span>
+                    </div>
+                </div>
+                
+                <div class="fh-ai-chat__messages" id="chat-messages">
+                    <div class="fh-ai-chat__welcome-message">
+                        <div class="fh-ai-chat__message-content">
+                            <p class="fh-ai-chat__welcome-text">Welcome! I'm your AI financial assistant. Ask me anything about stocks, markets, or financial analysis.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fh-ai-chat__suggestions" id="chat-suggestions">
+                    <button class="suggestion-chip" data-query="What are the key metrics for evaluating a stock?">Key Stock Metrics</button>
+                    <button class="suggestion-chip" data-query="How do I analyze market trends?">Market Analysis</button>
+                    <button class="suggestion-chip" data-query="What should I know about risk management?">Risk Management</button>
+                </div>
+
+                <form class="chat-input-form" id="chat-form">
+                    <div class="input-wrapper">
+                        <textarea 
+                            id="chat-input" 
+                            class="fh-ai-chat__input" 
+                            placeholder="Ask about stocks, markets, or financial analysis..."
+                            rows="1"
+                        ></textarea>
+                        <button type="submit" class="send-button" id="send-button">
+                            <span>Send</span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </main>
+
+        <!-- Footer Component -->
+        <footer class="app-footer" id="app-footer">
+            <div class="footer-grid"></div>
+            <div class="footer-bottom">
+                <span class="footer-copy">© <span id="footer-year">2025</span> FinanceHub. All rights reserved.</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Hidden elements for compatibility -->
+    <div class="hidden" id="compatibility-elements">
+        <!-- Legacy element references for JavaScript compatibility -->
+        <div id="app-main-container" style="display:none;"></div>
+        <div id="results-area" style="display:none;"></div>
+        <div id="company-header" style="display:none;"></div>
+        <div id="analysis-bubbles" style="display:none;"></div>
+        <div id="chat-container" style="display:none;"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="static/js/core/modelRegistry.js?v=1.0"></script>
+    <script src="static/js/main_combined_financehub.js?v=2.0" defer></script>
+    
+    <!-- Performance monitoring -->
+    <script>
+        // Critical performance monitoring
+        window.addEventListener('load', function() {
+            const loadTime = performance.now();
+            console.log(`🚀 FinanceHub2 loaded in ${loadTime.toFixed(2)}ms`);
+            
+            // Hide loading screen
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                setTimeout(() => {
+                    loadingScreen.classList.remove('active');
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 300);
+                }, 500);
+            }
+        });
+
+        // Theme persistence
+        const savedTheme = localStorage.getItem('fh-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        
+        // Update theme color meta
+        const themeColorMeta = document.getElementById('theme-color-meta');
+        if (themeColorMeta) {
+            themeColorMeta.content = savedTheme === 'dark' ? '#1a1a1a' : '#ffffff';
+        }
+    </script>
+</body>
+</html> 

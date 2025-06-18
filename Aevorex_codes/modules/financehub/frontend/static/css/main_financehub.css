@@ -1,0 +1,89 @@
+/* AEVOREX FINANCEHUB - MAIN CSS ENTRY POINT */
+/* === 01. BASE FOUNDATION === */
+@import url('./01-base/reset.css');
+@import url('./01-base/variables.css');
+@import url('./01-base/global.css');
+@import url('./01-base/typography.css');
+
+/* === 02. SHARED COMPONENTS === */
+@import url('./02-shared/animations.css');
+@import url('./02-shared/buttons/buttons.css');
+@import url('./02-shared/fonts.css');
+@import url('./02-shared/forms/forms.css');
+@import url('./02-shared/icons.css');
+@import url('./02-shared/indicators.css');
+@import url('./02-shared/spacing.css');
+@import url('./02-shared/utilities.css');
+
+/* === 03. LAYOUT SYSTEM === */
+@import url('./03-layout/app-container.css');
+@import url('./03-layout/app-layout.css');
+@import url('./03-layout/grid.css');
+@import url('./03-layout/layout.css');
+@import url('./03-layout/main-content.css');
+@import url('./03-layout/nav-main.css');
+@import url('./03-layout/sidebar.css');
+
+/* === 04. COMPONENTS === */
+/* Core Components */
+@import url('./04-components/core.css');
+@import url('./04-components/glassmorphism.css');
+@import url('./04-components/particle-effects.css');
+
+/* Header Components */
+@import url('./04-components/header/header.css');
+@import url('./04-components/header/header-main.css');
+/* Stock Header */
+@import url('./04-components/stock-header/stock-header.css');
+
+
+/* Analysis Bubbles */
+@import url('./04-components/analysis-bubbles/analysis-bubbles.css');
+@import url('./04-components/analysis-bubbles/shared/bubbles-shared.css');
+@import url('./04-components/analysis-bubbles/financial-metrics/financial-metrics.css');
+@import url('./04-components/analysis-bubbles/technical-analysis/technical-analysis.css');
+@import url('./04-components/analysis-bubbles/news-summary/news-summary.css');
+@import url('./04-components/analysis-bubbles/company-overview/company-overview.css');
+
+
+
+/* Header Sub-components */
+@import url('./04-components/header/brand.css');
+@import url('./04-components/header/navigation.css');
+@import url('./04-components/header/user-menu/user-menu-main.css');
+
+/* Footer */
+@import url('./04-components/footer/footer.css');
+
+/* Search Component */
+@import url('./04-components/search/search.css');
+
+/* Ticker Tape */
+@import url('./04-components/ticker-tape/ticker-tape.css');
+
+/* Chart Component */
+@import url('./04-components/chart/chart.css');
+/* Unified Chat Component */
+@import url('./04-components/chat/chat.css');
+/* AI Chat System */
+/* @import url('./04-components/ai-chat/ai-chat.css'); */
+/* Chat Components */
+/* @import url('./04-components/chat/chat-grok.css'); */
+/* Chat Sub-components */
+/* @import url('./04-components/chat/interface.css'); */
+/* @import url('./04-components/chat/input.css'); */
+/* @import url('./04-components/chat/messages.css'); */
+/* @import url('./04-components/chat/ai-message.css'); */
+/* @import url('./04-components/chat/user-message.css'); */
+/* @import url('./04-components/chat/bubble-base.css'); */
+/* @import url('./04-components/chat/message-area/message-area.css'); */
+
+/* === 05. THEMES === */
+@import url('./05-themes/dark.css');
+@import url('./05-themes/light.css');
+
+/* === 06. PAGES === */
+@import url('./06-pages/financehub-main.css');
+
+/* === 07. VENDOR === */
+@import url('./07-vendor/tradingview-custom.css');

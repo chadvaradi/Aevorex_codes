@@ -1,0 +1,55 @@
+/* =================================================================== TRADINGVIEW CUSTOM STYLES TradingView widget customizations for FinanceHub =================================================================== */ /* TradingView Container Customization */ .fh-tv .tradingview-widget-container {
+  border-radius: var(--fh-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--fh-shadow-lg);
+  background: var(--surface-primary);
+}
+/* TradingView Widget Frame */ .fh-tv .tradingview-widget-container iframe {
+  border: none !important;
+  border-radius: var(--fh-radius-lg);
+  background: transparent;
+}
+/* Dark Theme Customization */ [data-theme="dark"] .fh-tv .tradingview-widget-container {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-dark);
+}
+/* Premium Styling */ .fh-tv .tradingview-widget-container.premium {
+  background: linear-gradient(135deg, var(--color-premium) 0%, rgba(var(--color-premium-rgb), 0.85) 100%);
+  border: 1px solid var(--premium-gold-accent);
+}
+/* Loading State */ .fh-tv .tradingview-widget-container.loading {
+  position: relative;
+  min-height: 400px;
+}
+.fh-tv .tradingview-widget-container.loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--neutral-300);
+  border-top: 3px solid var(--premium-gold-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+/* Error State */ .fh-tv .tradingview-widget-container.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  background: var(--surface-error);
+  color: var(--text-error);
+  font-family: var(--font-family-base);
+}
+/* Responsive Adjustments */ @media (max-width: 768px) {
+
+}
+@media (max-width: 480px) {
+} /* High Contrast Mode */ @media (prefers-contrast: high) {
+
+}
+/* Reduced Motion */ @media (prefers-reduced-motion: reduce) {
+
+} 

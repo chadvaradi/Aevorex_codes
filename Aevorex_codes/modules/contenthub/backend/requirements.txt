@@ -1,0 +1,73 @@
+# ===================================================================
+# CONTENTHUB BACKEND API v2.0 - FÜGGŐSÉGEK
+# ===================================================================
+# Költséghatékony AI backend OpenRouter integrációval
+# Minimális, de robusztus dependency set
+# ===================================================================
+
+# CORE BACKEND FRAMEWORK
+fastapi==0.104.1            # Modern, async web framework
+uvicorn[standard]==0.24.0   # ASGI server production-ready
+python-multipart==0.0.6     # File upload support
+
+# PYDANTIC & VALIDATION
+pydantic==2.5.0             # Data validation és serialization
+pydantic-settings==2.1.0    # Environment variable management
+
+# ASYNC & HTTP
+httpx==0.25.2               # Async HTTP client OpenRouter hívásokhoz
+aiofiles==23.2.1            # Async file operations
+
+# AI INTEGRÁCIÓ
+openai==1.3.7               # OpenAI kompatibilis kliens (OpenRouter-hez)
+
+# ADATBÁZIS
+sqlalchemy==2.0.23          # SQL toolkit és ORM
+alembic==1.12.1             # Database migration tool
+aiosqlite==0.19.0           # Async SQLite driver (dev)
+asyncpg==0.29.0             # Async PostgreSQL driver (prod)
+
+# CACHE & PERFORMANCE  
+redis==5.0.1                # Cache és session store
+aioredis==2.0.1             # Async Redis client
+
+# SECURITY & AUTH
+python-jose[cryptography]==3.3.0  # JWT token handling
+passlib[bcrypt]==1.7.4      # Password hashing
+python-dateutil==2.8.2     # Date utilities
+
+# MONITORING & LOGGING
+structlog==23.2.0           # Structured logging
+prometheus-client==0.19.0  # Metrics collection
+
+# DEVELOPMENT & TESTING
+pytest==7.4.3              # Testing framework
+pytest-asyncio==0.21.1     # Async test support
+pytest-cov==4.1.0          # Coverage testing
+black==23.11.0              # Code formatting
+isort==5.12.0               # Import sorting
+mypy==1.7.0                 # Type checking
+
+# UTILITIES
+python-dotenv==1.0.0        # .env file support
+click==8.1.7                # CLI utilities
+rich==13.7.0                # Pretty printing és progress bars
+jinja2==3.1.2               # Template engine
+
+# OS SPECIFIC (macOS optimalizáció)
+psutil==5.9.6               # System monitoring
+
+# ===================================================================
+# PRODUCTION EXTRAS (opcionális)
+# ===================================================================
+# gunicorn==21.2.0          # Production WSGI server
+# sentry-sdk[fastapi]==1.38.0  # Error tracking
+# newrelic==9.2.0           # Application monitoring
+
+# ===================================================================
+# KÖLTSÉG-OPTIMALIZÁCIÓS MEGJEGYZÉSEK:
+# - OpenRouter használata helyett saját OpenAI/Anthropic API kulcsok
+# - Redis opcionális cache layer
+# - SQLite fejlesztéshez, PostgreSQL produkciós környezethez
+# - Minimális monitoring stack induláshoz
+# =================================================================== 

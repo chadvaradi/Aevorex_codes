@@ -1,0 +1,477 @@
+/* =================================================================== AEVOREX FINANCIAL METRICS - V20.0.0 Premium financial metrics styling for analysis bubble =================================================================== */ /* ===== FINANCIAL METRICS BUBBLE CONTAINER ===== */ .financial-metrics-bubble {
+  background: linear-gradient(135deg,;
+  border-left: 4px solid var(--aevorex-brand-success);
+  position: relative;
+}
+.financial-metrics-bubble::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,;
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+}
+.financial-metrics-bubble:hover {
+  border-left-color: var(--aevorex-brand-primary);
+  box-shadow: ;
+}
+/* ===== FINANCIAL METRICS HEADER ===== */ .financial-bubble-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5) var(--space-3);
+  border-bottom: 1px solid rgba(212, 185, 150, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+}
+.financial-bubble-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--aevorex-brand-text);
+}
+.financial-bubble-icon {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg,;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.financial-bubble-icon::after {
+  content: '💰';
+  font-size: 12px;
+}
+.financial-health-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--text-xs);
+  color: var(--aevorex-brand-success);
+}
+.health-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--aevorex-brand-success);
+  animation: healthPulse 2s ease-in-out infinite;
+}
+.health-status-dot.warning {
+  background: var(--aevorex-brand-warning);
+}
+.health-status-dot.danger {
+  background: var(--aevorex-brand-error);
+}
+/* ===== FINANCIAL METRICS CONTAINER ===== */ .financial-metrics-container {
+  padding: var(--space-4) var(--space-5);
+  max-height: 350px;
+  overflow-y: auto;
+}
+/* ===== METRICS SUMMARY ===== */ .metrics-summary {
+  background: linear-gradient(135deg,;
+  border: 1px solid rgba(16, 185, 129, 0.1);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+.summary-title {
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.summary-title::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: var(--aevorex-brand-success);
+  border-radius: 50%;
+}
+.summary-content {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+/* ===== METRICS CATEGORIES ===== */ .metrics-categories {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.metrics-category {
+  border-bottom: 1px solid rgba(212, 185, 150, 0.1);
+  padding-bottom: var(--space-4);
+}
+.metrics-category:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.category-title {
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.category-icon {
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg,;
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: white;
+}
+/* ===== METRICS GRID ===== */ .metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--space-3);
+}
+.metric-card {
+  background: white;
+  border: 1px solid rgba(212, 185, 150, 0.2);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  border-color: var(--aevorex-brand-text);
+}
+.metric-card:hover {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(212, 185, 150, 0.4);
+  transform: none;
+  box-shadow: 0 8px 24px rgba(212, 185, 150, 0.2);
+}
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--aevorex-brand-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.metric-card:hover::before {
+  opacity: 1;
+}
+/* ===== METRIC CARD CONTENT ===== */ .metric-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+.metric-label {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: var(--font-weight-medium);
+}
+.metric-trend {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-sm);
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+}
+.metric-trend.up {
+  background: #10b981;
+  color: white;
+}
+.metric-trend.up::after {
+  content: '↗';
+}
+.metric-trend.down {
+  background: #ef4444;
+  color: white;
+}
+.metric-trend.down::after {
+  content: '↘';
+}
+.metric-trend.neutral {
+  background: #6b7280;
+  color: white;
+}
+.metric-trend.neutral::after {
+  content: '→';
+}
+.metric-value {
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+  font-family: 'Inter', monospace;
+}
+.metric-value.large {
+  font-size: var(--text-xl);
+}
+.metric-value.positive {
+  color: var(--aevorex-brand-success);
+}
+.metric-value.negative {
+  color: var(--aevorex-brand-error);
+}
+.metric-value.neutral {
+  color: var(--aevorex-brand-warning);
+}
+.metric-change {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-weight: var(--font-weight-medium);
+}
+.metric-change.positive {
+  color: var(--aevorex-brand-success);
+}
+.metric-change.negative {
+  color: var(--aevorex-brand-error);
+}
+.metric-change.neutral {
+  color: var(--aevorex-brand-warning);
+}
+.metric-change::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+.metric-change.positive::before {
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-bottom: 4px solid var(--aevorex-brand-success);
+}
+.metric-change.negative::before {
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-top: 4px solid var(--aevorex-brand-error);
+}
+/* ===== FINANCIAL HEALTH SCORE ===== */ .financial-health-section {
+  background: linear-gradient(135deg,;
+  border: 2px solid rgba(212, 185, 150, 0.2);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-4);
+  margin-top: var(--space-4);
+}
+.health-score-title {
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+  text-align: center;
+}
+.health-score-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  flex-direction: column;
+}
+.health-score-value {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--aevorex-brand-success);
+  font-family: 'Inter', monospace;
+}
+.health-score-value.warning {
+  color: var(--aevorex-brand-warning);
+}
+.health-score-value.danger {
+  color: var(--aevorex-brand-error);
+}
+.health-score-label {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  text-align: center;
+}
+.health-indicators {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+.health-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: var(--border-radius-md);
+  font-size: var(--text-xs);
+}
+.health-indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.health-indicator-dot.excellent {
+  background: var(--aevorex-brand-success);
+}
+.health-indicator-dot.good {
+  background: var(--aevorex-brand-primary);
+}
+.health-indicator-dot.fair {
+  background: var(--aevorex-brand-warning);
+}
+.health-indicator-dot.poor {
+  background: var(--aevorex-brand-error);
+}
+/* ===== LOADING & ERROR STATES ===== */ .financial-loading-state {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+}
+.metric-skeleton {
+  background: rgba(212, 185, 150, 0.05);
+  border: 1px solid rgba(212, 185, 150, 0.1);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-3);
+}
+.skeleton-header {
+  height: 12px;
+  background: linear-gradient(90deg,;
+  background-size: 200% 100%;
+  animation: skeletonShimmer 2s infinite;
+  border-radius: var(--border-radius-sm);
+  margin-bottom: var(--space-2);
+}
+.skeleton-value {
+  height: 20px;
+  background: linear-gradient(90deg,;
+  background-size: 200% 100%;
+  animation: skeletonShimmer 2s infinite;
+  border-radius: var(--border-radius-sm);
+  margin-bottom: var(--space-1);
+}
+.skeleton-change {
+  height: 10px;
+  width: 60%;
+  background: linear-gradient(90deg,;
+  background-size: 200% 100%;
+  animation: skeletonShimmer 2s infinite;
+  border-radius: var(--border-radius-sm);
+}
+.financial-error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  text-align: center;
+  gap: var(--space-3);
+}
+.financial-error-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--aevorex-brand-error);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 32px;
+}
+.financial-error-text {
+  color: var(--aevorex-brand-error);
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes healthPulse {
+0%, 100% {
+  opacity: 1;
+  transform: scale(1);
+}
+50% {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+}
+
+@keyframes skeletonShimmer {
+0% {
+  background-position: -200% 0;
+}
+100% {
+  background-position: 200% 0;
+}
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+.financial-bubble-header {
+  padding: var(--space-3) var(--space-4) var(--space-2);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+.financial-metrics-container {
+  padding: var(--space-3) var(--space-4);
+  max-height: 300px;
+}
+.metrics-grid {
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+
+
+
+
+}
+
+@media (max-width: 480px) {
+
+
+
+
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+.metric-card, .health-status-dot, .skeleton-header, .skeleton-value, .skeleton-change {
+  animation: none;
+  transition: none;
+}
+
+}
+
+@media (prefers-contrast: high) {
+.financial-metrics-bubble {
+  border-left-color: var(--aevorex-brand-text);
+  background: white;
+}
+
+.metric-value, .category-title {
+  color: black;
+}
+.metric-label, .metric-change {
+  color: #333333;
+}
+
+
+
+} 

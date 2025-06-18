@@ -1,0 +1,100 @@
+/** * ========================================================================== * MODULE CARDS COMPONENT - ContentHub * ========================================================================== * Extracted from contenthub-bundle.css * Priority 2: High-Frequency Components */ /* ---- BASE MODULE CARD ---- */ .ch-module-card {
+  position: relative;
+  background: var(--ch-surface-primary);
+  border: 1px solid var(--ch-border-primary);
+  border-radius: var(--ch-radius-xl);
+  padding: var(--ch-space-6);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  transition: all var(--ch-transition-base);
+  cursor: pointer;
+  box-shadow: ;
+}
+/* ---- CARD INTERACTIVE OVERLAY ---- */ .ch-module-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: ;
+  opacity: 0;
+  transition: opacity var(--ch-transition-base);
+  pointer-events: none;
+}
+.ch-module-card:hover::before {
+  opacity: 1;
+}
+/* ---- CARD CONTENT ELEMENTS ---- */ .ch-module-icon {
+  margin-bottom: var(--ch-space-4);
+}
+.ch-icon {
+  font-size: var(--ch-font-size-2xl);
+  display: inline-block;
+}
+.ch-module-content {
+  flex: 1;
+  margin-bottom: var(--ch-space-6);
+}
+.ch-module-title {
+  font-family: var(--ch-font-family-heading);
+  font-size: var(--ch-font-size-xl);
+  font-weight: var(--ch-font-weight-semibold);
+  color: var(--ch-text-primary);
+  margin-bottom: var(--ch-space-3);
+}
+.ch-module-description {
+  color: var(--ch-text-secondary);
+  line-height: var(--ch-line-height-relaxed);
+  margin-bottom: var(--ch-space-4);
+}
+.ch-module-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ch-space-2);
+}
+/* ---- LIGHT THEME OVERRIDES ---- */ [data-theme="light"] .ch-module-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: ;
+}
+[data-theme="light"] .ch-module-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: ;
+  border-color: rgba(192, 132, 252, 0.25);
+}
+/* ---- DARK THEME OVERRIDES ---- */ [data-theme="dark"] .ch-module-card {
+  background: var(--ch-surface-primary);
+  border: 1px solid var(--ch-border-primary);
+  box-shadow: ;
+}
+[data-theme="dark"] .ch-module-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: ;
+  border-color: rgba(139, 92, 246, 0.3);
+}
+/* ---- DEFAULT HOVER BEHAVIOR ---- */ .ch-module-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: ;
+  border-color: rgba(139, 92, 246, 0.3);
+}
+/* ---- ACCESSIBILITY ---- */ .ch-module-card:focus {
+  outline: 2px solid var(--ch-border-focus);
+  outline-offset: 2px;
+}
+
+/* ---- RESPONSIVE BREAKPOINTS ---- */
+@media (max-width: 768px) {
+.ch-module-card {
+  border-width: 2px;
+  box-shadow: none;
+  border: 1px solid #000;
+}
+}
+
+/* ---- PRINT STYLES ---- */
+@media print {
+
+} 

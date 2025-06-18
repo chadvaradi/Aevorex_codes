@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 FinanceHub API Flow Debug</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f172a; color: #e2e8f0; padding: 20px; line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .test-section { 
+            background: #1e293b; border-radius: 12px; padding: 20px; margin-bottom: 20px;
+            border: 1px solid #334155;
+        }
+        .test-title { color: #60a5fa; font-size: 1.2rem; margin-bottom: 15px; }
+        .result { 
+            padding: 10px; margin: 5px 0; border-radius: 6px; font-family: monospace;
+            border-left: 4px solid;
+        }
+        .success { background: #064e3b; border-color: #10b981; color: #6ee7b7; }
+        .error { background: #7f1d1d; border-color: #ef4444; color: #fca5a5; }
+        .warning { background: #78350f; border-color: #f59e0b; color: #fbbf24; }
+        .info { background: #1e3a8a; border-color: #3b82f6; color: #93c5fd; }
+        .json-display { 
+            background: #111827; padding: 15px; border-radius: 8px; margin: 10px 0;
+            border: 1px solid #374151; overflow-x: auto;
+        }
+        .json-display pre { color: #d1d5db; font-size: 0.9rem; }
+        .loading { color: #60a5fa; }
+        .component-status { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+        .component-card { 
+            background: #1e293b; padding: 15px; border-radius: 8px; border: 1px solid #334155;
+        }
+        .btn { 
+            background: #3b82f6; color: white; border: none; padding: 10px 20px; 
+            border-radius: 6px; cursor: pointer; margin: 5px;
+        }
+        .btn:hover { background: #2563eb; }
+        .btn:disabled { background: #6b7280; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 FinanceHub API Flow Debug</h1>
+            <p>Részletes diagnosztika a backend-frontend kommunikációhoz</p>
+            <button class="btn" onclick="runFullDiagnostic()">🚀 Teljes Diagnosztika</button>
+            <button class="btn" onclick="testBackendOnly()">🔗 Csak Backend</button>
+            <button class="btn" onclick="testFrontendOnly()">🎨 Csak Frontend</button>
+        </div>
+
+        <!-- Backend API Tests -->
+        <div class="test-section">
+            <div class="test-title">🔗 Backend API Tesztek</div>
+            <div id="backend-results">
+                <div class="loading">⏳ Várakozás a tesztre...</div>
+            </div>
+        </div>
+
+        <!-- Frontend Component Tests -->
+        <div class="test-section">
+            <div class="test-title">🎨 Frontend Komponens Tesztek</div>
+            <div id="frontend-results">
+                <div class="loading">⏳ Várakozás a tesztre...</div>
+            </div>
+        </div>
+
+        <!-- Data Flow Tests -->
+        <div class="test-section">
+            <div class="test-title">🔄 Adatfolyam Tesztek</div>
+            <div id="dataflow-results">
+                <div class="loading">⏳ Várakozás a tesztre...</div>
+            </div>
+        </div>
+
+        <!-- Live API Response -->
+        <div class="test-section">
+            <div class="test-title">📊 Élő API Válasz (AAPL)</div>
+            <div id="live-api-results">
+                <div class="loading">⏳ Várakozás a tesztre...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global test results
+        const testResults = {
+            backend: {},
+            frontend: {},
+            dataflow: {},
+            liveApi: {}
+        };
+
+        // Utility functions
+        function addResult(containerId, message, type = 'info') {
+            const container = document.getElementById(containerId);
+            const result = document.createElement('div');
+            result.className = `result ${type}`;
+            result.innerHTML = message;
+            container.appendChild(result);
+        }
+
+        function clearResults(containerId) {
+            document.getElementById(containerId).innerHTML = '';
+        }
+
+        // Backend API Tests
+        async function testBackendOnly() {
+            console.log('🔗 Testing Backend API...');
+            clearResults('backend-results');
+            
+            const endpoints = [
+                { name: 'Health Check', url: 'http://localhost:8084/health' },
+                { name: 'Stock Data (AAPL)', url: 'http://localhost:8084/api/v1/stock/AAPL' },
+                { name: 'Ticker Tape', url: 'http://localhost:8084/api/v1/stock/ticker-tape/' },
+                { name: 'Fundamentals (AAPL)', url: 'http://localhost:8084/api/v1/stock/fundamentals/AAPL' },
+                { name: 'Chart Data (AAPL)', url: 'http://localhost:8084/api/v1/stock/chart/AAPL?period=1y&interval=1d' }
+            ];
+
+            for (const endpoint of endpoints) {
+                try {
+                    const startTime = performance.now();
+                    const response = await fetch(endpoint.url);
+                    const endTime = performance.now();
+                    const responseTime = Math.round(endTime - startTime);
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        addResult('backend-results', 
+                            `✅ ${endpoint.name}: OK (${responseTime}ms)`, 
+                            'success');
+                        
+                        // Store for later analysis
+                        testResults.backend[endpoint.name] = { 
+                            success: true, 
+                            responseTime, 
+                            data: data 
+                        };
+                    } else {
+                        addResult('backend-results', 
+                            `❌ ${endpoint.name}: HTTP ${response.status}`, 
+                            'error');
+                        testResults.backend[endpoint.name] = { 
+                            success: false, 
+                            status: response.status 
+                        };
+                    }
+                } catch (error) {
+                    addResult('backend-results', 
+                        `❌ ${endpoint.name}: ${error.message}`, 
+                        'error');
+                    testResults.backend[endpoint.name] = { 
+                        success: false, 
+                        error: error.message 
+                    };
+                }
+            }
+        }
+
+        // Frontend Component Tests
+        async function testFrontendOnly() {
+            console.log('🎨 Testing Frontend Components...');
+            clearResults('frontend-results');
+
+            // Check global objects
+            const globalChecks = [
+                { name: 'window.FinanceHubAPIService', obj: window.FinanceHubAPIService },
+                { name: 'window.FinanceHubState', obj: window.FinanceHubState },
+                { name: 'window.TickerTapeUnified', obj: window.TickerTapeUnified },
+                { name: 'window.AnalysisBubbles', obj: window.AnalysisBubbles },
+                { name: 'window.FinanceHubChat', obj: window.FinanceHubChat },
+                { name: 'window.ThemeManager', obj: window.ThemeManager }
+            ];
+
+            globalChecks.forEach(check => {
+                if (check.obj) {
+                    addResult('frontend-results', 
+                        `✅ ${check.name}: Elérhető`, 
+                        'success');
+                    testResults.frontend[check.name] = { available: true };
+                } else {
+                    addResult('frontend-results', 
+                        `❌ ${check.name}: Hiányzik`, 
+                        'error');
+                    testResults.frontend[check.name] = { available: false };
+                }
+            });
+
+            // Check DOM elements
+            const domChecks = [
+                { name: 'Stock Header', selector: '#stock-header-section' },
+                { name: 'Ticker Tape', selector: '#ticker-tape-container' },
+                { name: 'Analysis Bubbles', selector: '#analysis-bubbles-container' },
+                { name: 'Chart Container', selector: '#chart-container' },
+                { name: 'Chat Container', selector: '#chat-container' }
+            ];
+
+            domChecks.forEach(check => {
+                const element = document.querySelector(check.selector);
+                if (element) {
+                    addResult('frontend-results', 
+                        `✅ ${check.name}: DOM elem megtalálva`, 
+                        'success');
+                } else {
+                    addResult('frontend-results', 
+                        `❌ ${check.name}: DOM elem hiányzik`, 
+                        'error');
+                }
+            });
+        }
+
+        // Data Flow Tests
+        async function testDataFlow() {
+            console.log('🔄 Testing Data Flow...');
+            clearResults('dataflow-results');
+
+            try {
+                // Test API Service initialization
+                if (window.FinanceHubAPIService) {
+                    const apiService = new window.FinanceHubAPIService();
+                    addResult('dataflow-results', 
+                        '✅ API Service inicializálva', 
+                        'success');
+
+                    // Test data fetch - using new modular endpoint
+                    const stockData = await apiService.getFundamentals('AAPL');
+                    if (stockData) {
+                        addResult('dataflow-results', 
+                            '✅ Stock fundamentals lekérve', 
+                            'success');
+
+                        // Check data structure for fundamentals
+                        const checks = [
+                            { name: 'Company Info', path: 'company_info.name' },
+                            { name: 'Symbol', path: 'symbol' },
+                            { name: 'Financials', path: 'financials' },
+                            { name: 'Metadata', path: 'metadata.timestamp' }
+                        ];
+
+                        checks.forEach(check => {
+                            const value = getNestedValue(stockData, check.path);
+                            if (value !== undefined && value !== null) {
+                                addResult('dataflow-results', 
+                                    `✅ ${check.name}: ${typeof value === 'object' ? 'OK' : value}`, 
+                                    'success');
+                            } else {
+                                addResult('dataflow-results', 
+                                    `❌ ${check.name}: Hiányzik`, 
+                                    'error');
+                            }
+                        });
+
+                        testResults.dataflow.stockData = stockData;
+                    } else {
+                        addResult('dataflow-results', 
+                            '❌ Nincs stock adat', 
+                            'error');
+                    }
+                } else {
+                    addResult('dataflow-results', 
+                        '❌ API Service nem elérhető', 
+                        'error');
+                }
+            } catch (error) {
+                addResult('dataflow-results', 
+                    `❌ Adatfolyam hiba: ${error.message}`, 
+                    'error');
+            }
+        }
+
+        // Live API Response Test
+        async function testLiveApi() {
+            console.log('📊 Testing Live API Response...');
+            clearResults('live-api-results');
+
+            try {
+                const response = await fetch('http://localhost:8084/api/v1/stock/AAPL');
+                const data = await response.json();
+
+                addResult('live-api-results', 
+                    '✅ Élő API válasz fogadva', 
+                    'success');
+
+                // Display formatted response
+                const jsonDisplay = document.createElement('div');
+                jsonDisplay.className = 'json-display';
+                jsonDisplay.innerHTML = `<strong>AAPL API Válasz:</strong><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                document.getElementById('live-api-results').appendChild(jsonDisplay);
+
+                testResults.liveApi = data;
+            } catch (error) {
+                addResult('live-api-results', 
+                    `❌ API hiba: ${error.message}`, 
+                    'error');
+            }
+        }
+
+        // Full diagnostic
+        async function runFullDiagnostic() {
+            console.log('🚀 Running Full Diagnostic...');
+            
+            await testBackendOnly();
+            await testFrontendOnly();
+            await testDataFlow();
+            await testLiveApi();
+
+            console.log('✅ Teljes diagnosztika befejezve');
+            console.log('Test Results:', testResults);
+        }
+
+        // Utility function to get nested object values
+        function getNestedValue(obj, path) {
+            return path.split('.').reduce((current, key) => current && current[key], obj);
+        }
+
+        // Auto-run on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🔧 FinanceHub API Flow Debug betöltve');
+            setTimeout(runFullDiagnostic, 1000);
+        });
+    </script>
+</body>
+</html> 

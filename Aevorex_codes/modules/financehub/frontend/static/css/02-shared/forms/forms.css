@@ -1,0 +1,23 @@
+/* ============================================================= forms.css (Shared Utilities Compatibility Layer) Purpose: Maintain backward compatibility for the legacy import path "02-shared/forms.css" referenced in financehub-master.css. The actual styles live under ./forms/form-base.css. ============================================================= */
+/* Quick helpers – compatibility layer */
+.form-control {
+  width: 100%;
+  padding: var(--fh-space-2) var(--fh-space-3);
+  font-size: var(--fh-font-size-base);
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--fh-radius-md);
+  transition: border-color var(--fh-transition-fast), box-shadow var(--fh-transition-fast);
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--aevorex-brand-primary);
+  box-shadow: 0 0 0 3px var(--fh-shadow-glow);
+}
+/* Hide default number spinner arrows in WebKit */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+} 

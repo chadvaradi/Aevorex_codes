@@ -1,0 +1,69 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# ─────────────────────────────────────────────────────────────
+# FinanceHub technical rule – premium Equity Research modul
+# Rule type: Manual          |  Author: Csanád / Aevorex
+# Ezt a szabályt *explicit* meg kell említeni, hogy érvénybe lépjen.
+# Cél: minden FinanceHub-hoz kapcsolódó AI-chat / Command-K
+#      utasítás előtt TILOS kódot generálni anélkül, hogy
+#      az alábbi ellenőrzési listát végig ne futtassa.
+# ─────────────────────────────────────────────────────────────
+
+## Scope
+* **Backend:** `modules/financehub/backend/**`
+* **Frontend:** `modules/financehub/frontend/**`
+* **Docs:** minden, ami „financehub” vagy „FinBot / Equity Research” kulcsszót tartalmaz a feltöltött PDF-ekben
+* **API-végpontok:** minden `GET /api/v1/stock/*` és `GET /api/v1/stock/*/ai-analysis` endpoint + bármely újonnan létrehozott, pénzügyi adatra vonatkozó végpont
+
+---
+
+## Kötelező ellenőrzési lista minden módosítás előtt
+
+1. **Repo-szkennelés**  
+   - Futtasd végig a beépített keresőt a teljes repón, **nem csak a FinanceHub** mappán, hogy ne törj meg megosztott util-t.  
+   - Győződj meg róla, hogy a `common/`, `shared/`, `premium-modules/` könyvtárakban nincs FinanceHub-ra mutató kereszthivatkozás, amit érintene a refaktor.
+
+2. **Dokumentum-szinkron**  
+   - Olvasd be a `financehub frontend blueprint` (2025-05-26 PDF) + `AI használati terv` + egyéb feltöltött tervek releváns fejezeteit.  
+   - Ellenőrizd, hogy a készülő kód, UI vagy endpoint-változás **illeszkedik-e** a dokumentációban lefektetett tipográfiai, spacing és UX-elvekhez.  
+   - Ha eltérés van, először *javasolj* update-et a docs vagy a kód irányába – ne implementálj vakon.
+
+3. **Frontend ⇄ Backend adat-paritás**  
+   - Minden új vagy módosított komponens előtt hasonlítsd össze a backend JSON-válasz szerkezetét a frontend state-kezeléssel.  
+   - Ha a backend extra mezőt ad vissza → *hookold be* a frontendbe, vagy dokumentáld, miért ignorálod.  
+   - Ha a frontend mezőt vár, amit a backend nem szolgáltat → *javasolj* backend change-et, vagy távolítsd el a holt kódot.
+
+4. **Moduláris felépítés & refragmentálás**  
+   - Ha egy JS/TS fájl > 250 sor **VAGY** egy komponens több, mint egy logikai felelősséget (UI + fetch + state) tartalmaz, indíts refaktor tervet:  
+     - **create** `<ComponentName>/index.tsx` + `styles.module.css` + opcionálisan `hooks.ts`  
+     - mozgasd a régi fájl tartalmát „atomic” szintre (UI → components, logika → hooks/utils).  
+   - Minden mappa-szinthez készíts rövid README-t, ami elmagyarázza a felelősségi kört.
+
+5. **Prémium UX-kritériumok**  
+   - **Minimalista, mégis gazdag**: sem animáció-spam, sem felesleges placeholder; tokenenként streamelt AI-válasz megmarad.  
+   - TradingView Advanced Chart alatt ticker-szalag → kattintáskor:  
+     1. pörgő loader (≤ 200 ms)  
+     2. párhuzamosan adatfetch + AI-összefoglaló stream  
+     3. store-ba cache-elve (stale-while-revalidate)  
+   - Ne engedj globális layout-shiftet; használj skeleton-loadert csak ott, ahol feltétlen kell.
+
+6. **Verseny-differenciátor kérdés**  
+   Minden feature-javaslat előtt válaszolj magadnak:  
+   > „Olyat ad-e a FinanceHub a felhasználónak, amit a Bloomberg Terminal / Perplexity Finance / Yahoo Finance / IBKR *nem* ad meg hasonló UX-szel?”  
+   Ha a válasz „nem” → kérdőjelezd meg a feladat üzleti értékét.
+
+---
+
+## Műveleti szabályok
+
+- **Soha ne** törj meg futurisztikus token-streamelést a chatben (0. üzenet = AI-summary bubble **kötelező**).  
+- **Soha ne** írj inline-stílust, csak Tailwind / moduláris CSS.  
+- **Lint first.** Ha ESLint warning marad, rollback & fix.  
+- **Teszt lefutás**: minden Frontend PR előtt futtasd `npm run test` (vagy `vitest`) a FinanceHub scope-ra.
+
+---
+
+## Kimeneti elvárás AI-válasz esetén

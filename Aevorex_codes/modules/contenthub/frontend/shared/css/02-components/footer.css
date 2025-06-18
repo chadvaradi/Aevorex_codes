@@ -1,0 +1,327 @@
+/** * ========================================================================== * CONTENTHUB FOOTER v3.0 - PROFESSIONAL 4-COLUMN LAYOUT * ========================================================================== * * Clean, professional footer with logical grouping and proper hierarchy * Based on UX audit recommendations for improved usability * * Author: Aevorex Premium Team * Updated: 2025-06-10 v3.0 * Status: PRODUCTION ACTIVE - PROFESSIONAL REDESIGN */ /* ========================================================================== FOOTER BASE STYLES ========================================================================== */ .footer {
+  background: var(--surface-color);
+  border-top: 1px solid var(--border-color);
+  padding: 56px 0 24px 0;
+  margin-top: 80px;
+}
+.footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+/* ========================================================================== FOOTER CONTENT LAYOUT ========================================================================== */ .footer__content {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 40px;
+}
+/* ========================================================================== BRAND COLUMN - ENHANCED WITH PRODUCT INFO ========================================================================== */ .footer__brand {
+  display: flex;
+  flex-direction: column;
+}
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.footer__logo svg {
+  flex-shrink: 0;
+}
+.footer__brand-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.footer__brand-subtitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.footer__description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 280px;
+}
+.footer__product-links {
+  margin-top: 8px;
+}
+.footer__product-links h5 {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px 0;
+}
+.footer__product-links a {
+  display: block;
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: color 0.2s ease;
+}
+.footer__product-links a:hover {
+  color: var(--accent-color);
+}
+/* ========================================================================== PRODUCT COLUMN ========================================================================== */ .footer__product {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ch-space-4);
+}
+.footer__product h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 20px 0;
+}
+.footer__product-group {
+  margin-bottom: 28px;
+}
+.footer__product-group:last-child {
+  margin-bottom: 0;
+}
+.footer__product-group h5 {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px 0;
+}
+.footer__product-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ch-space-2);
+}
+.footer__product-list a {
+  display: block;
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: color 0.2s ease;
+}
+.footer__product-list a:hover {
+  color: var(--accent-color);
+}
+/* ========================================================================== RESOURCES COLUMN ========================================================================== */ .footer__resources {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ch-space-4);
+}
+.footer__resources h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 20px 0;
+}
+.footer__resources-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ch-space-2);
+}
+.footer__resources-list a {
+  display: block;
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: color 0.2s ease;
+}
+.footer__resources-list a:hover {
+  color: var(--accent-color);
+}
+/* ========================================================================== CONNECT COLUMN - NEWSLETTER & SOCIAL ========================================================================== */ .footer__connect {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.footer__company {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ch-space-4);
+}
+.footer__company h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 20px 0;
+}
+.footer__company-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ch-space-2);
+}
+.footer__company-list a {
+  display: block;
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: color 0.2s ease;
+}
+.footer__company-list a:hover {
+  color: var(--accent-color);
+}
+.footer__newsletter {
+  margin-bottom: 32px;
+}
+.footer__newsletter h5 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 16px 0;
+}
+.footer__newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.footer__newsletter-input {
+  padding: 12px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--surface-color);
+  color: var(--text-primary);
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+  flex: 1;
+}
+.footer__newsletter-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+.footer__newsletter-button {
+  padding: 12px 20px;
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+}
+.footer__newsletter-button:hover {
+  background: var(--accent-hover);
+}
+.footer__social {
+  margin-bottom: 24px;
+}
+.footer__social h5 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 16px 0;
+}
+.footer__social-links {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+.footer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.footer__social-link:hover {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+  transform: translateY(-2px);
+}
+.footer__social-link svg {
+  width: 20px;
+  height: 20px;
+}
+/* ========================================================================== BOTTOM BAR - CLEAN SEPARATION ========================================================================== */ .footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-color);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer__copyright {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.footer__legal {
+  display: flex;
+  gap: 16px;
+}
+.footer__legal a {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.footer__legal a:hover {
+  color: var(--accent-color);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+.footer__content {
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+.footer__brand {
+  grid-column: 1 / -1;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+
+
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+.footer {
+  padding: 48px 0 24px 0;
+  margin-top: 60px;
+}
+
+
+
+
+
+
+.footer__bottom {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+
+
+
+
+} 

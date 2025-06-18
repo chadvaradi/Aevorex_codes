@@ -1,0 +1,1 @@
+# Shared utilities and resources across all Aevorex modules. 

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skeleton Injection Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-result {
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        .success { border-color: #10b981; }
+        .error { border-color: #ef4444; }
+        .info { border-color: #3b82f6; }
+        pre {
+            background: #0f0f0f;
+            padding: 12px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Skeleton Injection Test</h1>
+    <div id="results"></div>
+
+    <script>
+        const SERVER_URL = 'http://localhost:8084';
+        const SELECTORS_FILE = 'static/css/financehub_selectors.txt';
+        const HTML_FILE = 'financehub.html';
+        
+        let TAGS_LIST = [];
+        let CLASS_LIST = [];
+        let ID_LIST = [];
+        let htmlDocument = null;
+
+        function log(message, type = 'info') {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.innerHTML = `<pre>${message}</pre>`;
+            results.appendChild(div);
+            console.log(message);
+        }
+
+        async function loadSelectorBaseline() {
+            try {
+                log('📥 Loading selector baseline...', 'info');
+                const resp = await fetch(`${SERVER_URL}/${SELECTORS_FILE}`);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const text = await resp.text();
+                parseSelectorText(text);
+                log(`✅ Baseline loaded: ${TAGS_LIST.length} tags, ${CLASS_LIST.length} classes, ${ID_LIST.length} IDs`, 'success');
+            } catch (err) {
+                log(`❌ Failed to load baseline: ${err.message}`, 'error');
+                throw err;
+            }
+        }
+
+        function parseSelectorText(raw) {
+            let current = null;
+            raw.split(/\r?\n/).forEach(line => {
+                const ln = line.trim();
+                if (!ln) return;
+                if (ln.startsWith('===') && ln.includes('HTML TAGS')) { current = 'tags'; return; }
+                if (ln.startsWith('===') && ln.includes('CLASS')) { current = 'classes'; return; }
+                if (ln.startsWith('===') && ln.includes('ID')) { current = 'ids'; return; }
+                if (ln.startsWith('===')) { current = null; return; }
+                if (!current) return;
+                switch (current) {
+                    case 'tags': TAGS_LIST.push(ln); break;
+                    case 'classes': CLASS_LIST.push(ln); break;
+                    case 'ids': ID_LIST.push(ln); break;
+                }
+            });
+            TAGS_LIST = [...new Set(TAGS_LIST)];
+            CLASS_LIST = [...new Set(CLASS_LIST)];
+            ID_LIST = [...new Set(ID_LIST)];
+        }
+
+        async function loadAndParseHTML() {
+            try {
+                log('📥 Loading FinanceHub HTML...', 'info');
+                const resp = await fetch(`${SERVER_URL}/${HTML_FILE}`);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const htmlContent = await resp.text();
+                
+                const parser = new DOMParser();
+                htmlDocument = parser.parseFromString(htmlContent, 'text/html');
+                
+                // Remove scripts
+                const scripts = htmlDocument.querySelectorAll('script');
+                scripts.forEach(script => script.remove());
+                
+                const elementCount = htmlDocument.querySelectorAll('*').length;
+                log(`✅ HTML parsed: ${elementCount} elements`, 'success');
+                return elementCount;
+            } catch (err) {
+                log(`❌ Failed to load HTML: ${err.message}`, 'error');
+                throw err;
+            }
+        }
+
+        function injectSkeleton() {
+            if (!htmlDocument || !htmlDocument.body) {
+                log('❌ Cannot inject skeleton: no HTML document', 'error');
+                return;
+            }
+
+            const beforeCount = htmlDocument.querySelectorAll('*').length;
+            log(`📊 Before injection: ${beforeCount} elements`, 'info');
+
+            const container = htmlDocument.createElement('div');
+            container.id = 'debug-skeleton';
+            container.style.display = 'none';
+
+            let addedTags = 0, addedClasses = 0, addedIds = 0;
+
+            // Add missing tags
+            TAGS_LIST.forEach(tag => {
+                if (!tag) return;
+                if (htmlDocument.getElementsByTagName(tag).length === 0) {
+                    try {
+                        const el = htmlDocument.createElement(tag);
+                        container.appendChild(el);
+                        addedTags++;
+                    } catch (_) {}
+                }
+            });
+
+            // Add missing classes
+            CLASS_LIST.forEach(cls => {
+                if (!cls) return;
+                try {
+                    if (htmlDocument.querySelectorAll(`.${cls}`).length === 0) {
+                        const el = htmlDocument.createElement('div');
+                        el.className = cls;
+                        container.appendChild(el);
+                        addedClasses++;
+                    }
+                } catch (_) {}
+            });
+
+            // Add missing IDs
+            ID_LIST.forEach(id => {
+                if (!id) return;
+                if (!htmlDocument.getElementById(id)) {
+                    const el = htmlDocument.createElement('div');
+                    el.id = id;
+                    container.appendChild(el);
+                    addedIds++;
+                }
+            });
+
+            htmlDocument.body.appendChild(container);
+            const afterCount = htmlDocument.querySelectorAll('*').length;
+            
+            log(`🧩 Skeleton injected:
+- Added ${addedTags} missing tags
+- Added ${addedClasses} missing classes  
+- Added ${addedIds} missing IDs
+- Total skeleton nodes: ${container.childElementCount}
+- Before: ${beforeCount} elements
+- After: ${afterCount} elements
+- Difference: +${afterCount - beforeCount}`, 'success');
+        }
+
+        async function runTest() {
+            try {
+                log('🚀 Starting skeleton injection test...', 'info');
+                
+                await loadSelectorBaseline();
+                await loadAndParseHTML();
+                injectSkeleton();
+                
+                log('✅ Test completed successfully!', 'success');
+                
+                // Show some sample elements that were added
+                const sampleClasses = CLASS_LIST.slice(0, 5);
+                const sampleIds = ID_LIST.slice(0, 5);
+                
+                log(`📋 Sample injected classes: ${sampleClasses.join(', ')}`, 'info');
+                log(`📋 Sample injected IDs: ${sampleIds.join(', ')}`, 'info');
+                
+            } catch (error) {
+                log(`❌ Test failed: ${error.message}`, 'error');
+            }
+        }
+
+        // Start test when page loads
+        document.addEventListener('DOMContentLoaded', runTest);
+    </script>
+</body>
+</html> 

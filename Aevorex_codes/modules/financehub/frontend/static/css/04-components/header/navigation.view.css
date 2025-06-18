@@ -1,0 +1,42 @@
+/* ===================================================================
+   AEVOREX FINANCEHUB – HEADER › NAVIGATION SUB-COMPONENT (v1)
+   =================================================================== */
+
+.fh-header__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-4);
+}
+
+.fh-header__nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: var(--fh-font-weight-medium);
+  font-size: var(--fh-font-size-sm);
+  padding: var(--fh-space-2) var(--fh-space-3);
+  border-radius: var(--fh-radius-sm);
+  transition: var(--fh-transition-fast);
+  border: 1px solid transparent;
+}
+
+.fh-header__nav-link:hover {
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border-color: var(--fh-border-light);
+}
+
+.fh-header__nav-link--active,
+.nav-btn.active {
+  color: var(--accent-primary);
+  background: rgba(var(--color-premium-rgb,212,175,55), 0.1);
+  font-weight: var(--fh-font-weight-semibold);
+}
+
+/* Responsive – collapse on mobile */
+@media (max-width: var(--fh-breakpoint-md)) {
+  .fh-header__nav {
+    display: none;
+  }
+} 
+ 
+ 

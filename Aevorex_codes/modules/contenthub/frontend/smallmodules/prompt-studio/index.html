@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Studio - AI Prompt Engineering | ContentHUB</title>
+    <meta name="description" content="Professzionális prompt engineering eszköz MidJourney, DALL-E, Runway és más AI modellekhez. Optimalizált promptok és template library.">
+    
+    <!-- Favicons -->
+    <link rel="icon" href="/static/images/favicon/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/favicon/apple-touch-icon.png">
+    
+    <!-- CSS Bundle -->
+    <link rel="stylesheet" href="../../shared/css/main_contenthub.css">
+    
+    <!-- Module-specific CSS -->
+    <style>
+        .ps-workspace {
+            display: grid;
+            grid-template-columns: 320px 1fr 280px;
+            gap: var(--ch-space-6);
+            height: calc(100vh - 4rem);
+            padding: var(--ch-space-6) 0;
+        }
+        
+        .ps-sidebar {
+            background: var(--ch-surface-primary);
+            border: 1px solid var(--ch-border-primary);
+            border-radius: var(--ch-radius-lg);
+            padding: var(--ch-space-6);
+            overflow-y: auto;
+        }
+        
+        .ps-main {
+            background: var(--ch-surface-primary);
+            border: 1px solid var(--ch-border-primary);
+            border-radius: var(--ch-radius-lg);
+            padding: var(--ch-space-6);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .ps-output {
+            background: var(--ch-surface-primary);
+            border: 1px solid var(--ch-border-primary);
+            border-radius: var(--ch-radius-lg);
+            padding: var(--ch-space-6);
+            overflow-y: auto;
+        }
+        
+        .ps-platform-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--ch-space-2);
+            margin-bottom: var(--ch-space-6);
+        }
+        
+        .ps-platform-btn {
+            padding: var(--ch-space-3) var(--ch-space-4);
+            border: 1px solid var(--ch-border-primary);
+            border-radius: var(--ch-radius-md);
+            background: var(--ch-surface-secondary);
+            color: var(--ch-text-secondary);
+            font-size: var(--ch-font-size-sm);
+            font-weight: var(--ch-font-weight-medium);
+            cursor: pointer;
+            transition: all var(--ch-transition-fast);
+        }
+        
+        .ps-platform-btn:hover,
+        .ps-platform-btn.active {
+            background: var(--ch-primary-100);
+            border-color: var(--ch-primary-300);
+            color: var(--ch-primary-700);
+        }
+        
+        .ps-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: var(--ch-space-4);
+            border: 1px solid var(--ch-border-primary);
+            border-radius: var(--ch-radius-md);
+            font-family: var(--ch-font-family-base);
+            font-size: var(--ch-font-size-sm);
+            line-height: var(--ch-line-height-relaxed);
+            resize: vertical;
+            transition: border-color var(--ch-transition-fast);
+        }
+        
+        .ps-textarea:focus {
+            outline: none;
+            border-color: var(--ch-border-focus);
+            box-shadow: 0 0 0 3px rgb(139 92 246 / 0.1);
+        }
+        
+        .ps-style-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--ch-space-2);
+            margin-bottom: var(--ch-space-4);
+        }
+        
+        .ps-style-tag {
+            padding: var(--ch-space-1) var(--ch-space-2);
+            background: var(--ch-neutral-100);
+            color: var(--ch-neutral-700);
+            border-radius: var(--ch-radius-sm);
+            font-size: var(--ch-font-size-xs);
+            font-weight: var(--ch-font-weight-medium);
+            cursor: pointer;
+            transition: all var(--ch-transition-fast);
+        }
+        
+        .ps-style-tag:hover,
+        .ps-style-tag.active {
+            background: var(--ch-primary-100);
+            color: var(--ch-primary-800);
+        }
+        
+        .ps-advanced-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--ch-space-4);
+            margin-bottom: var(--ch-space-6);
+        }
+        
+        .ps-control-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--ch-space-2);
+        }
+        
+        .ps-control-label {
+            font-size: var(--ch-font-size-sm);
+            font-weight: var(--ch-font-weight-medium);
+            color: var(--ch-text-secondary);
+        }
+        
+        .ps-select {
+            padding: var(--ch-space-2) var(--ch-space-3);
+            border: 1px solid var(--ch-border-primary);
+            border-radius: var(--ch-radius-md);
+            font-size: var(--ch-font-size-sm);
+            background: var(--ch-surface-primary);
+            color: var(--ch-text-primary);
+        }
+        
+        .ps-generate-area {
+            margin-top: auto;
+            padding-top: var(--ch-space-6);
+            border-top: 1px solid var(--ch-border-primary);
+        }
+        
+        .ps-result-card {
+            background: var(--ch-surface-secondary);
+            border: 1px solid var(--ch-border-primary);
+            border-radius: var(--ch-radius-lg);
+            padding: var(--ch-space-4);
+            margin-bottom: var(--ch-space-4);
+        }
+        
+        .ps-result-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: var(--ch-space-3);
+        }
+        
+        .ps-result-title {
+            font-size: var(--ch-font-size-sm);
+            font-weight: var(--ch-font-weight-semibold);
+            color: var(--ch-text-primary);
+        }
+        
+        .ps-result-content {
+            font-size: var(--ch-font-size-sm);
+            line-height: var(--ch-line-height-relaxed);
+            color: var(--ch-text-secondary);
+            background: var(--ch-surface-primary);
+            padding: var(--ch-space-3);
+            border-radius: var(--ch-radius-md);
+            border: 1px solid var(--ch-border-primary);
+            font-family: var(--ch-font-family-mono);
+        }
+        
+        .ps-copy-btn {
+            padding: var(--ch-space-1) var(--ch-space-2);
+            font-size: var(--ch-font-size-xs);
+            background: var(--ch-primary-100);
+            color: var(--ch-primary-700);
+            border: 1px solid var(--ch-primary-200);
+            border-radius: var(--ch-radius-sm);
+            cursor: pointer;
+            transition: all var(--ch-transition-fast);
+        }
+        
+        .ps-copy-btn:hover {
+            background: var(--ch-primary-200);
+        }
+        
+        .ps-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--ch-space-3);
+            padding: var(--ch-space-8);
+            color: var(--ch-text-secondary);
+        }
+        
+        .ps-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--ch-border-primary);
+            border-top: 2px solid var(--ch-primary-600);
+            border-radius: var(--ch-radius-full);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 1024px) {
+            .ps-workspace {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .ps-sidebar,
+            .ps-output {
+                order: 2;
+            }
+            
+            .ps-main {
+                order: 1;
+            }
+        }
+    </style>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="contenthub-module" data-theme="dark" data-module="prompt-studio">
+    <!-- Header -->
+    <header class="ch-header">
+        <div class="ch-header__container">
+            <div class="ch-header__brand">
+                <a href="../../hub/index.html" class="ch-brand-link">
+                    <div class="ch-header__logo">
+                        <svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
+                            <rect x="6" y="6" width="28" height="28" rx="4" fill="url(#promptGradient)" />
+                            <path d="M14 16l6 6M14 22l6-6M22 18h6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            <defs>
+                                <linearGradient id="promptGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#8b5cf6"/>
+                                    <stop offset="100%" style="stop-color:#7c3aed"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="ch-header__brand-text">
+                        <div class="ch-header__brand-name">Prompt Studio</div>
+                        <div class="ch-header__brand-subtitle">AI Prompt Engineering</div>
+                    </div>
+                </a>
+            </div>
+
+            <nav class="ch-header__nav" aria-label="Prompt Studio navigáció">
+                <ul class="ch-nav__list">
+                    <li class="ch-nav__item">
+                        <a href="#workspace" class="ch-nav__link ch-nav__link--active">Workspace</a>
+                    </li>
+                    <li class="ch-nav__item">
+                        <a href="#templates" class="ch-nav__link">Templates</a>
+                    </li>
+                    <li class="ch-nav__item">
+                        <a href="#history" class="ch-nav__link">History</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="ch-header__actions">
+                <button class="ch-btn ch-btn--icon" title="Beállítások" data-settings>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 1v6m0 6v6"></path>
+                        <path d="m21 12-6 0m-6 0-6 0"></path>
+                    </svg>
+                </button>
+                <a href="../../hub/index.html" class="ch-btn ch-btn--outline">← Hub</a>
+                <button class="ch-btn ch-btn--icon" data-theme-toggle aria-label="Téma váltás">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="ch-main">
+        <div class="ch-container">
+            <div class="ps-workspace">
+                <!-- Left Sidebar - Platform & Template Selection -->
+                <aside class="ps-sidebar">
+                    <div class="ps-section">
+                        <h3 class="ps-section-title">AI Platform</h3>
+                        <div class="ps-platform-selector">
+                            <button class="ps-platform-btn active" data-platform="MidJourney">
+                                <div>MidJourney</div>
+                                <small>v6.0</small>
+                            </button>
+                            <button class="ps-platform-btn" data-platform="DALL-E">
+                                <div>DALL-E</div>
+                                <small>3.0</small>
+                            </button>
+                            <button class="ps-platform-btn" data-platform="Runway">
+                                <div>Runway</div>
+                                <small>Gen-2</small>
+                            </button>
+                            <button class="ps-platform-btn" data-platform="Stable-Diffusion">
+                                <div>Stable Diffusion</div>
+                                <small>XL</small>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="ps-section">
+                        <h3 class="ps-section-title">Style Modifiers</h3>
+                        <div class="ps-style-tags">
+                            <span class="ps-style-tag" data-style="photorealistic">Photorealistic</span>
+                            <span class="ps-style-tag" data-style="cinematic">Cinematic</span>
+                            <span class="ps-style-tag" data-style="minimalist">Minimalist</span>
+                            <span class="ps-style-tag" data-style="vibrant">Vibrant</span>
+                            <span class="ps-style-tag" data-style="dramatic">Dramatic</span>
+                            <span class="ps-style-tag" data-style="soft">Soft</span>
+                            <span class="ps-style-tag" data-style="professional">Professional</span>
+                            <span class="ps-style-tag" data-style="artistic">Artistic</span>
+                            <span class="ps-style-tag" data-style="futuristic">Futuristic</span>
+                            <span class="ps-style-tag" data-style="vintage">Vintage</span>
+                        </div>
+                    </div>
+
+                    <div class="ps-section">
+                        <h3 class="ps-section-title">Advanced Controls</h3>
+                        <div class="ps-advanced-controls">
+                            <div class="ps-control-group">
+                                <label class="ps-control-label">Aspect Ratio</label>
+                                <select class="ps-select" id="aspectRatio">
+                                    <option value="16:9">16:9 (Landscape)</option>
+                                    <option value="9:16">9:16 (Portrait)</option>
+                                    <option value="1:1">1:1 (Square)</option>
+                                    <option value="4:3">4:3 (Classic)</option>
+                                    <option value="21:9">21:9 (Ultra-wide)</option>
+                                </select>
+                            </div>
+                            <div class="ps-control-group">
+                                <label class="ps-control-label">Quality Level</label>
+                                <select class="ps-select" id="qualityLevel">
+                                    <option value="draft">Draft</option>
+                                    <option value="standard" selected>Standard</option>
+                                    <option value="premium">Premium</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ps-section">
+                        <h3 class="ps-section-title">Quick Templates</h3>
+                        <div class="ps-template-list">
+                            <button class="ch-btn ch-btn--ghost ch-btn--small" data-template="portrait">Portrait Photography</button>
+                            <button class="ch-btn ch-btn--ghost ch-btn--small" data-template="landscape">Landscape Art</button>
+                            <button class="ch-btn ch-btn--ghost ch-btn--small" data-template="product">Product Shot</button>
+                            <button class="ch-btn ch-btn--ghost ch-btn--small" data-template="concept">Concept Art</button>
+                            <button class="ch-btn ch-btn--ghost ch-btn--small" data-template="logo">Logo Design</button>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Main Editor -->
+                <section class="ps-main">
+                    <div class="ps-editor-header">
+                        <h2 class="ch-section-title">Prompt Editor</h2>
+                        <div class="ps-editor-stats">
+                            <span class="ps-stat">Platform: <strong id="currentPlatform">MidJourney</strong></span>
+                            <span class="ps-stat">Characters: <strong id="charCount">0</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="ps-editor-body">
+                        <div class="ps-control-group">
+                            <label class="ps-control-label" for="basePrompt">Base Prompt</label>
+                            <textarea 
+                                class="ps-textarea" 
+                                id="basePrompt" 
+                                placeholder="Írj le részletesen, hogy mit szeretnél generálni..."
+                                maxlength="2000"
+                            ></textarea>
+                        </div>
+
+                        <div class="ps-selected-modifiers">
+                            <label class="ps-control-label">Selected Style Modifiers</label>
+                            <div class="ps-style-tags" id="selectedModifiers">
+                                <!-- Dynamic style tags will be added here -->
+                            </div>
+                        </div>
+
+                        <div class="ps-preview-area">
+                            <label class="ps-control-label">Preview (Platform Formatted)</label>
+                            <div class="ps-result-content" id="promptPreview">
+                                A platform-formázott prompt itt jelenik meg valós időben...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ps-generate-area">
+                        <button class="ch-btn ch-btn--primary ch-btn--large" id="generateBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                            </svg>
+                            Optimize Prompt
+                        </button>
+                        <p class="ch-text-sm ch-text-secondary" style="margin-top: var(--ch-space-2);">
+                            AI segítségével optimalizáljuk és alternatívákat generálunk
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Right Panel - Results -->
+                <aside class="ps-output">
+                    <div class="ps-output-header">
+                        <h3 class="ps-section-title">Optimized Results</h3>
+                        <button class="ch-btn ch-btn--ghost ch-btn--small" id="clearResults">Clear</button>
+                    </div>
+
+                    <div class="ps-results-container" id="resultsContainer">
+                        <div class="ps-empty-state">
+                            <div class="ps-empty-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="48" height="48">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 6v6l4 2"></path>
+                                </svg>
+                            </div>
+                            <h4>Várakozás az optimalizálásra</h4>
+                            <p>Írj be egy alapprompot és kattints az "Optimize Prompt" gombra az AI-alapú javításokért.</p>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript Bundle -->
+    <script type="module" src="../../shared/js/main_contenthub.js"></script>
+    
+    <!-- Prompt Studio Specific JavaScript -->
+    <script type="module">
+        import { ContentHub } from '../../shared/js/main_contenthub.js';
+
+        class PromptStudio {
+            constructor() {
+                this.currentPlatform = 'MidJourney';
+                this.selectedModifiers = new Set();
+                this.isGenerating = false;
+                
+                this.init();
+            }
+            
+            init() {
+                this.bindEvents();
+                this.updatePreview();
+                console.log('✅ Prompt Studio initialized');
+            }
+            
+            bindEvents() {
+                // Platform selection
+                document.querySelectorAll('.ps-platform-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => this.selectPlatform(e.target.dataset.platform));
+                });
+                
+                // Style modifier selection
+                document.querySelectorAll('.ps-style-tag').forEach(tag => {
+                    tag.addEventListener('click', (e) => this.toggleStyleModifier(e.target.dataset.style, e.target));
+                });
+                
+                // Base prompt input
+                document.getElementById('basePrompt').addEventListener('input', () => {
+                    this.updateCharacterCount();
+                    this.updatePreview();
+                });
+                
+                // Advanced controls
+                document.getElementById('aspectRatio').addEventListener('change', () => this.updatePreview());
+                document.getElementById('qualityLevel').addEventListener('change', () => this.updatePreview());
+                
+                // Generate button
+                document.getElementById('generateBtn').addEventListener('click', () => this.generateOptimizedPrompt());
+                
+                // Clear results
+                document.getElementById('clearResults').addEventListener('click', () => this.clearResults());
+                
+                // Template buttons
+                document.querySelectorAll('[data-template]').forEach(btn => {
+                    btn.addEventListener('click', (e) => this.loadTemplate(e.target.dataset.template));
+                });
+            }
+            
+            selectPlatform(platform) {
+                // Update UI
+                document.querySelectorAll('.ps-platform-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelector(`[data-platform="${platform}"]`).classList.add('active');
+                
+                this.currentPlatform = platform;
+                document.getElementById('currentPlatform').textContent = platform;
+                this.updatePreview();
+            }
+            
+            toggleStyleModifier(style, element) {
+                if (this.selectedModifiers.has(style)) {
+                    this.selectedModifiers.delete(style);
+                    element.classList.remove('active');
+                } else {
+                    this.selectedModifiers.add(style);
+                    element.classList.add('active');
+                }
+                
+                this.updateSelectedModifiers();
+                this.updatePreview();
+            }
+            
+            updateSelectedModifiers() {
+                const container = document.getElementById('selectedModifiers');
+                container.innerHTML = '';
+                
+                this.selectedModifiers.forEach(modifier => {
+                    const tag = document.createElement('span');
+                    tag.className = 'ps-style-tag active';
+                    tag.textContent = modifier;
+                    tag.addEventListener('click', () => {
+                        this.selectedModifiers.delete(modifier);
+                        this.updateSelectedModifiers();
+                        this.updatePreview();
+                        // Also update the main style tag
+                        document.querySelector(`[data-style="${modifier}"]`).classList.remove('active');
+                    });
+                    container.appendChild(tag);
+                });
+            }
+            
+            updateCharacterCount() {
+                const prompt = document.getElementById('basePrompt').value;
+                document.getElementById('charCount').textContent = prompt.length;
+            }
+            
+            updatePreview() {
+                const basePrompt = document.getElementById('basePrompt').value;
+                const aspectRatio = document.getElementById('aspectRatio').value;
+                const qualityLevel = document.getElementById('qualityLevel').value;
+                const modifiers = Array.from(this.selectedModifiers);
+                
+                let formattedPrompt = basePrompt;
+                
+                if (modifiers.length > 0) {
+                    formattedPrompt += ', ' + modifiers.join(', ');
+                }
+                
+                // Platform-specific formatting
+                switch (this.currentPlatform) {
+                    case 'MidJourney':
+                        const style = qualityLevel === 'premium' ? 'raw' : 'default';
+                        formattedPrompt = `/imagine prompt: ${formattedPrompt} --ar ${aspectRatio} --v 6 --style ${style}`;
+                        break;
+                    case 'DALL-E':
+                        formattedPrompt = `${formattedPrompt}, high quality, detailed`;
+                        break;
+                    case 'Runway':
+                        formattedPrompt = `${formattedPrompt} [Camera: cinematic] [Lighting: professional]`;
+                        break;
+                    case 'Stable-Diffusion':
+                        formattedPrompt = `${formattedPrompt}, masterpiece, best quality`;
+                        break;
+                }
+                
+                document.getElementById('promptPreview').textContent = formattedPrompt || 'A platform-formázott prompt itt jelenik meg valós időben...';
+            }
+            
+            async generateOptimizedPrompt() {
+                if (this.isGenerating) return;
+                
+                const basePrompt = document.getElementById('basePrompt').value.trim();
+                if (!basePrompt) {
+                    alert('Kérlek írj be egy alapprompot!');
+                    return;
+                }
+                
+                this.isGenerating = true;
+                const generateBtn = document.getElementById('generateBtn');
+                const originalText = generateBtn.innerHTML;
+                
+                generateBtn.innerHTML = `
+                    <div class="ps-spinner"></div>
+                    Optimizing...
+                `;
+                generateBtn.disabled = true;
+                
+                // Show loading state in results
+                this.showLoadingState();
+                
+                try {
+                    const requestData = {
+                        prompt_type: this.currentPlatform,
+                        base_prompt: basePrompt,
+                        style_modifiers: Array.from(this.selectedModifiers),
+                        aspect_ratio: document.getElementById('aspectRatio').value,
+                        quality_level: document.getElementById('qualityLevel').value,
+                        technical_params: {}
+                    };
+                    
+                    const response = await fetch('/api/v1/prompt-studio/generate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(requestData)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.displayResults(result);
+                    } else {
+                        throw new Error('Generation failed');
+                    }
+                    
+                } catch (error) {
+                    console.error('Generation error:', error);
+                    this.showError('Hiba történt az optimalizálás során. Kérlek próbáld újra.');
+                } finally {
+                    this.isGenerating = false;
+                    generateBtn.innerHTML = originalText;
+                    generateBtn.disabled = false;
+                }
+            }
+            
+            showLoadingState() {
+                const container = document.getElementById('resultsContainer');
+                container.innerHTML = `
+                    <div class="ps-loading">
+                        <div class="ps-spinner"></div>
+                        <span>AI optimalizálás folyamatban...</span>
+                    </div>
+                `;
+            }
+            
+            displayResults(result) {
+                const container = document.getElementById('resultsContainer');
+                const metadata = result.metadata || {};
+                
+                container.innerHTML = `
+                    <div class="ps-result-card">
+                        <div class="ps-result-header">
+                            <div class="ps-result-title">Optimalizált Prompt</div>
+                            <button class="ps-copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
+                        </div>
+                        <div class="ps-result-content">${result.content}</div>
+                    </div>
+                    
+                    ${metadata.alternatives && metadata.alternatives.length > 0 ? `
+                        <div class="ps-result-card">
+                            <div class="ps-result-header">
+                                <div class="ps-result-title">Alternatív Változatok</div>
+                            </div>
+                            ${metadata.alternatives.map((alt, index) => `
+                                <div class="ps-result-content" style="margin-bottom: var(--ch-space-2);">
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--ch-space-2);">
+                                        <small>Változat ${index + 1}:</small>
+                                        <button class="ps-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.ps-result-content').querySelector('.alt-content').textContent)">Copy</button>
+                                    </div>
+                                    <div class="alt-content">${alt}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                    
+                    ${metadata.technical_suggestions && metadata.technical_suggestions.length > 0 ? `
+                        <div class="ps-result-card">
+                            <div class="ps-result-header">
+                                <div class="ps-result-title">Technikai Javaslatok</div>
+                            </div>
+                            <div class="ps-result-content">
+                                <ul style="margin: 0; padding-left: var(--ch-space-4);">
+                                    ${metadata.technical_suggestions.map(tip => `<li>${tip}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="ps-result-card">
+                        <div class="ps-result-header">
+                            <div class="ps-result-title">Várható Eredmény</div>
+                        </div>
+                        <div class="ps-result-content">${metadata.expected_result || 'Magas minőségű vizuális tartalom'}</div>
+                    </div>
+                `;
+            }
+            
+            showError(message) {
+                const container = document.getElementById('resultsContainer');
+                container.innerHTML = `
+                    <div class="ps-result-card" style="border-color: var(--ch-error-500);">
+                        <div class="ps-result-header">
+                            <div class="ps-result-title" style="color: var(--ch-error-500);">Hiba</div>
+                        </div>
+                        <div class="ps-result-content">${message}</div>
+                    </div>
+                `;
+            }
+            
+            clearResults() {
+                const container = document.getElementById('resultsContainer');
+                container.innerHTML = `
+                    <div class="ps-empty-state">
+                        <div class="ps-empty-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="48" height="48">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 6v6l4 2"></path>
+                            </svg>
+                        </div>
+                        <h4>Várakozás az optimalizálásra</h4>
+                        <p>Írj be egy alapprompot és kattints az "Optimize Prompt" gombra az AI-alapú javításokért.</p>
+                    </div>
+                `;
+            }
+            
+            loadTemplate(templateType) {
+                const templates = {
+                    portrait: {
+                        prompt: "Professional headshot photography of a person, studio lighting, neutral background",
+                        modifiers: ['professional', 'photorealistic', 'soft'],
+                        aspectRatio: '4:3'
+                    },
+                    landscape: {
+                        prompt: "Breathtaking landscape photography, golden hour lighting, dramatic sky",
+                        modifiers: ['cinematic', 'dramatic', 'vibrant'],
+                        aspectRatio: '16:9'
+                    },
+                    product: {
+                        prompt: "Clean product photography on white background, professional studio lighting",
+                        modifiers: ['professional', 'minimalist', 'photorealistic'],
+                        aspectRatio: '1:1'
+                    },
+                    concept: {
+                        prompt: "Digital concept art, futuristic design, detailed illustration",
+                        modifiers: ['artistic', 'futuristic', 'dramatic'],
+                        aspectRatio: '16:9'
+                    },
+                    logo: {
+                        prompt: "Modern logo design, simple and clean, vector style",
+                        modifiers: ['minimalist', 'professional'],
+                        aspectRatio: '1:1'
+                    }
+                };
+                
+                const template = templates[templateType];
+                if (template) {
+                    document.getElementById('basePrompt').value = template.prompt;
+                    document.getElementById('aspectRatio').value = template.aspectRatio;
+                    
+                    // Clear and set modifiers
+                    this.selectedModifiers.clear();
+                    document.querySelectorAll('.ps-style-tag').forEach(tag => tag.classList.remove('active'));
+                    
+                    template.modifiers.forEach(modifier => {
+                        const element = document.querySelector(`[data-style="${modifier}"]`);
+                        if (element) {
+                            this.selectedModifiers.add(modifier);
+                            element.classList.add('active');
+                        }
+                    });
+                    
+                    this.updateSelectedModifiers();
+                    this.updateCharacterCount();
+                    this.updatePreview();
+                }
+            }
+        }
+
+        // Initialize Prompt Studio when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.promptStudio = new PromptStudio();
+        });
+    </script>
+</body>
+</html> 

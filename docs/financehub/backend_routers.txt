@@ -1,0 +1,17 @@
+Aevorex_codes/modules/financehub/backend/api/endpoints/stock_endpoints/ai_summary/ai_summary.py:26:@router.get("/ai-summary/{ticker}")
+Aevorex_codes/modules/financehub/backend/api/endpoints/stock_endpoints/analytics/analytics_stock.py:28:@router.get(
+Aevorex_codes/modules/financehub/backend/api/endpoints/stock_endpoints/basic/basic_stock.py:159:@router.get(
+Aevorex_codes/modules/financehub/backend/api/endpoints/stock_endpoints/basic/basic_stock.py:248:@router.get(
+Aevorex_codes/modules/financehub/backend/api/endpoints/stock_endpoints/basic/basic_stock.py:265:@router.get(
+Aevorex_codes/modules/financehub/backend/api/endpoints/stock_endpoints/basic/basic_stock.py:31:@router.get(
+Aevorex_codes/modules/financehub/backend/api/endpoints/stock_endpoints/chart/chart_data.py:28:@router.get(
+Aevorex_codes/modules/financehub/backend/api/endpoints/stock_endpoints/chat/chat.py:159:@router.post("/{ticker}")
+Aevorex_codes/modules/financehub/backend/api/endpoints/stock_endpoints/chat/chat.py:49:@router.post("/finance", summary="[DEPRECATED] Generic finance chat – forwards to /stock/chat/{ticker}")
+Aevorex_codes/modules/financehub/backend/api/endpoints/stock_endpoints/chat/chat.py:76:@router.post("/{ticker}/stream")
+Aevorex_codes/modules/financehub/backend/api/endpoints/stock_endpoints/fundamentals/fundamentals_stock.py:29:@router.get(
+Aevorex_codes/modules/financehub/backend/api/endpoints/stock_endpoints/news/news_stock.py:29:@router.get(
+Aevorex_codes/modules/financehub/backend/api/endpoints/stock_endpoints/search/search_stock.py:55:@router.get("/search", response_model=SearchResponse)
+Aevorex_codes/modules/financehub/backend/api/endpoints/stock_endpoints/stock_header/stock_header.py:17:@router.get("/{ticker}", summary="Realtime stock header snapshot", description="OHLCV-based quote + basic info, latency < 400 ms")
+Aevorex_codes/modules/financehub/backend/api/endpoints/stock_endpoints/ticker_tape/ticker_tape.py:165:@router.get("", include_in_schema=False)
+Aevorex_codes/modules/financehub/backend/api/endpoints/stock_endpoints/ticker_tape/ticker_tape.py:32:@router.get(
+Aevorex_codes/modules/financehub/backend/api/market_data.py:59:@router.get(

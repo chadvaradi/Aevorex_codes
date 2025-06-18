@@ -1,0 +1,150 @@
+/**
+ * @file company-overview.css
+ * @description Company Overview bubble specific styles for FinanceHub
+ * @version 1.0.0
+ * @author AEVOREX
+ * @lastUpdated 2025-06-13
+ * @comp Company Overview Bubble v1.0
+ */
+
+/* Content */
+.fh-analysis-bubble--company-overview .fh-analysis-bubble__content {
+    padding: var(--fh-space-2) 0;
+  }
+  
+  .fh-analysis-bubble--company-overview .fh-analysis-bubble__content p {
+    margin-bottom: var(--fh-space-3);
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  
+  .fh-analysis-bubble--company-overview .fh-analysis-bubble__content p:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Metrics */
+  .fh-analysis-bubble--company-overview .company-metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--fh-space-2) 0;
+    border-bottom: 1px solid var(--border-light);
+    transition: var(--fh-transition-fast);
+  }
+  
+  .fh-analysis-bubble--company-overview .company-metric:last-child {
+    border-bottom: none;
+  }
+  
+  .fh-analysis-bubble--company-overview .company-metric:hover {
+    background: var(--surface-tertiary);
+    margin: 0 calc(-1 * var(--fh-space-2));
+    padding-left: var(--fh-space-2);
+    padding-right: var(--fh-space-2);
+    border-radius: var(--fh-radius-sm);
+  }
+  
+  .fh-analysis-bubble--company-overview .company-metric__label {
+    font-size: var(--fh-font-size-sm);
+    color: var(--text-muted);
+    font-weight: var(--fh-font-weight-medium);
+  }
+  
+  .fh-analysis-bubble--company-overview .company-metric__value {
+    font-size: var(--fh-font-size-sm);
+    color: var(--text-primary);
+    font-weight: var(--fh-font-weight-semibold);
+    text-align: right;
+  }
+  
+  /* Lists */
+  .fh-analysis-bubble--company-overview ul {
+    list-style: none;
+    padding: 0;
+    margin: var(--fh-space-3) 0;
+  }
+  
+  .fh-analysis-bubble--company-overview li {
+    position: relative;
+    padding-left: var(--fh-space-4);
+    margin-bottom: var(--fh-space-2);
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  
+  .fh-analysis-bubble--company-overview li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent-company);
+    font-weight: bold;
+  }
+  
+  /* Description */
+  .fh-analysis-bubble--company-overview .company-description {
+    font-size: var(--fh-font-size-sm);
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-top: var(--fh-space-4);
+    margin-bottom: 0;
+    display: block;
+    max-height: 260px; /* allow long texts while preserving bubble height */
+    overflow-y: auto;
+    padding-right: var(--fh-space-1);
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .fh-analysis-bubble--company-overview .company-description::after { display: none; }
+  .fh-analysis-bubble--company-overview .company-description.expanded { display: block; }
+  
+  /* Tags */
+  .fh-analysis-bubble--company-overview .company-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--fh-space-2);
+    margin-top: var(--fh-space-3);
+  }
+  
+  .fh-analysis-bubble--company-overview .company-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--fh-space-1) var(--fh-space-2);
+    background: var(--surface-tertiary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--fh-radius-sm);
+    font-size: var(--fh-font-size-xs);
+    color: var(--text-muted);
+    font-weight: var(--fh-font-weight-medium);
+    transition: var(--fh-transition-fast);
+  }
+  
+  .fh-analysis-bubble--company-overview .company-tag:hover {
+    background: var(--accent-company);
+    color: white;
+    border-color: var(--accent-company);
+  }
+  
+  /* Responsive */
+  @media (max-width: var(--fh-breakpoint-md)) {
+    .fh-analysis-bubble--company-overview .company-metric {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--fh-space-1);
+    }
+    
+    .fh-analysis-bubble--company-overview .company-metric__value {
+      text-align: left;
+    }
+    
+    .fh-analysis-bubble--company-overview .company-tags {
+      gap: var(--fh-space-1);
+    }
+  }
+  
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .fh-analysis-bubble--company-overview .company-metric,
+    .fh-analysis-bubble--company-overview .company-tag {
+      transition: none;
+    }
+  }

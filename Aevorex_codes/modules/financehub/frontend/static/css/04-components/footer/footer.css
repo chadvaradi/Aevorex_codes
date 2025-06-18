@@ -1,0 +1,169 @@
+/* ===================================================================
+   AEVOREX FINANCEHUB – FOOTER COMPONENT (v1)
+   BEM: fh-footer__*  |  Theme-aware via CSS custom properties
+   =================================================================== */
+
+.fh-footer {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  padding: var(--fh-space-8) 0 var(--fh-space-6);
+  border-top: 1px solid var(--fh-border-light);
+  font-size: var(--fh-font-size-sm);
+}
+
+/* --- CONTAINER & LAYOUT --- */
+.fh-footer__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--fh-space-6);
+}
+
+.fh-footer__content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--fh-space-8);
+  justify-content: space-between;
+  margin-bottom: var(--fh-space-8);
+}
+
+/* --- BRAND BLOCK --- */
+.fh-footer__section--brand {
+  flex: 1 1 240px;
+  min-width: 220px;
+}
+
+.fh-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-3);
+  margin-bottom: var(--fh-space-3);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.fh-footer__brand-logo {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--accent-primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.fh-footer__brand-name {
+  font-size: 1.1rem;
+}
+
+.fh-footer__brand-tagline {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* --- STANDARD SECTIONS --- */
+.fh-footer__section {
+  flex: 1 1 160px;
+  min-width: 150px;
+}
+
+.fh-footer__title {
+  margin: 0 0 var(--fh-space-3);
+  font-size: var(--fh-font-size-sm);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.fh-footer__links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--fh-space-2);
+}
+
+.fh-footer__link {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 120ms ease;
+}
+
+.fh-footer__link:hover,
+.fh-footer__link:focus-visible {
+  color: var(--accent-primary);
+}
+
+/* --- SOCIAL LINKS --- */
+.fh-footer__social {
+  display: flex;
+  gap: var(--fh-space-4);
+  align-items: center;
+}
+
+.fh-footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--fh-space-2);
+  border-radius: 4px;
+  color: var(--text-primary);
+  transition: background 120ms ease, transform 120ms ease;
+}
+
+.fh-footer__social-link:hover,
+.fh-footer__social-link:focus-visible {
+  background: var(--bg-secondary);
+  transform: translateY(-2px);
+}
+
+/* --- BOTTOM STRIP --- */
+.fh-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--fh-space-4);
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--fh-border-light);
+  padding-top: var(--fh-space-4);
+}
+
+.fh-footer__legal {
+  display: flex;
+  gap: var(--fh-space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fh-footer__legal-link {
+  color: var(--text-secondary);
+  font-size: var(--fh-font-size-xs);
+  text-decoration: none;
+}
+
+.fh-footer__legal-link:hover,
+.fh-footer__legal-link:focus-visible {
+  color: var(--accent-primary);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .fh-footer__content {
+    flex-direction: column;
+    gap: var(--fh-space-6);
+  }
+  .fh-footer__bottom {
+    flex-direction: column;
+    gap: var(--fh-space-3);
+    text-align: center;
+  }
+  .fh-footer__legal {
+    justify-content: center;
+  }
+} 
+ 
+ 

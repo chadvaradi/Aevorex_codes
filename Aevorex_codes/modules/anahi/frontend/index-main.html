@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anahi ✨ Személyes Tér</title>
+    <link rel="stylesheet" href="static/css/anahi-gallery.css">
+    <link rel="stylesheet" href="static/css/personal-anahi.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Main Landing Page Styles */
+        .landing-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #FDF8F6 0%, #F8E8E9 50%, #E6D7E8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .landing-content {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .main-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #E8B4B8, #FF9A8B, #C8A2C8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        .main-subtitle {
+            font-size: 1.5rem;
+            color: #757575;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .navigation-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .nav-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2.5rem;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(232, 180, 184, 0.3);
+            box-shadow: 0 10px 30px rgba(212, 165, 168, 0.15);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 165, 168, 0.25);
+            border-color: #E8B4B8;
+        }
+
+        .nav-card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #E8B4B8;
+        }
+
+        .nav-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #4A4A4A;
+        }
+
+        .nav-card p {
+            color: #757575;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-card-button {
+            background: linear-gradient(135deg, #E8B4B8, #C8A2C8);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .nav-card-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(232, 180, 184, 0.4);
+        }
+
+        .personal-card {
+            background: linear-gradient(135deg, rgba(232, 180, 184, 0.1), rgba(200, 162, 200, 0.1));
+            border: 2px solid #E8B4B8;
+        }
+
+        .personal-card .nav-card-icon {
+            animation: heartBeat 2s infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 50%, 100% { transform: scale(1); }
+            25%, 75% { transform: scale(1.1); }
+        }
+
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 10px rgba(232, 180, 184, 0.3)); }
+            100% { filter: drop-shadow(0 0 20px rgba(232, 180, 184, 0.6)); }
+        }
+
+        .welcome-message {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #E8B4B8;
+        }
+
+        .welcome-message h2 {
+            color: #E8B4B8;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-logo {
+                font-size: 3rem;
+            }
+            
+            .navigation-cards {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .nav-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-container">
+        <!-- Romantic Background Particles -->
+        <div class="particle-container" id="particles"></div>
+
+        <div class="landing-content">
+            <h1 class="main-logo">Anahi</h1>
+            <p class="main-subtitle">Személyes Digitális Tér</p>
+
+            <div class="welcome-message">
+                <h2><i class="fas fa-heart"></i> Üdvözöl a személyes terében!</h2>
+                <p>Itt két különleges élmény vár rád: egy praktikus fotógaléria, ahol kezelheted a képeidet, és egy személyes üzenet, amely kifejezetten neked készült szeretettel.</p>
+            </div>
+
+            <div class="navigation-cards">
+                <!-- Gallery Card -->
+                <a href="index.html" class="nav-card">
+                    <div class="nav-card-icon">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <h3>Fotó Galéria</h3>
+                    <p>
+                        Kezeld a képeidet professzionális galériában. 
+                        Tölts fel új fotókat, rendezd őket, és tekintsd meg 
+                        a gyűjteményedet modern felületen.
+                    </p>
+                    <button class="nav-card-button">
+                        <i class="fas fa-arrow-right"></i> Galéria Megnyitása
+                    </button>
+                </a>
+
+                <!-- Personal Message Card -->
+                <a href="personal.html" class="nav-card personal-card">
+                    <div class="nav-card-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Személyes Üzenet</h3>
+                    <p>
+                        Egy különleges üzenet, amely két kultúra találkozását 
+                        ünnepli. Készült szeretettel Magyarországról, 
+                        kifejezetten neked.
+                    </p>
+                    <button class="nav-card-button">
+                        <i class="fas fa-envelope-heart"></i> Üzenet Megtekintése
+                    </button>
+                </a>
+            </div>
+
+            <!-- Alternative: Full Experience Card -->
+            <div style="margin-top: 2rem;">
+                <a href="personal-expanded.html" class="nav-card personal-card">
+                    <div class="nav-card-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3>Teljes Élmény</h3>
+                    <p>
+                        Az összes kép és idézet egy varázslatos oldalon. 
+                        29 kép, 29 személyes üzenet, végtelen szépség.
+                        <strong>Ez a különleges ajándék!</strong>
+                    </p>
+                    <button class="nav-card-button">
+                        <i class="fas fa-sparkles"></i> Különleges Ajándék
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple particle system for the landing page
+        class SimpleParticles {
+            constructor() {
+                this.container = document.getElementById('particles');
+                this.particles = [];
+                this.particleCount = 30;
+                this.init();
+            }
+
+            init() {
+                if (!this.container) return;
+                
+                for (let i = 0; i < this.particleCount; i++) {
+                    this.createParticle();
+                }
+                
+                this.animate();
+            }
+
+            createParticle() {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: absolute;
+                    width: 4px;
+                    height: 4px;
+                    background: #E8B4B8;
+                    border-radius: 50%;
+                    opacity: ${0.3 + Math.random() * 0.7};
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    animation: float ${8 + Math.random() * 4}s infinite ease-in-out;
+                    animation-delay: ${Math.random() * 8}s;
+                `;
+                
+                this.container.appendChild(particle);
+                this.particles.push({
+                    element: particle,
+                    x: Math.random() * window.innerWidth,
+                    y: Math.random() * window.innerHeight,
+                    speed: 0.5 + Math.random() * 0.5
+                });
+            }
+
+            animate() {
+                this.particles.forEach(particle => {
+                    particle.y -= particle.speed;
+                    if (particle.y < -10) {
+                        particle.y = window.innerHeight + 10;
+                    }
+                    particle.element.style.top = particle.y + 'px';
+                });
+                
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            new SimpleParticles();
+            
+            // Add hover effects to cards
+            document.querySelectorAll('.nav-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+
+        // Add floating keyframe
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0.6; }
+                25% { transform: translateY(-20px) translateX(10px) rotate(90deg); opacity: 1; }
+                50% { transform: translateY(-40px) translateX(-10px) rotate(180deg); opacity: 0.8; }
+                75% { transform: translateY(-20px) translateX(15px) rotate(270deg); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html> 

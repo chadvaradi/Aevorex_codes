@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="hu" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceHub Import Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1e1e1e;
+            color: #ffffff;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
+        .success { background: #1a4d3a; border-color: #10b981; }
+        .error { background: #4d1a1a; border-color: #ef4444; }
+        .warning { background: #4d3a1a; border-color: #f59e0b; }
+        #console-output {
+            background: #000;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 FinanceHub Import System Test</h1>
+        
+        <div class="test-result" id="import-status">
+            <h3>📦 Import Status</h3>
+            <p>Loading modules...</p>
+        </div>
+        
+        <div class="test-result" id="theme-test">
+            <h3>🎨 Theme Manager Test</h3>
+            <p>Testing theme functionality...</p>
+            <button onclick="testThemeToggle()">Toggle Theme</button>
+            <button onclick="testThemeManager()">Test Theme Manager</button>
+        </div>
+        
+        <div class="test-result" id="api-test">
+            <h3>🔌 API Service Test</h3>
+            <p>Testing API connectivity...</p>
+            <button onclick="testAPI()">Test API</button>
+        </div>
+        
+        <div class="test-result" id="console-container">
+            <h3>📋 Console Output</h3>
+            <div id="console-output"></div>
+            <button onclick="clearConsole()">Clear Console</button>
+        </div>
+    </div>
+
+    <script>
+        // Console capture
+        const consoleOutput = document.getElementById('console-output');
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        
+        function addToConsole(message, type = 'log') {
+            const timestamp = new Date().toLocaleTimeString();
+            const color = type === 'error' ? '#ff4444' : type === 'warn' ? '#ffaa00' : '#00ff00';
+            consoleOutput.innerHTML += `<span style="color: ${color}">[${timestamp}] ${message}</span>\n`;
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            addToConsole(args.join(' '), 'log');
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            addToConsole(args.join(' '), 'error');
+        };
+        
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            addToConsole(args.join(' '), 'warn');
+        };
+        
+        // Test functions
+        function testThemeToggle() {
+            if (window.ThemeManager && typeof window.ThemeManager.toggleTheme === 'function') {
+                window.ThemeManager.toggleTheme();
+                console.log('✅ Theme toggle executed');
+            } else {
+                console.error('❌ ThemeManager.toggleTheme not available');
+            }
+        }
+        
+        function testThemeManager() {
+            const status = document.getElementById('theme-test');
+            if (window.ThemeManager) {
+                const state = window.ThemeManager.getState ? window.ThemeManager.getState() : 'No getState method';
+                status.innerHTML = `
+                    <h3>🎨 Theme Manager Test</h3>
+                    <p>✅ ThemeManager available</p>
+                    <p>Current theme: ${window.ThemeManager.getCurrentTheme ? window.ThemeManager.getCurrentTheme() : 'Unknown'}</p>
+                    <p>State: ${JSON.stringify(state, null, 2)}</p>
+                    <button onclick="testThemeToggle()">Toggle Theme</button>
+                    <button onclick="testThemeManager()">Refresh Test</button>
+                `;
+                console.log('✅ ThemeManager test completed');
+            } else {
+                status.innerHTML = `
+                    <h3>🎨 Theme Manager Test</h3>
+                    <p>❌ ThemeManager not available</p>
+                    <button onclick="testThemeToggle()">Toggle Theme</button>
+                    <button onclick="testThemeManager()">Refresh Test</button>
+                `;
+                console.error('❌ ThemeManager not found on window object');
+            }
+        }
+        
+        function testAPI() {
+            const status = document.getElementById('api-test');
+            if (window.FinanceHubAPIService || window.FinanceHubAPI) {
+                status.innerHTML = `
+                    <h3>🔌 API Service Test</h3>
+                    <p>✅ API Service available</p>
+                    <button onclick="testAPI()">Refresh Test</button>
+                `;
+                console.log('✅ API Service test completed');
+            } else {
+                status.innerHTML = `
+                    <h3>🔌 API Service Test</h3>
+                    <p>❌ API Service not available</p>
+                    <button onclick="testAPI()">Refresh Test</button>
+                `;
+                console.error('❌ API Service not found');
+            }
+        }
+        
+        function clearConsole() {
+            consoleOutput.innerHTML = '';
+        }
+        
+        // Monitor import progress
+        let importCount = 0;
+        let totalImports = 0;
+        
+        function updateImportStatus() {
+            const status = document.getElementById('import-status');
+            const services = [
+                'ThemeManager',
+                'FinanceHubAPIService',
+                'FinanceHubAPI',
+                'AppInitializer',
+                'FinanceHubState'
+            ];
+            
+            const available = services.filter(service => window[service]);
+            const missing = services.filter(service => !window[service]);
+            
+            status.innerHTML = `
+                <h3>📦 Import Status</h3>
+                <p>✅ Available: ${available.join(', ') || 'None'}</p>
+                <p>❌ Missing: ${missing.join(', ') || 'None'}</p>
+                <p>Progress: ${available.length}/${services.length}</p>
+            `;
+            
+            if (available.length === services.length) {
+                status.className = 'test-result success';
+                console.log('🎉 All core services loaded successfully!');
+            } else if (available.length > 0) {
+                status.className = 'test-result warning';
+            } else {
+                status.className = 'test-result error';
+            }
+        }
+        
+        // Check status every second
+        setInterval(updateImportStatus, 1000);
+        
+        // Initial status check
+        setTimeout(updateImportStatus, 100);
+        
+        console.log('🧪 Test page initialized');
+    </script>
+    
+    <!-- Load the new import system -->
+    <script type="module" src="static/js/main_import_financehub.js?v=20250614-2100"></script>
+</body>
+</html> 

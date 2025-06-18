@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceHub - Comprehensive Integration Test</title>
+    <link rel="stylesheet" href="static/css/main_combined_financehub.css">
+    <style>
+        .test-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        .test-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .test-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .test-title {
+            color: #60a5fa;
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #6b7280;
+        }
+        
+        .status-indicator.success { background: #10b981; }
+        .status-indicator.error { background: #ef4444; }
+        .status-indicator.loading { background: #3b82f6; }
+        
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 5px;
+        }
+        
+        .btn.danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+        
+        .test-result {
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #6b7280;
+        }
+        
+        .test-result.success {
+            background: rgba(16, 185, 129, 0.1);
+            border-left-color: #10b981;
+            color: #6ee7b7;
+        }
+        
+        .test-result.error {
+            background: rgba(239, 68, 68, 0.1);
+            border-left-color: #ef4444;
+            color: #fca5a5;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #3b82f6;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1>FinanceHub - Comprehensive Integration Test</h1>
+            <p>Teljes komponens és API integráció tesztelése</p>
+            
+            <div class="test-controls">
+                <button class="btn" onclick="runAllTests()">🚀 Összes Teszt Futtatása</button>
+                <button class="btn" onclick="testComponents()">🧩 Komponens Teszt</button>
+                <button class="btn" onclick="testAPI()">🌐 API Teszt</button>
+                <button class="btn danger" onclick="clearResults()">🗑️ Eredmények Törlése</button>
+            </div>
+        </div>
+
+        <!-- Test Results -->
+        <div class="test-section">
+            <h3 class="test-title">
+                <span class="status-indicator" id="api-status"></span>
+                🌐 API Kapcsolat Teszt
+            </h3>
+            <div id="api-results"></div>
+        </div>
+
+        <div class="test-section">
+            <h3 class="test-title">
+                <span class="status-indicator" id="component-status"></span>
+                🧩 Komponens Integráció Teszt
+            </h3>
+            <div id="component-results"></div>
+        </div>
+
+        <!-- Analysis Bubbles Container -->
+        <div class="test-section">
+            <h3 class="test-title">
+                <span class="status-indicator" id="bubbles-status"></span>
+                📊 Analysis Bubbles Container
+            </h3>
+            <section id="fh-analysis-bubbles" class="fh-analysis-bubbles">
+                <div class="fh-analysis-bubbles__grid">
+                    <div class="fh-analysis-bubble fh-analysis-bubble--company-overview" id="company-overview-bubble">
+                        <div class="fh-analysis-bubble__header">
+                            <h3 class="fh-analysis-bubble__title">Company Overview</h3>
+                        </div>
+                        <div class="fh-analysis-bubble__content">
+                            <p class="fh-analysis-bubble__placeholder">Select a stock to view company details</p>
+                        </div>
+                    </div>
+                    <div class="fh-analysis-bubble fh-analysis-bubble--financial-metrics" id="financial-metrics-bubble">
+                        <div class="fh-analysis-bubble__header">
+                            <h3 class="fh-analysis-bubble__title">Financial Metrics</h3>
+                        </div>
+                        <div class="fh-analysis-bubble__content">
+                            <p class="fh-analysis-bubble__placeholder">Key financial indicators will appear here</p>
+                        </div>
+                    </div>
+                    <div class="fh-analysis-bubble fh-analysis-bubble--technical-analysis" id="technical-analysis-bubble">
+                        <div class="fh-analysis-bubble__header">
+                            <h3 class="fh-analysis-bubble__title">Technical Analysis</h3>
+                        </div>
+                        <div class="fh-analysis-bubble__content">
+                            <p class="fh-analysis-bubble__placeholder">Technical indicators and patterns</p>
+                        </div>
+                    </div>
+                    <div class="fh-analysis-bubble fh-analysis-bubble--news-highlights" id="news-highlights-bubble">
+                        <div class="fh-analysis-bubble__header">
+                            <h3 class="fh-analysis-bubble__title">News Highlights</h3>
+                        </div>
+                        <div class="fh-analysis-bubble__content">
+                            <p class="fh-analysis-bubble__placeholder">Latest news and market sentiment</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- AI Chat Container -->
+        <div class="test-section">
+            <h3 class="test-title">
+                <span class="status-indicator" id="chat-status"></span>
+                🤖 AI Chat Container
+            </h3>
+            <section id="fh-ai-chat" class="fh-ai-chat">
+                <div class="fh-ai-chat__container">
+                    <div class="fh-ai-chat__header">
+                        <h2 class="fh-ai-chat__title">AI Research Assistant</h2>
+                        <div class="fh-ai-chat__status">
+                            <div class="fh-ai-chat__status-indicator">
+                                <div class="fh-ai-chat__status-dot"></div>
+                                <span class="fh-ai-chat__status-text">Ready</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="fh-ai-chat__messages" class="fh-ai-chat__messages">
+                        <div class="fh-ai-chat__welcome">
+                            <div class="fh-ai-chat__avatar">
+                                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                            </div>
+                            <div class="fh-ai-chat__message-content">
+                                <p class="fh-ai-chat__welcome-text">
+                                    Welcome to your AI Research Assistant! I can help you analyze stocks, explain financial metrics, and provide market insights.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="fh-ai-chat__input-container">
+                        <div class="fh-ai-chat__input-wrapper">
+                            <textarea 
+                                id="fh-ai-chat__input" 
+                                class="fh-ai-chat__input" 
+                                placeholder="Ask about financial analysis, market trends, or specific stocks..."
+                                rows="2"
+                                maxlength="1000"
+                            ></textarea>
+                            <button id="fh-ai-chat__send" class="fh-ai-chat__send-btn" aria-label="Send message">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="static/js/core/modelRegistry.js"></script>
+    <script src="static/js/main_combined_financehub.js"></script>
+    
+    <script>
+        // Test functions
+        function setStatus(elementId, status) {
+            const indicator = document.getElementById(elementId);
+            if (indicator) {
+                indicator.className = `status-indicator ${status}`;
+            }
+        }
+
+        function addResult(containerId, content, type = 'info') {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${type}`;
+            resultDiv.innerHTML = content;
+            container.appendChild(resultDiv);
+        }
+
+        function clearResults() {
+            const containers = ['api-results', 'component-results'];
+            containers.forEach(id => {
+                const container = document.getElementById(id);
+                if (container) container.innerHTML = '';
+            });
+            
+            const indicators = document.querySelectorAll('.status-indicator');
+            indicators.forEach(indicator => {
+                indicator.className = 'status-indicator';
+            });
+        }
+
+        // API Tests
+        async function testAPI() {
+            try {
+                console.log('🔄 Starting API tests...');
+                updateTestResult('api-test', 'running', 'Testing API connection...');
+                
+                const api = new window.FinanceHubAPI();
+                
+                // Test modular endpoints
+                const fundamentals = await api.getStockFundamentals('AAPL');
+                const aiSummary = await api.getStockAISummary('AAPL');
+                const search = await api.searchStocks('Apple', 3);
+                const tickerTape = await api.getTickerTapeData(5);
+                const health = await api.getHealthCheck();
+                
+                if (fundamentals && aiSummary && search && tickerTape && health) {
+                    updateTestResult('api-test', 'success', 'All modular endpoints working');
+                    console.log('✅ All API endpoints functional');
+                    return true;
+                } else {
+                    throw new Error('Some endpoints returned empty data');
+                }
+            } catch (error) {
+                updateTestResult('api-test', 'error', `API Error: ${error.message}`);
+                console.error('❌ API test failed:', error);
+                return false;
+            }
+        }
+
+        async function testComponents() {
+            try {
+                console.log('🔄 Starting component tests...');
+                updateTestResult('component-test', 'running', 'Testing component integration...');
+                
+                // Check if main API class exists
+                if (!window.FinanceHubAPI) {
+                    throw new Error('FinanceHubAPI class not found');
+                }
+                
+                // Check if main app components are available
+                const requiredMethods = ['getStockFundamentals', 'getStockAISummary', 'searchStocks', 'getTickerTapeData', 'getHealthCheck'];
+                const api = new window.FinanceHubAPI();
+                
+                for (const method of requiredMethods) {
+                    if (typeof api[method] !== 'function') {
+                        throw new Error(`Required method ${method} not found`);
+                    }
+                }
+                
+                updateTestResult('component-test', 'success', 'All components available and functional');
+                console.log('✅ Component integration test passed');
+                return true;
+            } catch (error) {
+                updateTestResult('component-test', 'error', `Component Error: ${error.message}`);
+                console.error('❌ Component test failed:', error);
+                return false;
+            }
+        }
+
+        async function runAllTests() {
+            clearResults();
+            await testAPI();
+            await testComponents();
+            addResult('api-results', '🎯 All tests completed!', 'success');
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Test page loaded');
+            
+            // Run initial tests
+            setTimeout(() => {
+                // Initialize FinanceHub global app if available
+                if (typeof initializeFinanceHub === 'function') {
+                    try {
+                        console.log('⚙️ Initializing FinanceHub core app...');
+                        initializeFinanceHub();
+                    } catch (err) {
+                        console.warn('FinanceHub initialization error', err);
+                    }
+                }
+
+                runAllTests();
+            }, 1000);
+        });
+
+        // Test Utility Helpers injected for comprehensive integration tests
+        function updateTestResult(testKey, status = 'running', message = '') {
+            const indicatorMap = {
+                'api-test': 'api-status',
+                'component-test': 'component-status',
+                'bubbles-test': 'bubbles-status',
+                'chat-test': 'chat-status'
+            };
+            const resultsMap = {
+                'api-test': 'api-results',
+                'component-test': 'component-results',
+                'bubbles-test': 'component-results', // fallback if dedicated container missing
+                'chat-test': 'component-results'
+            };
+            const indicatorId = indicatorMap[testKey] || `${testKey}-status`;
+            const containerId = resultsMap[testKey] || `${testKey}-results`;
+
+            // Convert semantic status to indicator class
+            const indicatorStatusClass = (status === 'running') ? 'loading' : status;
+            setStatus(indicatorId, indicatorStatusClass);
+
+            const prettyMsg = (status === 'running')
+                ? `<div><span class="loading-spinner"></span> ${message}</div>`
+                : message;
+            addResult(containerId, prettyMsg, status === 'running' ? 'info' : status);
+        }
+    </script>
+</body>
+</html> 

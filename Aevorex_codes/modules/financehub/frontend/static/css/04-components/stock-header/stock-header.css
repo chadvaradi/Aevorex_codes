@@ -1,0 +1,688 @@
+/* ===================================================================
+   AEVOREX FINANCEHUB – STOCK HEADER COMPONENT (v3)
+   BEM methodology with fh-stock-header__ prefix, consolidated design
+   =================================================================== */
+
+.fh-stock-header {
+  background: var(--bg-primary);
+  border: 1px solid var(--fh-border-light);
+  border-radius: var(--fh-radius-lg);
+  padding: var(--fh-space-6);
+  margin-bottom: var(--fh-space-6);
+  box-shadow: var(--fh-shadow-md);
+}
+
+.fh-stock-header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--fh-space-4);
+}
+
+.fh-stock-header__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fh-space-2);
+}
+
+.fh-stock-header__symbol {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.fh-stock-header__name {
+  font-size: var(--fh-font-size-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.fh-stock-header__price-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--fh-space-1);
+}
+
+.fh-stock-header__price {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  font-family: var(--fh-font-family-mono);
+}
+
+.fh-stock-header__change {
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-1);
+  font-size: var(--fh-font-size-sm);
+  font-weight: var(--fh-font-weight-semibold);
+}
+
+.fh-stock-header__change--positive {
+  color: var(--color-success);
+}
+
+.fh-stock-header__change--negative {
+  color: var(--color-error);
+}
+
+.fh-stock-header__change--neutral {
+  color: var(--text-muted);
+}
+
+.fh-stock-header__metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--fh-space-4);
+  margin-top: var(--fh-space-4);
+  padding-top: var(--fh-space-4);
+  border-top: 1px solid var(--fh-border-light);
+}
+
+.fh-stock-header__metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fh-space-1);
+}
+
+.fh-stock-header__metric-label {
+  font-size: var(--fh-font-size-xs);
+  color: var(--text-secondary);
+  font-weight: var(--fh-font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.fh-stock-header__metric-value {
+  font-size: var(--fh-font-size-sm);
+  font-weight: var(--fh-font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.fh-stock-header__status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--fh-space-1);
+  padding: var(--fh-space-1) var(--fh-space-2);
+  border-radius: var(--fh-radius-full);
+  font-size: var(--fh-font-size-xs);
+  font-weight: var(--fh-font-weight-medium);
+}
+
+.fh-stock-header__status--open {
+  background: rgba(var(--color-success-rgb), 0.1);
+  color: var(--color-success);
+}
+
+.fh-stock-header__status--closed {
+  background: rgba(var(--color-error-rgb), 0.1);
+  color: var(--color-error);
+}
+
+.fh-stock-header__loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: var(--fh-breakpoint-md)) {
+  .fh-stock-header__container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .fh-stock-header__price-section {
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .fh-stock-header__metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: var(--fh-breakpoint-xs)) {
+  .fh-stock-header {
+    padding: var(--fh-space-4);
+  }
+  
+  .fh-stock-header__price {
+    font-size: var(--fh-font-size-2xl);
+  }
+  
+  .fh-stock-header__metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- ACCESSIBILITY --- */
+@media (prefers-reduced-motion: reduce) {
+  .fh-stock-header__loading {
+    transition: none;
+  }
+}
+
+/* === PREMIUM STOCK HEADER COMPONENT – SLIM FULL-WIDTH BAR === */
+.stock-header-premium,
+.fh-stock-header {
+  /* Theme-aware gradient surface */
+  background: var(--gradient-surface);
+  backdrop-filter: blur(var(--fh-blur-sm, 8px));
+  border-bottom: 1px solid var(--border-light);
+  /* Slimmer vertical padding for compact bar – 0 bottom to remove extra gap */
+  padding: 0.25rem 1.25rem 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* Remove card-specific visuals */
+.stock-header-premium,
+.fh-stock-header {
+  border-radius: 0;
+  margin: 0;
+  box-shadow: none;
+}
+
+/* Ensure container spans full width */
+.stock-header-left,
+.fh-stock-header__container {
+  width: 100%;
+  max-width: 100%;
+  justify-content: center;
+}
+
+.stock-main-info {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.stock-symbol,
+.stock-symbol-premium {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--fh-neutral-0);
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+  letter-spacing: 0.5px;
+  margin-right: 8px;
+}
+
+.stock-company-name {
+  font-size: 12px;
+  color: var(--fh-neutral-0);
+  font-weight: 400;
+  margin-right: 16px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stock-price-info {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.stock-current-price,
+.stock-price-premium {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fh-neutral-0);
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+  line-height: 1;
+  margin-right: 8px;
+}
+
+.stock-change,
+.stock-change-premium {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.stock-change.positive,
+.stock-change-premium.positive {
+  color: var(--color-success);
+  background: rgba(var(--color-success-rgb, 0, 255, 136), 0.1);
+}
+
+.stock-change.negative,
+.stock-change-premium.negative {
+  color: var(--color-error);
+  background: rgba(var(--color-error-rgb, 255, 71, 87), 0.1);
+}
+
+.stock-change.neutral,
+.stock-change-premium.neutral {
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.stock-header-metrics,
+.stock-metrics-premium {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  flex: 1;
+  max-width: none;
+}
+
+.metric-item,
+.stock-metric-premium {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: center;
+}
+
+.metric-label,
+.metric-label-premium {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metric-value,
+.metric-value-premium {
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-family: var(--font-family-mono);
+}
+
+/* Responsive adjustments */
+@media (max-width: var(--fh-breakpoint-lg)) {
+  .stock-header-premium {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .stock-header-left {
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: var(--fh-breakpoint-md)) {
+  .stock-header-premium {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    border-color: rgba(255, 255, 255, 0.3);
+    transition: none;
+  }
+}
+
+@media (max-width: var(--fh-breakpoint-xs)) {
+  .fh-stock-header {
+    padding: var(--fh-space-4);
+  }
+  
+  .fh-stock-header__price {
+    font-size: var(--fh-font-size-2xl);
+  }
+  
+  .fh-stock-header__metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .stock-symbol,
+  .stock-symbol-premium,
+  .stock-current-price,
+  .stock-price-premium {
+    color: var(--fh-neutral-0);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .fh-stock-header__loading {
+    transition: none;
+  }
+}
+
+/* Focus states for accessibility */
+.stock-header-premium-minimal:focus-within {
+  outline: 2px solid rgba(0, 212, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* New wrapper class mappings for revised markup */
+.stock-header-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+  min-height: 48px;
+}
+
+.stock-header-main {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.stock-basic-info {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+/* Ensure price info aligns right on larger screens */
+@media (min-width: var(--fh-breakpoint-sm)) {
+  .stock-price-info {
+    align-items: flex-end;
+  }
+}
+
+/* Metrics grid wrapper (alias already defined) – ensure gap & responsive columns */
+.stock-header-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  margin-top: 0; /* remove extra spacing */
+  border-top: none;
+  padding-top: 0;
+}
+
+.metric-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 12px;
+}
+
+/* Theme-aware text colours */
+.stock-symbol,
+.stock-symbol-premium,
+.stock-current-price,
+.stock-price-premium {
+  color: var(--text-primary);
+}
+
+.stock-company-name {
+  color: var(--text-secondary);
+}
+
+/* Responsive fallback – allow wrapping below ⩽768px while keeping compact look */
+@media (max-width: var(--fh-breakpoint-md)) {
+  .stock-header-content {
+    gap: 1rem;
+  }
+
+  .stock-header-metrics {
+    justify-content: space-between;
+    flex: 1 1 100%;
+  }
+}
+
+/* === ULTRA-PREMIUM MINIMALIST STOCK HEADER === */
+.stock-header-premium-minimal {
+  background: rgba(var(--fh-neutral-1000-rgb), 0.85);
+  border: 1px solid rgba(var(--fh-neutral-0-rgb), 0.08);
+  border-radius: var(--fh-radius-md);
+  padding: var(--fh-space-3) var(--fh-space-5);
+  margin: var(--fh-space-3) 0;
+  backdrop-filter: blur(var(--fh-blur-lg));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--fh-space-4);
+  transition: var(--fh-transition-base);
+}
+
+.stock-header-premium-minimal:hover {
+  background: rgba(var(--fh-neutral-1000-rgb), 0.9);
+  border-color: rgba(var(--fh-accent-primary-rgb), 0.2);
+  box-shadow: var(--fh-shadow-lg);
+}
+
+.stock-main-info-minimal {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: nowrap;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.stock-metrics-minimal {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.metric-minimal {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+  font-size: 9px;
+  color: var(--fh-neutral-0);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.metric-minimal span {
+  color: var(--fh-neutral-0);
+  font-weight: 500;
+}
+
+.metric-separator {
+  width: 1px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 4px;
+}
+
+/* Live indicator */
+.live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: var(--fh-neutral-0);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-success);
+  animation: none;
+}
+
+@keyframes pulse-live {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: var(--fh-breakpoint-md)) {
+  .stock-header-premium-minimal {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    border-color: rgba(255, 255, 255, 0.3);
+    transition: none;
+  }
+}
+
+@media (max-width: var(--fh-breakpoint-xs)) {
+  .fh-stock-header {
+    padding: var(--fh-space-4);
+  }
+  
+  .fh-stock-header__price {
+    font-size: var(--fh-font-size-2xl);
+  }
+  
+  .fh-stock-header__metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- COMPACT PREMIUM BAR OVERRIDES --- */
+.stock-header-premium .stock-main-info {
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.stock-header-premium .stock-price-info {
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.stock-header-premium .stock-metrics-minimal,
+.stock-header-premium .stock-header-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+}
+
+.stock-header-premium .metric-minimal,
+.stock-header-premium .metric-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 12px;
+}
+
+.stock-header-premium .metric-separator {
+  margin: 0 0.5rem;
+  opacity: 0.4;
+}
+
+.fh-stock-header h1,
+.fh-stock-header h2,
+.fh-stock-header h3 {
+  margin: 0;
+  line-height: 1.1;
+}
+
+/* --- FLATTEN ROWS INTO SINGLE LINE --- */
+.fh-stock-header__content{
+  display:flex;
+  flex-direction:row;
+  flex-wrap:nowrap; /* prevent wrapping */
+  align-items:baseline;
+  gap:1.5rem;
+  white-space:nowrap; /* ensure inline items stay on one line */
+  overflow-x:auto;
+}
+
+.fh-stock-header__row{
+  display:inline-flex; /* inline so multiple rows sit in same line */
+  flex-direction:row;
+  align-items:baseline;
+  gap:1rem;
+  margin:0;
+  padding:0;
+  white-space:nowrap;
+}
+
+.fh-stock-header__row--primary span,
+.fh-stock-header__row--price span,
+.fh-stock-header__row--meta span{margin:0;}
+
+.fh-stock-header__price{font-size:20px;font-weight:600;}
+.stock-change{font-size:16px;padding:2px 6px;border-radius:4px;}
+.fh-stock-header__meta-item{font-size:16px;white-space:nowrap;}
+
+/* Market status icon */
+.stock-market-status{width:10px;height:10px;border-radius:50%;display:inline-block;text-indent:-9999px;overflow:hidden;vertical-align:middle;}
+.stock-market-status.open{background:var(--color-success);}
+.stock-market-status.closed{background:var(--color-error);}
+
+/* Finomabb rugalmas távolságok */
+.fh-stock-header__content{ gap:1.5rem; }
+.fh-stock-header__row{ gap:1rem; }
+
+/* Meta-item elválasztó pont */
+.fh-stock-header__meta-item:not(:last-child)::after{
+  content:'\00B7'; /* központozott pont */
+  margin:0 6px;
+  opacity:0.5;
+}
+
+/* Market status ikon extra térköz */
+.stock-market-status{ margin-left:6px; }
+
+/* Highlight company name */
+.fh-stock-header__company{
+  font-size: 24px; /* ~1.5× previous 16px */
+  font-weight: 500;
+  color: var(--fh-neutral-0);
+  max-width: 160px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+
+@media (max-width: var(--fh-breakpoint-md)){
+  .fh-stock-header__company{font-size:20px;}
+}
+
+@media (max-width: var(--fh-breakpoint-xs)){
+  .fh-stock-header__company{font-size:18px;}
+}
+
+/* === Gapless premium bar override (2025-06-15) === */
+.stock-header-premium, .fh-stock-header {
+  margin: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border-radius: 0;
+}
+
+/* === Compact ↔ Spacious balance (2025-06-15) === */
+.stock-header-premium, .fh-stock-header {
+  min-height: 64px;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
+
+/* Typography tweaks for larger bar */
+.stock-symbol, .fh-stock-header__symbol { font-size: 24px; }
+.stock-current-price, .fh-stock-header__price { font-size: 22px; }
+.stock-change, .fh-stock-header__change { font-size: 14px; } 

@@ -1,0 +1,337 @@
+/** * ========================================================================== * CONTENTHUB UTILITIES v1.0 - PRODUCTION READY * ========================================================================== * * Utility classes for common styling patterns * Atomic CSS utilities for rapid development * * Author: Aevorex Premium Team * Created: 2025-06-10 * Status: PRODUCTION ACTIVE */ /* ========================================================================== SPACING UTILITIES ========================================================================== */ .ch-m-0 {
+  margin: 0;
+}
+.ch-m-1 {
+  margin: var(--ch-space-1);
+}
+.ch-m-2 {
+  margin: var(--ch-space-2);
+}
+.ch-m-3 {
+  margin: var(--ch-space-3);
+}
+.ch-m-4 {
+  margin: var(--ch-space-4);
+}
+.ch-m-6 {
+  margin: var(--ch-space-6);
+}
+.ch-m-8 {
+  margin: var(--ch-space-8);
+}
+.ch-p-0 {
+  padding: 0;
+}
+.ch-p-1 {
+  padding: var(--ch-space-1);
+}
+.ch-p-2 {
+  padding: var(--ch-space-2);
+}
+.ch-p-3 {
+  padding: var(--ch-space-3);
+}
+.ch-p-4 {
+  padding: var(--ch-space-4);
+}
+.ch-p-6 {
+  padding: var(--ch-space-6);
+}
+.ch-p-8 {
+  padding: var(--ch-space-8);
+}
+/* ========================================================================== DISPLAY UTILITIES ========================================================================== */ .ch-hidden {
+  display: none;
+}
+.ch-block {
+  display: block;
+}
+.ch-inline {
+  display: inline;
+}
+.ch-inline-block {
+  display: inline-block;
+}
+.ch-flex {
+  display: flex;
+}
+.ch-grid {
+  display: grid;
+}
+/* ========================================================================== FLEXBOX UTILITIES ========================================================================== */ .ch-flex-row {
+  flex-direction: row;
+}
+.ch-flex-col {
+  flex-direction: column;
+}
+.ch-flex-wrap {
+  flex-wrap: wrap;
+}
+.ch-flex-nowrap {
+  flex-wrap: nowrap;
+}
+.ch-justify-start {
+  justify-content: flex-start;
+}
+.ch-justify-center {
+  justify-content: center;
+}
+.ch-justify-end {
+  justify-content: flex-end;
+}
+.ch-justify-between {
+  justify-content: space-between;
+}
+.ch-justify-around {
+  justify-content: space-around;
+}
+.ch-items-start {
+  align-items: flex-start;
+}
+.ch-items-center {
+  align-items: center;
+}
+.ch-items-end {
+  align-items: flex-end;
+}
+.ch-items-stretch {
+  align-items: stretch;
+}
+.ch-flex-1 {
+  flex: 1;
+}
+.ch-flex-auto {
+  flex: auto;
+}
+.ch-flex-none {
+  flex: none;
+}
+/* ========================================================================== TEXT UTILITIES ========================================================================== */ .ch-text-left {
+  text-align: left;
+}
+.ch-text-center {
+  text-align: center;
+}
+.ch-text-right {
+  text-align: right;
+}
+.ch-text-justify {
+  text-align: justify;
+}
+.ch-text-xs {
+  font-size: var(--ch-text-xs);
+}
+.ch-text-sm {
+  font-size: var(--ch-text-sm);
+}
+.ch-text-base {
+  font-size: var(--ch-text-base);
+}
+.ch-text-lg {
+  font-size: var(--ch-text-lg);
+}
+.ch-text-xl {
+  font-size: var(--ch-text-xl);
+}
+.ch-text-2xl {
+  font-size: var(--ch-text-2xl);
+}
+.ch-font-light {
+  font-weight: var(--ch-font-weight-light);
+}
+.ch-font-normal {
+  font-weight: var(--ch-font-weight-normal);
+}
+.ch-font-medium {
+  font-weight: var(--ch-font-weight-medium);
+}
+.ch-font-semibold {
+  font-weight: var(--ch-font-weight-semibold);
+}
+.ch-font-bold {
+  font-weight: var(--ch-font-weight-bold);
+}
+.ch-uppercase {
+  text-transform: uppercase;
+}
+.ch-lowercase {
+  text-transform: lowercase;
+}
+.ch-capitalize {
+  text-transform: capitalize;
+}
+/* ========================================================================== COLOR UTILITIES ========================================================================== */ .ch-text-primary {
+  color: var(--ch-text-primary);
+}
+.ch-text-secondary {
+  color: var(--ch-text-secondary);
+}
+.ch-text-muted {
+  color: var(--ch-text-muted);
+}
+.ch-text-accent {
+  color: var(--ch-accent-primary);
+}
+.ch-text-error {
+  color: var(--ch-status-error);
+}
+.ch-text-success {
+  color: var(--ch-status-success);
+}
+.ch-text-warning {
+  color: var(--ch-status-warning);
+}
+.ch-bg-primary {
+  background-color: var(--ch-bg-primary);
+}
+.ch-bg-secondary {
+  background-color: var(--ch-bg-secondary);
+}
+.ch-bg-accent {
+  background-color: var(--ch-accent-primary);
+}
+/* ========================================================================== BORDER UTILITIES ========================================================================== */ .ch-border {
+  border: 1px solid var(--ch-border-primary);
+}
+.ch-border-t {
+  border-top: 1px solid var(--ch-border-primary);
+}
+.ch-border-r {
+  border-right: 1px solid var(--ch-border-primary);
+}
+.ch-border-b {
+  border-bottom: 1px solid var(--ch-border-primary);
+}
+.ch-border-l {
+  border-left: 1px solid var(--ch-border-primary);
+}
+.ch-border-none {
+  border: none;
+}
+.ch-border-solid {
+  border-style: solid;
+}
+.ch-border-dashed {
+  border-style: dashed;
+}
+.ch-rounded {
+  border-radius: var(--ch-radius-sm);
+}
+.ch-rounded-md {
+  border-radius: var(--ch-radius-md);
+}
+.ch-rounded-lg {
+  border-radius: var(--ch-radius-lg);
+}
+.ch-rounded-full {
+  border-radius: 50%;
+}
+/* ========================================================================== SHADOW UTILITIES ========================================================================== */ .ch-shadow {
+  box-shadow: var(--ch-shadow-sm);
+}
+.ch-shadow-md {
+  box-shadow: var(--ch-shadow-md);
+}
+.ch-shadow-lg {
+  box-shadow: var(--ch-shadow-lg);
+}
+.ch-shadow-elevated {
+  box-shadow: var(--ch-shadow-elevated);
+}
+/* ========================================================================== OVERFLOW UTILITIES ========================================================================== */ .ch-overflow-hidden {
+  overflow: hidden;
+}
+.ch-overflow-auto {
+  overflow: auto;
+}
+.ch-overflow-scroll {
+  overflow: scroll;
+}
+.ch-overflow-visible {
+  overflow: visible;
+}
+.ch-overflow-x-hidden {
+  overflow-x: hidden;
+}
+.ch-overflow-x-auto {
+  overflow-x: auto;
+}
+.ch-overflow-y-hidden {
+  overflow-y: hidden;
+}
+.ch-overflow-y-auto {
+  overflow-y: auto;
+}
+/* ========================================================================== POSITION UTILITIES ========================================================================== */ .ch-static {
+  position: static;
+}
+.ch-relative {
+  position: relative;
+}
+.ch-absolute {
+  position: absolute;
+}
+.ch-fixed {
+  position: fixed;
+}
+.ch-sticky {
+  position: sticky;
+}
+/* ========================================================================== WIDTH & HEIGHT UTILITIES ========================================================================== */ .ch-w-full {
+  width: 100%;
+}
+.ch-w-auto {
+  width: auto;
+}
+.ch-w-fit {
+  width: fit-content;
+}
+.ch-h-full {
+  height: 100%;
+}
+.ch-h-auto {
+  height: auto;
+}
+.ch-h-fit {
+  height: fit-content;
+}
+.ch-max-w-full {
+  max-width: 100%;
+}
+.ch-max-h-full {
+  max-height: 100%;
+}
+/* ========================================================================== TRANSITION UTILITIES ========================================================================== */ .ch-transition {
+  transition: all 0.15s ease;
+}
+.ch-transition-colors {
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+.ch-transition-opacity {
+  transition: opacity 0.15s ease;
+}
+.ch-transition-transform {
+  transition: transform 0.15s ease;
+}
+
+/* ==========================================================================
+   RESPONSIVE UTILITIES
+   ========================================================================== */
+
+@media (max-width: 768px) {
+.ch-hidden-mobile {
+  display: none;
+}
+.ch-flex-col-mobile {
+  flex-direction: column;
+}
+.ch-text-center-mobile {
+  text-align: center;
+}
+}
+
+@media (min-width: 769px) {
+.ch-hidden-desktop {
+  display: none;
+}
+} 

@@ -1,0 +1,453 @@
+/* =================================================================== 
+   03-LAYOUT: FinanceHub Grid System - Premium Layout Components
+   Clean, modular, FinanceHub-specific grid layouts only
+   ================================================================ */
+
+/* ===== ANALYSIS BUBBLES GRID SYSTEM ===== */
+.info-sections-horizontal {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--fh-space-6);
+  margin: var(--fh-space-8) 0;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 var(--fh-space-4);
+}
+
+.info-bubbles-row {
+  display: contents;
+}
+
+.bubble-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.bubble-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.bubble-grid-1 {
+  grid-template-columns: 1fr;
+}
+
+.info-sections-horizontal > .info-bubble-horizontal {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: 12px;
+  padding: var(--fh-space-6);
+  min-height: 280px;
+  outline: 2px solid var(--aevorex-brand-text);
+  outline-offset: 2px;
+}
+
+.info-sections-horizontal .bubble-content {
+  padding: var(--fh-space-4) 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.bubble-grid-compact {
+  gap: var(--fh-space-2);
+}
+
+.bubble-grid-spacious {
+  gap: var(--fh-space-5);
+}
+
+.bubble-grid-tight {
+  gap: var(--fh-space-1);
+}
+
+/* ===== SPECIALIZED LAYOUT SYSTEMS ===== */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: 
+    "sidebar header"
+    "sidebar main"
+    "sidebar footer";
+  min-height: 100vh;
+}
+
+.dashboard-header {
+  grid-area: header;
+  padding: var(--fh-space-4);
+  background: var(--background-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.dashboard-main {
+  grid-area: main;
+  padding: var(--fh-space-6);
+  overflow-y: auto;
+}
+
+.dashboard-sidebar {
+  grid-area: sidebar;
+  background: var(--background-tertiary);
+  border-right: 1px solid var(--border-color);
+  padding: var(--fh-space-4);
+}
+
+.dashboard-footer {
+  grid-area: footer;
+  padding: var(--fh-space-3);
+  background: var(--background-secondary);
+  border-top: 1px solid var(--border-color);
+}
+
+/* ===== FINANCIAL DASHBOARD LAYOUT ===== */
+.financial-dashboard {
+  display: grid;
+  grid-template-columns: 280px 1fr 240px;
+  grid-template-rows: 60px 1fr 40px;
+  grid-template-areas: 
+    "sidebar header widgets"
+    "sidebar main widgets"
+    "sidebar footer widgets";
+  height: 100vh;
+  gap: 0;
+}
+
+.financial-dashboard .header {
+  grid-area: header;
+}
+
+.financial-dashboard .sidebar {
+  grid-area: sidebar;
+}
+
+.financial-dashboard .main {
+  grid-area: main;
+}
+
+.financial-dashboard .widgets {
+  grid-area: widgets;
+}
+
+.financial-dashboard .footer {
+  grid-area: footer;
+}
+
+.trading-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 60px 40px 1fr 200px;
+  grid-template-areas: 
+    "watchlist chart-header"
+    "watchlist chart-tools"
+    "watchlist chart-main"
+    "news orderbook";
+  height: 100vh;
+  gap: var(--fh-space-2);
+}
+
+.trading-layout .watchlist {
+  grid-area: watchlist;
+}
+
+.trading-layout .chart-header {
+  grid-area: chart-header;
+}
+
+.trading-layout .chart-main {
+  grid-area: chart-main;
+}
+
+.trading-layout .chart-tools {
+  grid-area: chart-tools;
+}
+
+.trading-layout .tools {
+  grid-area: tools;
+}
+
+.trading-layout .news {
+  grid-area: news;
+}
+
+.trading-layout .orderbook {
+  grid-area: orderbook;
+}
+
+/* ===== CHART GRID LAYOUT ===== */
+.chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  grid-template-rows: 1fr 120px;
+  grid-template-areas: 
+    "main-chart indicators"
+    "volume indicators";
+  gap: var(--fh-space-3);
+  height: 500px;
+}
+
+.chart-grid .main-chart {
+  grid-area: main-chart;
+}
+
+.chart-grid .indicators {
+  grid-area: indicators;
+}
+
+.chart-grid .volume {
+  grid-area: volume;
+}
+
+/* ===== ANALYSIS GRID ===== */
+.analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--fh-space-6);
+}
+
+.analysis-card {
+  background: var(--background-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--fh-space-6);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.analysis-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--aevorex-primary-100) 0%, var(--aevorex-primary-50) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.analysis-card:hover::before {
+  opacity: 0.1;
+}
+
+.analysis-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--fh-shadow-xl);
+}
+
+/* ===== METRICS GRID ===== */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--fh-space-4);
+}
+
+.metric-card {
+  background: var(--background-primary);
+  padding: var(--fh-space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.metric-card:hover {
+  background: var(--background-secondary);
+  border-color: var(--aevorex-primary-300);
+}
+
+/* ===== RESPONSIVE CARDS ===== */
+.responsive-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--fh-space-5);
+}
+
+/* ===== MASONRY GRID ===== */
+.masonry-grid {
+  columns: 3;
+  column-gap: var(--fh-space-6);
+  break-inside: avoid;
+}
+
+/* ===== SIDEBAR LAYOUTS ===== */
+.sidebar-main {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: var(--fh-space-6);
+  min-height: 100vh;
+}
+
+/* ===== THREE COLUMN LAYOUT ===== */
+.three-column {
+  display: grid;
+  grid-template-columns: 250px 1fr 200px;
+  gap: var(--fh-space-4);
+}
+
+/* ===== PREMIUM GRID SYSTEM ===== */
+.grid-premium {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--fh-space-8);
+  padding: var(--fh-space-8);
+  background: linear-gradient(135deg, var(--aevorex-primary-100) 0%, var(--aevorex-primary-50) 100%);
+}
+
+.grid-item-premium {
+  background: var(--background-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: var(--fh-space-6);
+  box-shadow: var(--fh-shadow-lg);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.grid-item-premium:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--fh-shadow-2xl);
+  border-color: var(--aevorex-primary-300);
+}
+
+/* ===== GLASS EFFECT GRID ===== */
+.grid-item-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== AUTO-FIT GRIDS ===== */
+.auto-grid-xs {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.auto-grid-sm {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.auto-grid-md {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.auto-grid-lg {
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+@media (max-width: 1200px) {
+  .financial-dashboard {
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas: 
+      "header header"
+      "main widgets"
+      "footer footer";
+  }
+  
+  .trading-layout .news, 
+  .trading-layout .orderbook {
+    display: none;
+  }
+  
+  .chart-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "main-chart"
+      "volume";
+  }
+}
+
+@media (max-width: 768px) {
+  .info-sections-horizontal {
+    grid-template-columns: 1fr;
+    gap: var(--fh-space-8);
+    padding: 0 var(--fh-space-1);
+    margin: var(--fh-space-4) 0;
+  }
+  
+  .analysis-grid {
+    grid-template-columns: 1fr;
+    gap: var(--fh-space-3);
+  }
+  
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--fh-space-3);
+  }
+  
+  .dashboard-main, 
+  .dashboard-sidebar {
+    padding: var(--fh-space-4);
+  }
+  
+  .three-column {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar-main {
+    grid-template-columns: 1fr;
+  }
+  
+  .financial-dashboard, 
+  .trading-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-premium, 
+  .analysis-grid, 
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: var(--fh-space-3);
+  }
+  
+  .responsive-cards {
+    grid-template-columns: 1fr;
+    gap: var(--fh-space-3);
+  }
+}
+
+/* ===== MASONRY LAYOUT SUPPORT ===== */
+@supports (display: masonry) {
+  .bubble-grid-masonry {
+    display: masonry;
+    masonry-auto-flow: pack;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .analysis-card, 
+  .metric-card, 
+  .grid-item-premium {
+    transition: none;
+  }
+  
+  .analysis-card:hover, 
+  .metric-card:hover, 
+  .grid-item-premium:hover {
+    transform: none;
+  }
+}
+
+/* ===== HIGH CONTRAST MODE ===== */
+@media (prefers-contrast: high) {
+  .grid-premium, 
+  .analysis-card, 
+  .metric-card {
+    border: 2px solid var(--text-primary);
+  }
+}
+
+/* ===== SUBGRID SUPPORT (Future-proofing) ===== */
+@supports (grid-template-rows: subgrid) {
+  .subgrid-rows {
+    grid-template-rows: subgrid;
+  }
+  
+  .subgrid-cols {
+    grid-template-columns: subgrid;
+  }
+} 

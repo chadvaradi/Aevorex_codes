@@ -1,0 +1,45 @@
+/* =================================================================== SHARED BUTTONS - Common button styles across FinanceHub =================================================================== */ /* Base Button Styles */ .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--fh-space-2) var(--fh-space-3);
+  border: none;
+  border-radius: var(--fh-radius-lg);
+  font-family: var(--fh-font-family-sans);
+  font-size: var(--fh-font-size-sm);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--fh-transition-fast);
+  white-space: nowrap;
+  user-select: none;
+}
+/* Button Variants */ .btn-primary {
+  background: var(--fh-accent-primary);
+  color: var(--text-inverse);
+  transition: var(--fh-transition-fast);
+}
+.btn-primary:hover {
+  background: var(--fh-accent-hover);
+}
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+}
+.btn-accent {
+  background: var(--accent-primary);
+  color: var(--text-inverse);
+}
+/* Button States */ .btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+.btn:active {
+  transform: translateY(0);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+} 

@@ -1,0 +1,57 @@
+/* === STOCK HEADER COMPONENT - AEVOREX PREMIUM === */ /* Hiányzó stock-header osztályok hozzáadása */ .stock-header-section, .stock-header-container {
+  width: 100%;
+  padding: 20px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-primary);
+}
+.stock-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.stock-header-message {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--info-bg-soft);
+  border: 1px solid var(--info-border);
+  border-radius: 8px;
+  color: var(--info-color);
+  font-size: 0.9rem;
+  margin: 10px 0;
+}
+.stock-header-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: var(--bg-secondary);
+  border: 2px dashed var(--border-color);
+  border-radius: 12px;
+  color: var(--text-muted);
+  font-size: 1rem;
+  text-align: center;
+  min-height: 120px;
+}
+.stock-header-placeholder::before {
+  content: "📊";
+  font-size: 2rem;
+  margin-right: 12px;
+}
+/* ... existing code ... */ /* Hiányzó stock-header osztályok hozzáadása */ .stock-header-section, .stock-header-container {
+  width: 100%;
+  padding: 20px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-primary);
+}
+
+
+
+
+
+/* ... existing code ... */ 

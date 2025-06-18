@@ -1,0 +1,20 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+Minden felhasználói kérés (prompt) csak azután kerülhet továbbításra az AI modell(ek) felé, hogy:
+	1.	Preprocesszálási pipeline-on ment keresztül, amely:
+	•	kiszűri az üres, túl rövid vagy irreleváns kéréseket (min length > 5, context relevance score > 0.6),
+	•	automatikusan azonosítja a prompt típusát (query_type: summary / indicator / news / hybrid),
+	•	és kiválasztja az ehhez illeszkedő prompt_template_id sablont a prompt_templates/financehub/ könyvtárból.
+	2.	A prompt struktúrája kiegészült az aktuális stock tickerhez tartozó adatblokkal, amely legalább az alábbi mezőket tartalmazza:
+	•	ohlcv (latest prices),
+	•	indicator_history (for the selected indicators),
+	•	fundamentals (basic financials),
+	•	latest_news[] (news headlines),
+	•	valamint opcionálisan a user_visible_notes (user-specific annotations from frontend state).
+	3.	A végső input-payload JSON szerializált formában kerül elküldésre a backend POST /chat/finance API-végpontjára, ahol megtörténik:
+	•	a chat_id naplózása és user/session hash alapján történő cache-ellenőrzés,
+	•	a request validálása a ChatFinanceRequest Pydantic sémával,
+	•	és csak ezután hívódik meg az LLM API (pl. OpenAI GPT-4-turbo vagy Gemini Pro) a render_prompt(template, data) által generált inputtal.

@@ -1,0 +1,235 @@
+ /**
+ * @file technical-analysis.css
+ * @description Technical Analysis bubble specific styles for FinanceHub
+ * @version 1.0.0
+ * @author AEVOREX
+ * @lastUpdated 2025-06-13
+ * @comp Technical Analysis Bubble v1.0
+ */
+
+/* Content padding */
+.fh-analysis-bubble--technical-analysis .fh-analysis-bubble__content {
+    padding: var(--fh-space-2) 0;
+  }
+  
+  /* Chart canvas */
+  .fh-analysis-bubble--technical-analysis .chart-canvas {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background: var(--surface-tertiary);
+    border-radius: var(--fh-radius-md);
+    border: 1px solid var(--border-light);
+    margin: var(--fh-space-3) 0;
+    overflow: hidden;
+  }
+  
+  .fh-analysis-bubble--technical-analysis .chart-canvas::before {
+    content: 'Chart Loading...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-muted);
+    font-size: var(--fh-font-size-sm);
+    font-weight: var(--fh-font-weight-medium);
+  }
+  
+  .fh-analysis-bubble--technical-analysis .chart-canvas.loaded::before {
+    display: none;
+  }
+  
+  /* Indicator legend */
+  .fh-analysis-bubble--technical-analysis .indicator-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--fh-space-2);
+    margin: var(--fh-space-3) 0;
+    padding: var(--fh-space-2);
+    background: var(--surface-tertiary);
+    border-radius: var(--fh-radius-sm);
+    border-left: 3px solid var(--accent-technical, #9c27b0);
+  }
+  
+  .fh-analysis-bubble--technical-analysis .indicator-legend__item {
+    display: flex;
+    align-items: center;
+    gap: var(--fh-space-1);
+    font-size: var(--fh-font-size-xs);
+    color: var(--text-muted);
+    font-weight: var(--fh-font-weight-medium);
+  }
+  
+  .fh-analysis-bubble--technical-analysis .indicator-legend__color {
+    width: 12px;
+    height: 2px;
+    border-radius: 1px;
+  }
+  
+  .fh-analysis-bubble--technical-analysis .indicator-legend__color--ma20 { background: var(--color-info, #3b82f6); }
+  .fh-analysis-bubble--technical-analysis .indicator-legend__color--ma50 { background: var(--color-warning, #f59e0b); }
+  .fh-analysis-bubble--technical-analysis .indicator-legend__color--rsi { background: var(--accent-technical, #9c27b0); }
+  .fh-analysis-bubble--technical-analysis .indicator-legend__color--macd { background: var(--color-success); }
+  
+  /* Signal badges */
+  .fh-analysis-bubble--technical-analysis .signal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--fh-space-1);
+    padding: var(--fh-space-1) var(--fh-space-2);
+    border-radius: var(--fh-radius-sm);
+    font-size: var(--fh-font-size-xs);
+    font-weight: var(--fh-font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: var(--fh-space-1) var(--fh-space-1) var(--fh-space-1) 0;
+  }
+  
+  .fh-analysis-bubble--technical-analysis .signal-badge--bullish {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--color-success);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+  }
+  
+  .fh-analysis-bubble--technical-analysis .signal-badge--bearish {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--color-error);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+  }
+  
+  .fh-analysis-bubble--technical-analysis .signal-badge--neutral {
+    background: var(--surface-tertiary);
+    color: var(--text-muted);
+    border: 1px solid var(--border-light);
+  }
+  
+  .fh-analysis-bubble--technical-analysis .signal-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  
+  /* Technical indicators */
+  .fh-analysis-bubble--technical-analysis .technical-indicator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--fh-space-2) 0;
+    border-bottom: 1px solid var(--border-light);
+    transition: var(--fh-transition-fast);
+  }
+  
+  .fh-analysis-bubble--technical-analysis .technical-indicator:last-child {
+    border-bottom: none;
+  }
+  
+  .fh-analysis-bubble--technical-analysis .technical-indicator:hover {
+    background: var(--surface-tertiary);
+    margin: 0 calc(-1 * var(--fh-space-2));
+    padding-left: var(--fh-space-2);
+    padding-right: var(--fh-space-2);
+    border-radius: var(--fh-radius-sm);
+  }
+  
+  .fh-analysis-bubble--technical-analysis .technical-indicator__name {
+    font-size: var(--fh-font-size-sm);
+    color: var(--text-secondary);
+    font-weight: var(--fh-font-weight-medium);
+  }
+  
+  .fh-analysis-bubble--technical-analysis .technical-indicator__value {
+    display: flex;
+    align-items: center;
+    gap: var(--fh-space-2);
+    font-size: var(--fh-font-size-sm);
+    color: var(--text-primary);
+    font-weight: var(--fh-font-weight-semibold);
+    font-variant-numeric: tabular-nums;
+  }
+  
+  /* Support & resistance */
+  .fh-analysis-bubble--technical-analysis .support-resistance__title {
+    font-size: var(--fh-font-size-sm);
+    color: var(--text-primary);
+    font-weight: var(--fh-font-weight-semibold);
+    margin-bottom: var(--fh-space-2);
+  }
+  
+  .fh-analysis-bubble--technical-analysis .level {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--fh-space-1) var(--fh-space-2);
+    margin-bottom: var(--fh-space-1);
+    border-radius: var(--fh-radius-sm);
+    font-size: var(--fh-font-size-xs);
+    font-weight: var(--fh-font-weight-medium);
+  }
+  
+  .fh-analysis-bubble--technical-analysis .level--support {
+    background: rgba(34, 197, 94, 0.1);
+    border-left: 3px solid var(--color-success);
+    color: var(--text-secondary);
+  }
+  
+  .fh-analysis-bubble--technical-analysis .level--resistance {
+    background: rgba(239, 68, 68, 0.1);
+    border-left: 3px solid var(--color-error);
+    color: var(--text-secondary);
+  }
+  
+  .fh-analysis-bubble--technical-analysis .level__price {
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--fh-font-weight-semibold);
+  }
+  
+  /* Responsive */
+  @media (max-width: var(--fh-breakpoint-md)) {
+    .fh-analysis-bubble--technical-analysis .chart-canvas {
+      height: 150px;
+    }
+    
+    .fh-analysis-bubble--technical-analysis .indicator-legend {
+      flex-direction: column;
+      gap: var(--fh-space-1);
+    }
+    
+    .fh-analysis-bubble--technical-analysis .technical-indicator {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--fh-space-1);
+    }
+  }
+  
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .fh-analysis-bubble--technical-analysis .technical-indicator {
+      transition: none;
+    }
+  }
+
+  .fh-analysis-bubble--technical-analysis .percentage-change-positive {
+    color: var(--color-success);
+  }
+
+  .fh-analysis-bubble--technical-analysis .percentage-change-negative {
+    color: var(--color-error);
+  }
+
+  .fh-analysis-bubble--technical-analysis .percentage-change--positive::before {
+    border-bottom: 4px solid var(--color-success);
+  }
+
+  .fh-analysis-bubble--technical-analysis .percentage-change--negative::before {
+    border-top: 4px solid var(--color-error);
+  }
+
+  .fh-analysis-bubble--technical-analysis .technical-indicator--bullish {
+    border-left: 3px solid var(--color-success);
+  }
+
+  .fh-analysis-bubble--technical-analysis .technical-indicator--bearish {
+    border-left: 3px solid var(--color-error);
+  }

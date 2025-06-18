@@ -1,0 +1,28 @@
+/* =============================================================== */ /* === PREMIUM MODULAR CSS ARCHITECTURE - CONTENTHUB v2.1 === */ /* =============================================================== */ /* * Architektúra: Moduláris, Prémium, Skálázható * Utolsó frissítés: 2025-06-09 * Cél: Harmonikus, letisztult UX a ContentHub modulhoz */ /* ===================== */ /* === BASE LAYER === */ /* ===================== */ @import url('./01-base/reset.css'); @import url('./01-base/variables.css'); @import url('./01-base/typography.css'); /* ===================== */ /* === COMPONENTS === */ /* ===================== */ @import url('./02-components/header.css'); @import url('./02-components/navigation.css'); @import url('./02-components/buttons.css'); @import url('./02-components/cards.css'); @import url('./02-components/forms.css'); @import url('./02-components/module-cards.css'); @import url('./02-components/workflow.css'); @import url('./02-components/theme-system.css'); @import url('./02-components/layout-main.css'); @import url('./02-components/layout-dashboard.css'); /* ===================== */ /* === THEMES === */ /* ===================== */ @import url('./03-themes/light.css'); @import url('./03-themes/dark.css'); /* ===================== */ /* === UTILITIES === */ /* ===================== */ @import url('./04-utilities/accessibility.css'); @import url('./04-utilities/responsive.css'); @import url('./04-utilities/performance.css'); @import url('./04-utilities/print.css'); @import url('./04-utilities/fallback.css'); /* =============================================================== */ /* === CRITICAL UX FIXES - HERO SECTION === */ /* =============================================================== */ /* Hero Feature Icons - Prémium méretezés */ .hero-feature__icon {
+  width: 24px !important;
+  height: 24px !important;
+  flex-shrink: 0 !important;
+  display: block !important;
+}
+/* Hero Feature Container - Harmonikus elrendezés */ .hero-feature {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-size: 14px !important;
+}
+/* SVG Ikonok univerzális korlátok */ svg:not([width]):not([height]) {
+  max-width: 24px !important;
+  max-height: 24px !important;
+}
+/* Túlméretezett elemek megelőzése */ * {
+  max-width: 100% !important;
+}
+
+/* =============================================================== */
+/* === ARCHITEKTÚRA VÉDELEM === */
+/* =============================================================== */
+/* 
+ * Ez a fájl a ContentHub CSS architektúra központi magja.
+ * Módosítás előtt konzultálj az Aevorex Premium Team-mel.
+ * Változtatásokat csak moduláris elven végezd!
+ */ 

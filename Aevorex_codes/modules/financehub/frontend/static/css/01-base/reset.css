@@ -1,0 +1,165 @@
+/* =================================================================== AEVOREX BASE - CSS RESET Modern CSS Reset for Professional Enterprise Platform =================================================================== */
+@import url("https://unpkg.com/modern-normalize@2.0.0/modern-normalize.css") layer(base-normalize);
+/* Box-sizing reset */ *, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* HTML and Body base styles */ html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--fh-font-family-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: var(--fh-line-height-normal);
+  font-weight: var(--fh-font-weight-normal);
+  font-size: var(--fh-font-size-base);
+  text-rendering: optimizeLegibility;
+  font-smooth: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+/* Heading reset */ h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  font-weight: var(--fh-font-weight-semibold);
+  line-height: var(--fh-line-height-tight);
+  color: var(--text-primary);
+}
+h1 {
+  font-size: var(--fh-font-size-2xl);
+}
+h2 {
+  font-size: var(--fh-font-size-xl);
+}
+h3 {
+  font-size: var(--fh-font-size-lg);
+}
+h4 {
+  font-size: var(--fh-font-size-base);
+}
+h5 {
+  font-size: var(--fh-font-size-sm);
+}
+h6 {
+  font-size: var(--fh-font-size-sm);
+}
+/* Paragraph reset */ p {
+  margin: 0;
+  padding: 0;
+  line-height: var(--line-height-relaxed);
+}
+/* Link reset */ a {
+  color: var(--text-accent);
+  text-decoration: none;
+  transition: var(--fh-transition-fast, 150ms ease-in-out);
+}
+a:hover {
+  color: var(--text-accent-hover);
+}
+/* Strong text */ strong {
+  font-weight: var(--fh-font-weight-bold);
+  color: var(--text-primary);
+}
+/* Button and form element reset */ button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+/* List reset */ ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* Image and media reset */ img, video, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+/* Table reset */ table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+/* Scrollbar styling */ ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--fh-border-light);
+  border-radius: var(--radius-sm);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fh-border-medium);
+}
+/* Focus styles for accessibility */ :focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+/* Remove focus outline for mouse users */ :focus:not(:focus-visible) {
+  outline: none;
+}
+/* Hidden content */ .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+/* Visually hidden but screen reader accessible */ .visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+:root {
+  --fh-border-light: #000000;
+  --fh-border-medium: #333333;
+  --text-primary: #000000;
+  --text-secondary: #333333;
+}
+} /* Reduced motion support */ @media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* === DUPLICATE MODERN NORMALIZE IMPORT REMOVED === */
+/* @import url("https://unpkg.com/modern-normalize@2.0.0/modern-normalize.css") layer(base-normalize); */ 

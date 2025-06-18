@@ -1,0 +1,120 @@
+/* ===== GLASSMORPHISM UTILITIES - OPTIMIZED ===== */ /* Premium glassmorphism effects for FinanceHub - Single Source of Truth */ /* Base Glass Effect */ .glass {
+  background: var(--glass-background);
+  border: var(--glass-border);
+  backdrop-filter: var(--glass-backdrop);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--fh-radius-lg);
+}
+/* Glass Variants - Intensity Levels */ .glass-light {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: var(--backdrop-blur-sm);
+}
+.glass-medium {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: var(--backdrop-blur-md);
+}
+.glass-heavy {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: var(--backdrop-blur-lg);
+}
+/* Dark Theme Glass */ .glass-dark {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: var(--backdrop-blur-md);
+}
+/* Interactive States */ .glass-interactive {
+  transition: var(--fh-transition-all);
+  cursor: pointer;
+}
+.glass-interactive:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+.glass-interactive:active {
+  transform: translateY(0);
+  background: rgba(255, 255, 255, 0.08);
+}
+/* Specialized Glass Components */ .glass-bubble {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: var(--fh-space-6);
+  border-radius: var(--fh-radius-2xl);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--fh-shadow-lg);
+}
+.glass-bubble::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--aevorex-brand-primary) 0%, var(--aevorex-brand-secondary) 100%);
+  opacity: 0.8;
+}
+.glass-nav {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--fh-space-4) var(--fh-space-6);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.glass-modal {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.glass-modal-content {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  max-width: 90vw;
+  max-height: 90vh;
+  padding: var(--fh-space-8);
+  border-radius: var(--fh-radius-xl);
+}
+/* Responsive Glass Effects */ @media (max-width: var(--fh-breakpoint-md)) {
+  .glass,
+  .glass-light,
+  .glass-medium,
+  .glass-heavy,
+  .glass-dark,
+  .glass-bubble,
+  .glass-nav,
+  .glass-modal,
+  .glass-modal-content {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--bg-secondary, rgba(255,255,255,0.06)); /* simple translucent fallback */
+    border-color: transparent;
+  }
+}
+/* Responsive Glass Effects: handled in per-component files */
+/* Reduced Motion Support */ @media (prefers-reduced-motion: reduce) {
+  .glass-interactive:hover {
+    transition: none;
+    transform: none;
+  }
+}
+/* Performance hint for desktop */
+@media (min-width: var(--fh-breakpoint-md)) {
+  .glass,
+  .glass-interactive,
+  .glass-bubble {
+    will-change: transform, opacity; /* modern GPU hint */
+  }
+} 

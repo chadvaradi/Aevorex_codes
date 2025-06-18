@@ -1,0 +1,53 @@
+/* ===================================================================
+   AEVOREX FINANCEHUB – HEADER › BRAND SUB-COMPONENT (v1)
+   Splits the brand rules from monolithic header.css for scalability.
+   =================================================================== */
+
+.fh-header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-3);
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: var(--fh-font-weight-bold);
+  font-size: var(--fh-font-size-lg);
+  flex-shrink: 0;
+}
+
+.fh-header__logo {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--fh-radius-sm);
+}
+
+/* Brand text wrapper (legacy alias .brand-name) */
+.fh-header__title,
+.brand-name {
+  font-size: var(--fh-font-size-lg);
+  font-weight: var(--fh-font-weight-bold);
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+/* Version badge next to brand (optional) */
+.fh-header__version-badge,
+.version-badge {
+  background: var(--aevorex-brand-primary);
+  color: var(--bg-primary);
+  padding: var(--fh-space-1) var(--fh-space-2);
+  border-radius: 12px;
+  font-size: var(--fh-font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive – font scaling */
+@media (max-width: var(--fh-breakpoint-md)) {
+  .fh-header__title,
+  .brand-name {
+    font-size: var(--fh-font-size-base);
+  }
+} 
+ 
+ 

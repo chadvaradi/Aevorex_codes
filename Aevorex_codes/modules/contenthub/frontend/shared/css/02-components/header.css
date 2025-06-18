@@ -1,0 +1,106 @@
+/** * ========================================================================== * HEADER COMPONENT - ContentHub * ========================================================================== * Extracted from contenthub-bundle.css * Priority 1: Core Navigation & Layout */ /* ---- HEADER CONTAINER ---- */ .ch-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--ch-z-sticky);
+  background-color: var(--ch-surface-primary);
+  border-bottom: 1px solid var(--ch-border-primary);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.ch-header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+  padding: 0 var(--ch-space-4);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+/* ---- BRAND SECTION ---- */ .ch-header__brand {
+  display: flex;
+  align-items: center;
+}
+.ch-brand-link {
+  display: flex;
+  align-items: center;
+  gap: var(--ch-space-3);
+  text-decoration: none;
+  color: inherit;
+}
+.ch-header__logo svg {
+  width: 2rem;
+  height: 2rem;
+}
+.ch-header__brand-text {
+  display: none;
+  flex-direction: column;
+}
+.ch-header__brand-name {
+  font-family: var(--ch-font-family-heading);
+  font-size: var(--ch-font-size-lg);
+  font-weight: var(--ch-font-weight-bold);
+  color: var(--ch-text-primary);
+  line-height: 1.2;
+}
+.ch-header__brand-subtitle {
+  font-size: var(--ch-font-size-xs);
+  color: var(--ch-text-secondary);
+  line-height: 1;
+}
+/* ---- NAVIGATION ---- */ .ch-header__nav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+.ch-header__nav {
+  display: block;
+}
+} .ch-nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--ch-space-6);
+  list-style: none;
+}
+.ch-nav__link {
+  font-size: var(--ch-font-size-sm);
+  font-weight: var(--ch-font-weight-medium);
+  color: var(--ch-text-secondary);
+  text-decoration: none;
+  padding: var(--ch-space-2) 0;
+  position: relative;
+  transition: color var(--ch-transition-fast);
+}
+.ch-nav__link:hover, .ch-nav__link--active {
+  color: var(--ch-primary-600);
+}
+.ch-nav__link--active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--ch-primary-600);
+  border-radius: var(--ch-radius-full);
+}
+/* ---- HEADER ACTIONS ---- */ .ch-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--ch-space-2);
+}
+/* ---- THEME OVERRIDES ---- */ [data-theme="light"] .ch-nav__link:hover, [data-theme="light"] .ch-nav__link--active {
+  color: var(--ch-primary-800);
+}
+
+/* ---- RESPONSIVE BREAKPOINTS ---- */
+@media (max-width: 767px) {
+
+
+}
+
+/* ---- PRINT STYLES ---- */
+@media print {
+.ch-header {
+  display: none;
+}
+} 

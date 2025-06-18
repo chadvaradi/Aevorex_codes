@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Health Dashboard | AEVOREX HealthHub</title>
+    <meta name="description" content="Comprehensive healthcare dashboard with real-time vitals, AI diagnostics, and wellness analytics.">
+    
+    <!-- Import Shared CSS Framework -->
+    <link rel="stylesheet" href="../../../shared/frontend/static/css/aevorex-core.css">
+    <link rel="stylesheet" href="../../../shared/frontend/static/css/aevorex-components.css">
+    <link rel="stylesheet" href="../css/healthhub.css">
+    
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="healthhub" data-theme="dark">
+    <!-- Enterprise Navigation Header -->
+    <header class="header" role="banner">
+        <div class="header__container">
+            <div class="header__brand">
+                <a href="../index.html" aria-label="HealthHub Homepage">
+                    <div class="header__logo">
+                        <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ef4444"/>
+                                    <stop offset="100%" style="stop-color:#dc2626"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="100" cy="100" r="80" fill="url(#logoGradient)"/>
+                            <path d="M60 80 L100 120 L140 80" stroke="white" stroke-width="8" fill="none" stroke-linecap="round"/>
+                            <circle cx="100" cy="60" r="12" fill="white"/>
+                        </svg>
+                    </div>
+                    <div class="header__brand-text">
+                        <div class="header__brand-name">Health Dashboard</div>
+                        <div class="header__brand-subtitle">Real-time Analytics</div>
+                    </div>
+                </a>
+            </div>
+
+            <nav class="header__nav" aria-label="Health navigation">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="../index.html" class="nav__link">
+                            <span>🏥</span>
+                            <span>Overview</span>
+                        </a>
+                    </li>
+                    <li class="nav__item nav__item--active">
+                        <a href="dashboard.html" class="nav__link">
+                            <span>📊</span>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="diagnostics.html" class="nav__link">
+                            <span>🔬</span>
+                            <span>Diagnostics</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="wellness.html" class="nav__link">
+                            <span>💪</span>
+                            <span>Wellness</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="header__actions">
+                <button class="btn btn--icon" data-theme-toggle aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content dashboard-main" role="main">
+        <div class="container">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <div class="breadcrumbs"></div>
+                <h1>Health Analytics Dashboard</h1>
+                <div class="dashboard-controls">
+                    <select class="dashboard-period">
+                        <option value="24h">Last 24 Hours</option>
+                        <option value="7d" selected>Last 7 Days</option>
+                        <option value="30d">Last 30 Days</option>
+                        <option value="90d">Last 90 Days</option>
+                    </select>
+                    <button class="btn btn--primary">Export Report</button>
+                </div>
+            </div>
+
+            <!-- Real-time Status Bar -->
+            <div class="status-bar">
+                <div class="status-item status-item--vital">
+                    <div class="status-indicator status--good"></div>
+                    <span>All Vitals Normal</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-indicator status--warning"></div>
+                    <span>Sleep Quality Below Average</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-indicator status--good"></div>
+                    <span>Activity Goal Achieved</span>
+                </div>
+                <div class="sync-status">
+                    <span class="sync-indicator"></span>
+                    <span>Last sync: 2 min ago</span>
+                </div>
+            </div>
+
+            <!-- Main Dashboard Grid -->
+            <div class="dashboard-grid-main">
+                <!-- Left Column - Vitals -->
+                <div class="dashboard-column dashboard-column--primary">
+                    <!-- Current Vitals -->
+                    <div class="dashboard-widget widget--vitals">
+                        <div class="widget-header">
+                            <h3>Current Vitals</h3>
+                            <span class="widget-status status--live">LIVE</span>
+                        </div>
+                        <div class="vitals-grid-large">
+                            <div class="vital-card vital-card--heart-rate">
+                                <div class="vital-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                                    </svg>
+                                </div>
+                                <div class="vital-info">
+                                    <span class="vital-value">72</span>
+                                    <span class="vital-unit">bpm</span>
+                                    <span class="vital-label">Heart Rate</span>
+                                </div>
+                                <div class="vital-trend trend--stable">
+                                    <span class="trend-icon">→</span>
+                                    <span class="trend-text">Normal</span>
+                                </div>
+                            </div>
+
+                            <div class="vital-card vital-card--blood-pressure">
+                                <div class="vital-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                                        <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                                        <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                                    </svg>
+                                </div>
+                                <div class="vital-info">
+                                    <span class="vital-value">120/80</span>
+                                    <span class="vital-unit">mmHg</span>
+                                    <span class="vital-label">Blood Pressure</span>
+                                </div>
+                                <div class="vital-trend trend--good">
+                                    <span class="trend-icon">↓</span>
+                                    <span class="trend-text">Improved</span>
+                                </div>
+                            </div>
+
+                            <div class="vital-card vital-card--temperature">
+                                <div class="vital-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"></path>
+                                    </svg>
+                                </div>
+                                <div class="vital-info">
+                                    <span class="vital-value">36.7</span>
+                                    <span class="vital-unit">°C</span>
+                                    <span class="vital-label">Temperature</span>
+                                </div>
+                                <div class="vital-trend trend--stable">
+                                    <span class="trend-icon">→</span>
+                                    <span class="trend-text">Normal</span>
+                                </div>
+                            </div>
+
+                            <div class="vital-card vital-card--oxygen">
+                                <div class="vital-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M8 12l2 2 4-4"></path>
+                                    </svg>
+                                </div>
+                                <div class="vital-info">
+                                    <span class="vital-value">98</span>
+                                    <span class="vital-unit">%</span>
+                                    <span class="vital-label">SpO2</span>
+                                </div>
+                                <div class="vital-trend trend--good">
+                                    <span class="trend-icon">↑</span>
+                                    <span class="trend-text">Excellent</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Heart Rate Chart -->
+                    <div class="dashboard-widget widget--chart">
+                        <div class="widget-header">
+                            <h3>Heart Rate Trends</h3>
+                            <div class="chart-controls">
+                                <button class="chart-period active" data-period="24h">24H</button>
+                                <button class="chart-period" data-period="7d">7D</button>
+                                <button class="chart-period" data-period="30d">30D</button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="heartRateChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Analytics & Insights -->
+                <div class="dashboard-column dashboard-column--secondary">
+                    <!-- Wellness Score -->
+                    <div class="dashboard-widget widget--wellness-score">
+                        <div class="widget-header">
+                            <h3>Overall Wellness Score</h3>
+                            <span class="widget-date">Today</span>
+                        </div>
+                        <div class="wellness-score-large">
+                            <div class="score-circle-large">
+                                <svg width="120" height="120" class="score-progress">
+                                    <circle cx="60" cy="60" r="50" fill="none" stroke="var(--bg-secondary)" stroke-width="8"/>
+                                    <circle cx="60" cy="60" r="50" fill="none" stroke="url(#scoreGradient)" stroke-width="8" 
+                                            stroke-dasharray="314" stroke-dashoffset="31.4" transform="rotate(-90 60 60)"/>
+                                    <defs>
+                                        <linearGradient id="scoreGradient">
+                                            <stop offset="0%" style="stop-color:#10b981"/>
+                                            <stop offset="100%" style="stop-color:#059669"/>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <div class="score-text">
+                                    <span class="score-value">90</span>
+                                    <span class="score-label">/100</span>
+                                </div>
+                            </div>
+                            <div class="score-breakdown">
+                                <div class="breakdown-item">
+                                    <span class="breakdown-label">Vitals</span>
+                                    <div class="breakdown-bar">
+                                        <div class="breakdown-fill" style="width: 95%"></div>
+                                    </div>
+                                    <span class="breakdown-value">95</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="breakdown-label">Activity</span>
+                                    <div class="breakdown-bar">
+                                        <div class="breakdown-fill" style="width: 88%"></div>
+                                    </div>
+                                    <span class="breakdown-value">88</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="breakdown-label">Sleep</span>
+                                    <div class="breakdown-bar">
+                                        <div class="breakdown-fill" style="width: 75%"></div>
+                                    </div>
+                                    <span class="breakdown-value">75</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="breakdown-label">Nutrition</span>
+                                    <div class="breakdown-bar">
+                                        <div class="breakdown-fill" style="width: 92%"></div>
+                                    </div>
+                                    <span class="breakdown-value">92</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Insights -->
+                    <div class="dashboard-widget widget--ai-insights">
+                        <div class="widget-header">
+                            <h3>AI Health Insights</h3>
+                            <button class="btn btn--small btn--outline">View All</button>
+                        </div>
+                        <div class="insights-list">
+                            <div class="insight-item insight--recommendation">
+                                <div class="insight-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                    </svg>
+                                </div>
+                                <div class="insight-content">
+                                    <h4>Sleep Optimization</h4>
+                                    <p>Your sleep quality improved by 15% this week. Consider maintaining current bedtime routine.</p>
+                                    <span class="insight-confidence">Confidence: 94%</span>
+                                </div>
+                            </div>
+
+                            <div class="insight-item insight--alert">
+                                <div class="insight-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                    </svg>
+                                </div>
+                                <div class="insight-content">
+                                    <h4>Hydration Alert</h4>
+                                    <p>Water intake below recommended levels. Increase daily intake by 2-3 glasses.</p>
+                                    <span class="insight-confidence">Confidence: 87%</span>
+                                </div>
+                            </div>
+
+                            <div class="insight-item insight--suggestion">
+                                <div class="insight-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 12l2 2 4-4"></path>
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                    </svg>
+                                </div>
+                                <div class="insight-content">
+                                    <h4>Exercise Pattern</h4>
+                                    <p>Optimal workout window detected between 6-8 AM based on heart rate variability.</p>
+                                    <span class="insight-confidence">Confidence: 91%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Activity Summary -->
+                    <div class="dashboard-widget widget--activity">
+                        <div class="widget-header">
+                            <h3>Today's Activity</h3>
+                            <span class="widget-date">January 23, 2024</span>
+                        </div>
+                        <div class="activity-rings">
+                            <div class="activity-ring activity-ring--move">
+                                <svg width="80" height="80">
+                                    <circle cx="40" cy="40" r="35" fill="none" stroke="var(--bg-secondary)" stroke-width="6"/>
+                                    <circle cx="40" cy="40" r="35" fill="none" stroke="#ef4444" stroke-width="6" 
+                                            stroke-dasharray="220" stroke-dashoffset="44" transform="rotate(-90 40 40)"/>
+                                </svg>
+                                <div class="ring-content">
+                                    <span class="ring-value">480</span>
+                                    <span class="ring-label">cal</span>
+                                </div>
+                            </div>
+                            <div class="activity-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Steps</span>
+                                    <span class="stat-value">12,847</span>
+                                    <span class="stat-goal">/10,000</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Distance</span>
+                                    <span class="stat-value">8.2</span>
+                                    <span class="stat-goal">km</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Active Time</span>
+                                    <span class="stat-value">47</span>
+                                    <span class="stat-goal">min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Shared Footer -->
+    <div id="shared-footer"></div>
+
+    <!-- Scripts -->
+    <script src="../../../shared/frontend/static/js/navigation.js"></script>
+    <script>
+        // Initialize charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Heart Rate Chart
+            const heartRateCtx = document.getElementById('heartRateChart').getContext('2d');
+            new Chart(heartRateCtx, {
+                type: 'line',
+                data: {
+                    labels: ['6:00', '9:00', '12:00', '15:00', '18:00', '21:00'],
+                    datasets: [{
+                        label: 'Heart Rate',
+                        data: [65, 75, 80, 78, 72, 68],
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 60,
+                            max: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // Real-time updates simulation
+            setInterval(() => {
+                const syncIndicator = document.querySelector('.sync-indicator');
+                if (syncIndicator) {
+                    syncIndicator.style.animation = 'pulse-health 0.5s ease-in-out';
+                    setTimeout(() => {
+                        syncIndicator.style.animation = '';
+                    }, 500);
+                }
+            }, 30000);
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,35 @@
+# Dockerfile.frontend
+
+# Használj egy pehelykönnyű Nginx image-et
+FROM nginx:alpine
+
+# Másold be a frontend könyvtár TELJES TARTALMÁT a container web rootjába
+# Mivel a Dockerfile a projekt gyökerében van, meg kell adnunk a frontend mappát
+COPY nginx-frontend.conf /etc/nginx/conf.d/default.conf
+COPY frontend/ /usr/share/nginx/html
+
+# (Opcionális, de hasznos SPA-khoz) Hozz létre egy egyszerű Nginx konfigot,
+# ami minden nem létező útvonalat az index.html-re irányít át.
+# Hozz létre egy 'nginx-frontend.conf' fájlt a Dockerfile.frontend mellett
+# a következő tartalommal:
+#
+# server {
+#     listen 8080;
+#     server_name _;
+#
+#     root /usr/share/nginx/html;
+#     index index.html index.htm;
+#
+#     location / {
+#         try_files $uri $uri/ /index.html;
+#     }
+# }
+#
+# És másold be a containerbe (ha létrehoztad az nginx-frontend.conf fájlt):
+# COPY nginx-frontend.conf /etc/nginx/conf.d/default.conf
+
+# Tedd elérhetővé a 8080-as portot (a Cloud Run ezt várja alapból)
+EXPOSE 8080
+
+# Az alapértelmezett Nginx parancs elindítja a szervert
+CMD ["nginx", "-g", "daemon off;"]

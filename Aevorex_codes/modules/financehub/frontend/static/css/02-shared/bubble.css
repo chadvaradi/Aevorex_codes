@@ -1,0 +1,24 @@
+/* ===================================================================
+   AEVOREX FINANCEHUB – SHARED BUBBLE MIXIN (v1)
+   Centralised style used by chat bubbles, analysis bubbles, etc.
+   Keeps every bubble ≤ 1 place for easy tweak & token swap.
+   =================================================================== */
+.fh-bubble {
+  background: var(--bg-secondary, rgba(255,255,255,0.65));
+  backdrop-filter: blur(var(--fh-blur-md,8px));
+  border: 1px solid var(--fh-border-light);
+  border-radius: var(--fh-radius-lg);
+  padding: var(--fh-space-6);
+  box-shadow: var(--fh-shadow-sm);
+  transition: var(--fh-transition-fast);
+  display: flex;
+  flex-direction: column;
+}
+.fh-bubble:hover {
+  box-shadow: var(--fh-shadow-lg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fh-bubble {
+    transition: none !important;
+  }
+} 

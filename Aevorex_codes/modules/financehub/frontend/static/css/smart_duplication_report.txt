@@ -1,0 +1,1241 @@
+=== INTELLIGENS CSS DUPLIKÁCIÓ ELEMZÉS ===
+Valódi duplikációk: 715
+Hamis pozitívok: 313
+Pontosság: 69.6%
+
+=== VALÓDI DUPLIKÁCIÓK ===
+
+.brand-logo:
+  - main_combined_financehub.css
+  - 00-utilities-fallback.css
+
+.fh-chart__timeframe-btn:
+  - main_combined_financehub.css
+  - 00-utilities-fallback.css
+  - main_combined_financehub.css
+  - chart.css
+
+.fh-chart__timeframe-btn--active:
+  - main_combined_financehub.css
+  - 00-utilities-fallback.css
+  - main_combined_financehub.css
+  - chart.css
+
+0%:
+  - main_combined_financehub.css
+  - 00-utilities-fallback.css
+  - main_combined_financehub.css
+  - animations.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - analysis-bubbles.css
+  - fundamental-analysis-main.css
+  - news.css
+  - price-display-main.css
+  - utilities.css
+  - main_combined_financehub.css
+  - bubbles-shared.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - ai-message.css
+  - ai-message.css
+  - main_combined_financehub.css
+  - core.css
+  - main_combined_financehub.css
+  - particle-effects.css
+
+.container:
+  - main_combined_financehub.css
+  - global.css
+
+from:
+  - main_combined_financehub.css
+  - global.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - layout.css
+  - bubble-base.css
+  - bubble-base.css
+  - ai-chat.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - chat-master.css
+  - chat-grok.css
+  - main_combined_financehub.css
+  - header-main.css
+
+.text-sm:
+  - main_combined_financehub.css
+  - typography.css
+  - main_combined_financehub.css
+  - utilities.css
+  - main_combined_financehub.css
+  - core.css
+
+.text-base:
+  - main_combined_financehub.css
+  - typography.css
+  - main_combined_financehub.css
+  - fonts.css
+  - main_combined_financehub.css
+  - utilities.css
+  - main_combined_financehub.css
+  - core.css
+
+.text-lg:
+  - main_combined_financehub.css
+  - typography.css
+  - main_combined_financehub.css
+  - fonts.css
+  - main_combined_financehub.css
+  - utilities.css
+  - main_combined_financehub.css
+  - core.css
+
+.text-xl:
+  - main_combined_financehub.css
+  - typography.css
+  - main_combined_financehub.css
+  - fonts.css
+  - main_combined_financehub.css
+  - utilities.css
+  - main_combined_financehub.css
+  - core.css
+
+.font-bold:
+  - main_combined_financehub.css
+  - typography.css
+  - main_combined_financehub.css
+  - fonts.css
+  - main_combined_financehub.css
+  - 00-utilities-fallback.css
+  - utilities.css
+
+.text-secondary:
+  - main_combined_financehub.css
+  - typography.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - fonts.css
+  - utilities.css
+  - main_combined_financehub.css
+  - core.css
+
+.text-muted:
+  - main_combined_financehub.css
+  - typography.css
+  - main_combined_financehub.css
+  - fonts.css
+
+.metric-label:
+  - main_combined_financehub.css
+  - typography.css
+  - main_combined_financehub.css
+  - fonts.css
+  - main_combined_financehub.css
+  - main-content.css
+  - main_combined_financehub.css
+  - header.css
+
+.metric-value:
+  - main_combined_financehub.css
+  - typography.css
+  - main_combined_financehub.css
+  - main-content.css
+  - main_combined_financehub.css
+  - fundamental-analysis-main.css
+  - main_combined_financehub.css
+  - header.css
+
+.font-light:
+  - main_combined_financehub.css
+  - typography.css
+  - main_combined_financehub.css
+  - utilities.css
+
+60%:
+  - main_combined_financehub.css
+  - animations.css
+
+0%, 20%:
+  - main_combined_financehub.css
+  - animations.css
+
+.price-change-negative:
+  - main_combined_financehub.css
+  - animations.css
+
+.ticker-item:
+  - main_combined_financehub.css
+  - animations.css
+
+.loading-indicator:
+  - main_combined_financehub.css
+  - animations.css
+
+0%, 20%, 53%, 80%, 100%:
+  - main_combined_financehub.css
+  - animations.css
+
+.animate-fade-in:
+  - main_combined_financehub.css
+  - animations.css
+
+.text-brand:
+  - main_combined_financehub.css
+  - fonts.css
+  - main_combined_financehub.css
+  - core.css
+
+.text-success:
+  - main_combined_financehub.css
+  - fonts.css
+  - main_combined_financehub.css
+  - utilities.css
+  - main_combined_financehub.css
+  - core.css
+
+.text-error:
+  - main_combined_financehub.css
+  - fonts.css
+  - main_combined_financehub.css
+  - utilities.css
+  - main_combined_financehub.css
+  - core.css
+
+.text-warning:
+  - main_combined_financehub.css
+  - fonts.css
+  - main_combined_financehub.css
+  - utilities.css
+  - main_combined_financehub.css
+  - core.css
+
+.financial-heading-xl:
+  - main_combined_financehub.css
+  - fonts.css
+
+.price-display-lg:
+  - main_combined_financehub.css
+  - fonts.css
+
+.mb-2:
+  - main_combined_financehub.css
+  - spacing.css
+
+.p-2:
+  - main_combined_financehub.css
+  - spacing.css
+
+.p-3:
+  - main_combined_financehub.css
+  - spacing.css
+
+.p-4:
+  - main_combined_financehub.css
+  - spacing.css
+
+.px-6:
+  - main_combined_financehub.css
+  - spacing.css
+
+.py-2:
+  - main_combined_financehub.css
+  - spacing.css
+
+.premium-card:
+  - main_combined_financehub.css
+  - spacing.css
+
+.card-spacing, /* Reduce spacing on mobile for better density */ .m-6, .my-6, .mt-6, .mb-6:
+  - main_combined_financehub.css
+  - spacing.css
+
+.hidden:
+  - main_combined_financehub.css
+  - utilities.css
+
+.items-center:
+  - main_combined_financehub.css
+  - 00-utilities-fallback.css
+  - utilities.css
+
+.justify-between:
+  - main_combined_financehub.css
+  - 00-utilities-fallback.css
+  - utilities.css
+  - main_combined_financehub.css
+  - core.css
+
+.bg-primary:
+  - main_combined_financehub.css
+  - utilities.css
+
+.rounded:
+  - main_combined_financehub.css
+  - utilities.css
+
+.rounded-lg:
+  - main_combined_financehub.css
+  - utilities.css
+  - main_combined_financehub.css
+  - core.css
+
+.shadow:
+  - main_combined_financehub.css
+  - utilities.css
+
+.shadow-lg:
+  - main_combined_financehub.css
+  - utilities.css
+  - main_combined_financehub.css
+  - core.css
+
+.text-xs:
+  - main_combined_financehub.css
+  - utilities.css
+
+.text-primary:
+  - main_combined_financehub.css
+  - utilities.css
+
+.md\:hidden:
+  - main_combined_financehub.css
+  - utilities.css
+
+.lg\:hidden:
+  - main_combined_financehub.css
+  - utilities.css
+
+.main-content:
+  - main_combined_financehub.css
+  - app-container.css
+  - main_combined_financehub.css
+  - main-content.css
+  - main_combined_financehub.css
+  - main-content.css
+  - main_combined_financehub.css
+  - main-content.css
+
+.analysis-grid:
+  - main_combined_financehub.css
+  - app-container.css
+  - main_combined_financehub.css
+  - grid.css
+  - main_combined_financehub.css
+  - main-content.css
+  - main_combined_financehub.css
+  - main-content.css
+  - main_combined_financehub.css
+  - main-content.css
+  - main_combined_financehub.css
+  - main-content.css
+
+.loading-content:
+  - main_combined_financehub.css
+  - app-container.css
+  - main_combined_financehub.css
+  - core.css
+
+.loading-text:
+  - main_combined_financehub.css
+  - app-container.css
+  - main_combined_financehub.css
+  - core.css
+
+.loading-progress:
+  - main_combined_financehub.css
+  - app-container.css
+  - main_combined_financehub.css
+  - core.css
+
+.content-wrapper:
+  - main_combined_financehub.css
+  - app-container.css
+
+.app-sidebar:
+  - main_combined_financehub.css
+  - app-container.css
+
+.app-content:
+  - main_combined_financehub.css
+  - app-container.css
+  - main_combined_financehub.css
+  - app-container.css
+
+.loading-spinner:
+  - main_combined_financehub.css
+  - app-container.css
+  - main_combined_financehub.css
+  - core.css
+
+0%, 100%:
+  - main_combined_financehub.css
+  - app-container.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - chat-master.css
+  - chat-grok.css
+  - analysis-bubbles.css
+  - ai-chat.css
+  - stock-header.css
+  - main_combined_financehub.css
+  - fundamental-analysis-main.css
+  - bubbles-shared.css
+  - price-display-main.css
+  - animations.css
+  - main_combined_financehub.css
+  - chart.css
+  - main_combined_financehub.css
+  - particle-effects.css
+  - main_combined_financehub.css
+  - ticker-tape.css
+
+.two-column-layout, .three-column-layout:
+  - main_combined_financehub.css
+  - app-layout.css
+
+.info-sections-horizontal:
+  - main_combined_financehub.css
+  - grid.css
+
+.section-title:
+  - main_combined_financehub.css
+  - main-content.css
+
+.section-content:
+  - main_combined_financehub.css
+  - main-content.css
+
+.dashboard-row:
+  - main_combined_financehub.css
+  - main-content.css
+
+.section-header:
+  - main_combined_financehub.css
+  - main-content.css
+
+.nav-main-container:
+  - main_combined_financehub.css
+  - nav-main.css
+  - main_combined_financehub.css
+  - nav-main.css
+  - main_combined_financehub.css
+  - nav-main.css
+
+.fh-ai-chat__status-indicator:
+  - main_combined_financehub.css
+  - ai-chat.css
+
+.fh-ai-chat__status-text:
+  - main_combined_financehub.css
+  - ai-chat.css
+
+.fh-ai-chat__message--user:
+  - main_combined_financehub.css
+  - ai-chat.css
+
+.fh-ai-chat__message--ai:
+  - main_combined_financehub.css
+  - ai-chat.css
+
+.fh-ai-chat__message-avatar:
+  - main_combined_financehub.css
+  - ai-chat.css
+
+.fh-ai-chat__message--user .fh-ai-chat__message-avatar:
+  - main_combined_financehub.css
+  - ai-chat.css
+
+.fh-ai-chat__message--ai .fh-ai-chat__message-avatar:
+  - main_combined_financehub.css
+  - ai-chat.css
+
+.fh-ai-chat__message--user .fh-ai-chat__message-content:
+  - main_combined_financehub.css
+  - ai-chat.css
+
+.fh-ai-chat__message--ai .fh-ai-chat__message-content:
+  - main_combined_financehub.css
+  - ai-chat.css
+
+.fh-ai-chat__message--user .fh-ai-chat__message-time:
+  - main_combined_financehub.css
+  - ai-chat.css
+
+0%, 80%, 100%:
+  - main_combined_financehub.css
+  - ai-chat.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - main_combined_financehub.css
+  - chat-master.css
+  - chat-grok.css
+  - ai-message.css
+  - ai-message.css
+
+.fh-ai-chat__message:
+  - main_combined_financehub.css
+  - ai-chat.css
+
+.fh-ai-chat__suggestions:
+  - main_combined_financehub.css
+  - ai-chat.css
+
+.fh-analysis-bubble--financial-metrics:
+  - main_combined_financehub.css
+  - analysis-bubbles.css
+
+.fh-analysis-bubble--technical-analysis:
+  - main_combined_financehub.css
+  - analysis-bubbles.css
+
+.fh-analysis-bubble--news-highlights:
+  - main_combined_financehub.css
+  - analysis-bubbles.css
+
+.fh-analysis-bubble--company-overview, .fh-analysis-bubble--financial-metrics, .fh-analysis-bubble--technical-analysis, .fh-analysis-bubble--news-highlights:
+  - main_combined_financehub.css
+  - analysis-bubbles.css
+
+.company-description:
+  - main_combined_financehub.css
+  - company-overview.css
+
+.loading-skeleton:
+  - main_combined_financehub.css
+  - fundamental-analysis-main.css
+
+.bubble-header h3:
+  - main_combined_financehub.css
+  - bubbles-shared.css
+
+.bubble-header h3::before:
+  - main_combined_financehub.css
+  - bubbles-shared.css
+
+.bubble-header .bubble-status:
+  - main_combined_financehub.css
+  - bubbles-shared.css
+
+.bubble-header .bubble-status.loading:
+  - main_combined_financehub.css
+  - bubbles-shared.css
+
+.bubble-header .bubble-status.error:
+  - main_combined_financehub.css
+  - bubbles-shared.css
+
+.bubble-header .bubble-status.ready:
+  - main_combined_financehub.css
+  - bubbles-shared.css
+
+.bubble-content h4::before:
+  - main_combined_financehub.css
+  - bubbles-shared.css
+
+.bubble-content p:
+  - main_combined_financehub.css
+  - bubbles-shared.css
+
+.bubble-content ul, .bubble-content ol:
+  - main_combined_financehub.css
+  - bubbles-shared.css
+
+.bubble-content li:
+  - main_combined_financehub.css
+  - bubbles-shared.css
+
+.bubble-content li::marker:
+  - main_combined_financehub.css
+  - bubbles-shared.css
+
+:root:
+  - main_combined_financehub.css
+  - bubbles-shared.css
+
+.bubble-header:
+  - main_combined_financehub.css
+  - bubbles-shared.css
+
+.bubble-content:
+  - main_combined_financehub.css
+  - bubbles-shared.css
+
+.bubble-content h4:
+  - main_combined_financehub.css
+  - bubbles-shared.css
+
+.bubble-content p, .bubble-content li:
+  - main_combined_financehub.css
+  - bubbles-shared.css
+
+.technical-content:
+  - main_combined_financehub.css
+  - technical-analysis.css
+
+.fh-chart__header:
+  - main_combined_financehub.css
+  - chart.css
+
+.fh-chart__title:
+  - main_combined_financehub.css
+  - chart.css
+
+.fh-chart__controls:
+  - main_combined_financehub.css
+  - chart.css
+
+.fh-chart__timeframes:
+  - main_combined_financehub.css
+  - chart.css
+
+.fh-chart__content:
+  - main_combined_financehub.css
+  - chart.css
+
+.fh-chart__tradingview:
+  - main_combined_financehub.css
+  - chart.css
+
+.fh-chart__placeholder:
+  - main_combined_financehub.css
+  - chart.css
+
+.fh-chart__placeholder-content:
+  - main_combined_financehub.css
+  - chart.css
+
+.fh-chart__placeholder-icon:
+  - main_combined_financehub.css
+  - chart.css
+
+.fh-chart__placeholder h3:
+  - main_combined_financehub.css
+  - chart.css
+
+.fh-chart__placeholder p:
+  - main_combined_financehub.css
+  - chart.css
+
+.fh-chart__loading:
+  - main_combined_financehub.css
+  - chart.css
+
+.fh-chart__loading-spinner:
+  - main_combined_financehub.css
+  - chart.css
+
+.fh-chart .tv-chart__toolbar:
+  - main_combined_financehub.css
+  - chart.css
+
+.card:
+  - main_combined_financehub.css
+  - core.css
+
+.hidden-desktop:
+  - main_combined_financehub.css
+  - core.css
+
+.animate-spin, .animate-pulse, .animate-fade-in:
+  - main_combined_financehub.css
+  - core.css
+
+.transition, .transition-fast, .loading-skeleton, .loading-spinner, .card:
+  - main_combined_financehub.css
+  - core.css
+
+.price-negative:
+  - main_combined_financehub.css
+  - core.css
+
+.price-neutral:
+  - main_combined_financehub.css
+  - core.css
+
+.market-closed:
+  - main_combined_financehub.css
+  - core.css
+
+.market-pre-post:
+  - main_combined_financehub.css
+  - core.css
+
+50%:
+  - main_combined_financehub.css
+  - 00-utilities-fallback.css
+  - core.css
+  - chat-master.css
+  - chat-grok.css
+  - analysis-bubbles.css
+  - ai-chat.css
+  - stock-header.css
+  - fundamental-analysis-main.css
+  - price-display-main.css
+
+.brand-logo, .fh-header__logo:
+  - main_combined_financehub.css
+  - header-main.css
+
+.brand-name, .fh-header__title:
+  - main_combined_financehub.css
+  - header-main.css
+
+.header-nav:
+  - main_combined_financehub.css
+  - header-main.css
+
+.header-brand:
+  - main_combined_financehub.css
+  - header-main.css
+
+.brand-name:
+  - main_combined_financehub.css
+  - header-main.css
+
+.header-controls, .fh-header__actions:
+  - main_combined_financehub.css
+  - header-main.css
+
+.theme-toggle, .fh-header__theme-toggle:
+  - main_combined_financehub.css
+  - header-main.css
+
+.theme-icon--dark, .fh-header__theme-icon.theme-icon--dark:
+  - main_combined_financehub.css
+  - header-main.css
+
+.theme-toggle:
+  - main_combined_financehub.css
+  - header.css
+
+.stock-price-info:
+  - main_combined_financehub.css
+  - header.css
+  - main_combined_financehub.css
+  - stock-header.css
+
+.brand-section:
+  - main_combined_financehub.css
+  - header.css
+
+.header-controls:
+  - main_combined_financehub.css
+  - header.css
+
+.login-button, .user-profile-trigger:
+  - main_combined_financehub.css
+  - user-menu-main.css
+
+.fh-news__header:
+  - main_combined_financehub.css
+  - news.css
+
+.fh-news__title:
+  - main_combined_financehub.css
+  - news.css
+
+.fh-news__subtitle:
+  - main_combined_financehub.css
+  - news.css
+
+.fh-news__headline:
+  - main_combined_financehub.css
+  - news.css
+
+.fh-news__summary:
+  - main_combined_financehub.css
+  - news.css
+
+.fh-news__source:
+  - main_combined_financehub.css
+  - news.css
+
+.fh-news__time:
+  - main_combined_financehub.css
+  - news.css
+
+.fh-news__sentiment:
+  - main_combined_financehub.css
+  - news.css
+
+.fh-news__sentiment--positive:
+  - main_combined_financehub.css
+  - news.css
+
+.fh-news__sentiment--neutral:
+  - main_combined_financehub.css
+  - news.css
+
+.fh-news__placeholder-icon:
+  - main_combined_financehub.css
+  - news.css
+
+.fh-news__placeholder-text:
+  - main_combined_financehub.css
+  - news.css
+
+.fh-news__list:
+  - main_combined_financehub.css
+  - news.css
+
+.fh-news__content:
+  - main_combined_financehub.css
+  - news.css
+
+.fh-news__meta:
+  - main_combined_financehub.css
+  - news.css
+
+.fh-search__input-wrapper:
+  - main_combined_financehub.css
+  - search.css
+
+.fh-search__input:
+  - main_combined_financehub.css
+  - search.css
+
+.fh-search__button:
+  - main_combined_financehub.css
+  - search.css
+
+.fh-search__button-icon:
+  - main_combined_financehub.css
+  - search.css
+
+.fh-search__autocomplete:
+  - main_combined_financehub.css
+  - search.css
+
+.fh-search__autocomplete-item:
+  - main_combined_financehub.css
+  - search.css
+
+.fh-search__autocomplete-symbol:
+  - main_combined_financehub.css
+  - search.css
+
+.fh-search__autocomplete-name:
+  - main_combined_financehub.css
+  - search.css
+
+.fh-search__autocomplete-exchange:
+  - main_combined_financehub.css
+  - search.css
+
+.fh-search__suggestions:
+  - main_combined_financehub.css
+  - search.css
+
+.fh-search__suggestions-title:
+  - main_combined_financehub.css
+  - search.css
+
+.fh-search__suggestions-list:
+  - main_combined_financehub.css
+  - search.css
+
+.fh-search__suggestion-tag:
+  - main_combined_financehub.css
+  - search.css
+
+.price-change-section:
+  - main_combined_financehub.css
+  - price-display-main.css
+
+.current-price, .price-stat-value:
+  - main_combined_financehub.css
+  - price-display-main.css
+
+.stock-main-info:
+  - main_combined_financehub.css
+  - stock-header.css
+
+.stock-symbol-premium:
+  - main_combined_financehub.css
+  - stock-header.css
+
+.stock-company-name:
+  - main_combined_financehub.css
+  - stock-header.css
+
+.stock-price-premium:
+  - main_combined_financehub.css
+  - stock-header.css
+
+.stock-change-premium:
+  - main_combined_financehub.css
+  - stock-header.css
+
+.stock-metrics-premium:
+  - main_combined_financehub.css
+  - stock-header.css
+
+.stock-metric-premium:
+  - main_combined_financehub.css
+  - stock-header.css
+
+.metric-label-premium:
+  - main_combined_financehub.css
+  - stock-header.css
+
+.metric-value-premium:
+  - main_combined_financehub.css
+  - stock-header.css
+
+.stock-header-left:
+  - main_combined_financehub.css
+  - stock-header.css
+
+.fh-ticker-tape__content:
+  - main_combined_financehub.css
+  - ticker-tape.css
+
+.fh-ticker-tape__item:
+  - main_combined_financehub.css
+  - ticker-tape.css
+
+.fh-ticker-tape__symbol:
+  - main_combined_financehub.css
+  - ticker-tape.css
+
+.fh-ticker-tape__price:
+  - main_combined_financehub.css
+  - ticker-tape.css
+
+.fh-ticker-tape__change:
+  - main_combined_financehub.css
+  - ticker-tape.css
+
+.fh-ticker-tape__change--positive:
+  - main_combined_financehub.css
+  - ticker-tape.css
+
+.fh-ticker-tape__change--negative:
+  - main_combined_financehub.css
+  - ticker-tape.css
+
+.fh-ticker-tape__symbol, .fh-ticker-tape__price:
+  - main_combined_financehub.css
+  - ticker-tape.css
+
+:root[data-theme="dark"] .ticker-tape, .dark-theme .ticker-tape:
+  - main_combined_financehub.css
+  - dark.css
+
+:root[data-theme="dark"] .chat-container, .dark-theme .chat-container:
+  - main_combined_financehub.css
+  - dark.css
+
+:root[data-theme="dark"] .ai-message, .dark-theme .ai-message:
+  - main_combined_financehub.css
+  - dark.css
+
+:root[data-theme="dark"] .user-message, .dark-theme .user-message:
+  - main_combined_financehub.css
+  - dark.css
+
+:root[data-theme="dark"] .loading-skeleton, .dark-theme .loading-skeleton:
+  - main_combined_financehub.css
+  - dark.css
+
+:root[data-theme="dark"] .tradingview-widget-container, .dark-theme .tradingview-widget-container:
+  - main_combined_financehub.css
+  - dark.css
+
+:root[data-theme="dark"] .ticker-item, .dark-theme .ticker-item:
+  - main_combined_financehub.css
+  - dark.css
+
+:root[data-theme="dark"] .ticker-item:hover, .dark-theme .ticker-item:hover:
+  - main_combined_financehub.css
+  - dark.css
+
+:root[data-theme="dark"] .form-error, .dark-theme .form-error:
+  - main_combined_financehub.css
+  - dark.css
+
+:root[data-theme="dark"] .form-success, .dark-theme .form-success:
+  - main_combined_financehub.css
+  - dark.css
+
+:root[data-theme="dark"] .premium-pulse, .dark-theme .premium-pulse:
+  - main_combined_financehub.css
+  - dark.css
+
+:root[data-theme="dark"] .card-elevated, .dark-theme .card-elevated:
+  - main_combined_financehub.css
+  - dark.css
+
+:root[data-theme="dark"] .card-elevated:hover, .dark-theme .card-elevated:hover:
+  - main_combined_financehub.css
+  - dark.css
+
+:root[data-theme="dark"] button:focus, .dark-theme button:focus:
+  - main_combined_financehub.css
+  - dark.css
+
+.light-theme .ticker-item, .ticker-item:
+  - main_combined_financehub.css
+  - light.css
+
+.light-theme .form-error, .form-error:
+  - main_combined_financehub.css
+  - light.css
+
+.light-theme .form-success, .form-success:
+  - main_combined_financehub.css
+  - light.css
+
+.inline-flex:
+  - 00-utilities-fallback.css
+  - utilities.css
+
+.items-start:
+  - 00-utilities-fallback.css
+  - utilities.css
+
+.items-end:
+  - 00-utilities-fallback.css
+  - utilities.css
+
+.justify-center:
+  - 00-utilities-fallback.css
+  - utilities.css
+
+.justify-start:
+  - 00-utilities-fallback.css
+  - utilities.css
+
+.justify-end:
+  - 00-utilities-fallback.css
+  - utilities.css
+
+.flex-row:
+  - 00-utilities-fallback.css
+  - utilities.css
+
+.h-full:
+  - 00-utilities-fallback.css
+  - utilities.css
+
+.font-medium:
+  - 00-utilities-fallback.css
+  - utilities.css
+
+.text-center:
+  - 00-utilities-fallback.css
+  - fonts.css
+  - utilities.css
+
+100%:
+  - ai-message.css
+  - ai-message.css
+  - analysis-bubbles.css
+  - fundamental-analysis-main.css
+  - news.css
+  - price-display-main.css
+  - utilities.css
+
+.relative:
+  - 00-utilities-fallback.css
+  - utilities.css
+
+.inset-0:
+  - 00-utilities-fallback.css
+  - utilities.css
+
+.z-20:
+  - 00-utilities-fallback.css
+  - utilities.css
+
+.opacity-50:
+  - 00-utilities-fallback.css
+  - utilities.css
+
+.opacity-100:
+  - 00-utilities-fallback.css
+  - utilities.css
+
+.sidebar-overlay:
+  - app-container.css
+  - sidebar.css
+
+to:
+  - app-container.css
+  - global.css
+  - layout.css
+  - chat-master.css
+  - chat-grok.css
+  - bubble-base.css
+  - bubble-base.css
+  - ai-chat.css
+  - header-main.css
+
+*, *::before, *::after:
+  - reset.css
+  - global.css
+
+.grok-typing-dots:
+  - chat-master.css
+  - chat-grok.css
+
+.grok-typing-dot:nth-child(1):
+  - chat-master.css
+  - chat-grok.css
+
+.grok-typing-dot:nth-child(2):
+  - chat-master.css
+  - chat-grok.css
+
+40%:
+  - chat-master.css
+  - chat-grok.css
+  - ai-message.css
+  - ai-message.css
+
+.message--ai .message__avatar::before:
+  - ai-message.css
+  - ai-message.css
+
+.message--ai .message__avatar::after:
+  - ai-message.css
+  - ai-message.css
+
+.message--ai .message__bubble::before:
+  - ai-message.css
+  - ai-message.css
+
+.message--ai .message__bubble::after:
+  - ai-message.css
+  - ai-message.css
+
+.message--ai.is-thinking .message__text:
+  - ai-message.css
+  - ai-message.css
+
+.thinking-dots span:
+  - ai-message.css
+  - ai-message.css
+
+.thinking-dots span:nth-child(1):
+  - ai-message.css
+  - ai-message.css
+
+.thinking-dots span:nth-child(2):
+  - ai-message.css
+  - ai-message.css
+
+.thinking-dots span:nth-child(3):
+  - ai-message.css
+  - ai-message.css
+
+.message--ai pre::before:
+  - ai-message.css
+  - ai-message.css
+
+.code-copy-btn:hover:
+  - ai-message.css
+  - ai-message.css
+
+.message--user .message__content:
+  - user-message.css
+  - user-message.css
+
+.message--user .message__bubble::after:
+  - user-message.css
+  - user-message.css
+
+.message--user .message__text a:
+  - user-message.css
+  - user-message.css
+
+.message--user .message__text a:hover:
+  - user-message.css
+  - user-message.css
+
+.message--user .message__text code:
+  - user-message.css
+  - user-message.css
+
+.message--user .message__name:
+  - user-message.css
+  - user-message.css
+
+.message__header:
+  - bubble-base.css
+  - bubble-base.css
+
+.message__name:
+  - bubble-base.css
+  - bubble-base.css
+
+.message__timestamp:
+  - bubble-base.css
+  - bubble-base.css
+
+.message__text p:
+  - bubble-base.css
+  - bubble-base.css
+
+.message__text p:last-child:
+  - bubble-base.css
+  - bubble-base.css
+
+.message__text code:
+  - bubble-base.css
+  - bubble-base.css
+
+.message__text li:
+  - bubble-base.css
+  - bubble-base.css
+
+.message__text a:hover:
+  - bubble-base.css
+  - bubble-base.css
+
+.message:hover .message__actions:
+  - bubble-base.css
+  - bubble-base.css
+
+.message__action:
+  - bubble-base.css
+  - bubble-base.css
+
+.message__action:hover:
+  - bubble-base.css
+  - bubble-base.css
+
+.safe-right:
+  - spacing.css
+  - utilities.css
+
+.safe-bottom:
+  - spacing.css
+  - utilities.css
+
+.safe-left:
+  - spacing.css
+  - utilities.css
+
+.safe-x:
+  - spacing.css
+  - utilities.css
+
+.safe-y:
+  - spacing.css
+  - utilities.css
+
+.text-tertiary:
+  - fonts.css
+  - utilities.css

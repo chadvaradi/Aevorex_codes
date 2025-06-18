@@ -1,0 +1,538 @@
+# backend/core/fetchers/eodhd.py
+"""
+Aevorex FinBot - EOD Historical Data Fetcher Module (v3.0 - Refactored)
+
+Ez a modul felelős az EOD Historical Data (EODHD) API-n keresztüli
+adatlekérésekért, elsősorban a napi és napon belüli OHLCV adatokért.
+Használja a `_base_helpers` modul közös funkcióit az API hívásokhoz,
+kulcsgeneráláshoz és cache-eléshez (siker és hiba esetére is).
+Az eredményeket egységesen pandas DataFrame-ként adja vissza.
+"""
+
+import time
+import logging
+import sys
+from typing import List, Optional, Dict, Any, Union
+from datetime import datetime, timedelta, timezone # timezone is kellhet
+import pandas as pd
+import httpx
+
+# --- Core & Base Helper Imports (Relatív útvonalakkal) ---
+_eodhd_dependencies_met = False
+try:
+    from ...config import settings
+    from ...utils.logger_config import get_logger
+    # Nincs szükség az _ensure_datetime_index-re itt, helyben kezeljük
+    from ..cache_service import CacheService  # Közvetlen import
+    from ._base_helpers import (
+        generate_cache_key,
+        make_api_request, # Bár make_api_request itt nincs használva, meghagyjuk a konzisztencia kedvéért
+        get_api_key,
+        FETCH_FAILED_MARKER,
+        FETCH_FAILURE_CACHE_TTL,
+        EODHD_BASE_URL_EOD,
+        EODHD_BASE_URL_INTRADAY,
+        # OHLCV_REQUIRED_COLS, # EODHD más oszlopneveket ad, helyben kezeljük
+    )
+    _eodhd_dependencies_met = True
+except ImportError as e:
+    logging.basicConfig(level="CRITICAL", stream=sys.stderr)
+    critical_logger = logging.getLogger(f"{__name__}.dependency_fallback")
+    critical_logger.critical(
+        f"FATAL ERROR in eodhd.py: Failed to import core dependencies: {e}. Module unusable.",
+        exc_info=True
+    )
+    # CacheService = None # <<< TÖRÖLVE
+except Exception as general_import_err:
+    logging.basicConfig(level="CRITICAL", stream=sys.stderr)
+    critical_logger = logging.getLogger(f"{__name__}.general_import_fallback")
+    critical_logger.critical(
+        f"FATAL UNEXPECTED ERROR during import in eodhd.py: {general_import_err}.",
+        exc_info=True
+    )
+    # CacheService = None # <<< TÖRÖLVE
+
+# --- Logger Beállítása ---
+if _eodhd_dependencies_met:
+    try:
+        EODHD_FETCHER_LOGGER = get_logger("aevorex_finbot.core.fetchers.eodhd")
+        EODHD_FETCHER_LOGGER.info("--- Initializing EODHD Fetcher Module (v3.0) ---")
+    except Exception as log_init_err:
+         _eodhd_dependencies_met = False
+         logging.basicConfig(level="ERROR", stream=sys.stderr)
+         EODHD_FETCHER_LOGGER = logging.getLogger(f"{__name__}.logger_init_fallback")
+         EODHD_FETCHER_LOGGER.error(f"Error initializing configured logger in eodhd.py: {log_init_err}", exc_info=True)
+else:
+    logging.basicConfig(level="ERROR", stream=sys.stderr)
+    EODHD_FETCHER_LOGGER = logging.getLogger(f"{__name__}.init_error_fallback")
+    EODHD_FETCHER_LOGGER.error("eodhd.py loaded with missing core dependencies. Fetcher functions will likely fail.")
+
+# --- Cache TTL Konstansok ---
+# Default értékek, ha a settings nem elérhető vagy hibás
+EODHD_DAILY_TTL = 86400 # 1 nap
+EODHD_INTRADAY_TTL = 3600 # 1 óra
+
+if _eodhd_dependencies_met:
+    try:
+        EODHD_DAILY_TTL = settings.CACHE.EODHD_DAILY_OHLCV_TTL
+        EODHD_INTRADAY_TTL = settings.CACHE.EODHD_INTRADAY_OHLCV_TTL
+        EODHD_FETCHER_LOGGER.debug("EODHD Cache TTLs loaded from settings.")
+    except AttributeError as ttl_e:
+        EODHD_FETCHER_LOGGER.warning(f"Failed to load EODHD Cache TTL settings: {ttl_e}. Using default values. Check config.py.")
+        # A default értékek már be vannak állítva fentebb
+else:
+    EODHD_FETCHER_LOGGER.warning("Using default EODHD TTL values due to previous import errors.")
+
+# --- EODHD Specifikus Konstansok ---
+# Oszlopnevek, amiket az EODHD API visszaad (általában)
+TARGET_OHLCV_COLS_LOWER = ['open', 'high', 'low', 'close', 'adj_close', 'volume']
+TARGET_OHLCV_COLS_INTRADAY_LOWER = ['open', 'high', 'low', 'close', 'volume']
+# Cél oszlopnevek a DataFrame-ben (nagybetűsítve a yfinance konzisztencia miatt)
+TARGET_OHLCV_COLS = ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
+TARGET_OHLCV_COLS_INTRADAY = ['Open', 'High', 'Low', 'Close', 'Volume']
+
+# --- HTTP Client Timeout (Settingsből) ---
+HTTP_TIMEOUT = 15.0 # Default
+if _eodhd_dependencies_met:
+    try:
+        HTTP_TIMEOUT = settings.HTTP_CLIENT.REQUEST_TIMEOUT_SECONDS
+        EODHD_FETCHER_LOGGER.debug(f"HTTP Timeout set to {HTTP_TIMEOUT} seconds.")
+    except AttributeError:
+        EODHD_FETCHER_LOGGER.warning(f"Could not load HTTP_TIMEOUT from settings. Using default: {HTTP_TIMEOUT}s.")
+
+# ==============================================================================
+# === Public EODHD Fetcher Function ===
+# ==============================================================================
+async def fetch_eodhd_ohlcv(
+    symbol_with_exchange: str,
+    cache: CacheService,
+    client: httpx.AsyncClient,
+    interval: str = "d",
+    period_or_start_date: str = "1y",
+) -> Optional[pd.DataFrame]:
+    # --- Inicializálás ---
+    if not _eodhd_dependencies_met:
+        # Kritikus hiba logolása itt már megtörtént a modul betöltésekor
+        return None # Korai kilépés függőségi hiba esetén
+
+    logger = EODHD_FETCHER_LOGGER
+    log_prefix = f"[{symbol_with_exchange}][eodhd_ohlcv({interval},{period_or_start_date})]"
+    source_name = "eodhd" # Cache kulcshoz kell
+
+    # === KÖZPONTI VÁLTOZÓK ===
+    processed_df: Optional[pd.DataFrame] = None # A végeredmény (cache vagy élő)
+    cache_key: Optional[str] = None          # A generált cache kulcs
+    cache_hit_status: str = "MISS"           # Cache állapot jelző
+    live_fetch_attempted: bool = False       # Jelzi, hogy próbáltunk-e élő adatot kérni
+    cache_ttl: int = EODHD_DAILY_TTL         # Alapértelmezett TTL (felülíródik)
+    # =========================
+
+    logger.debug(f"{log_prefix} === Starting fetch_eodhd_ohlcv ===")
+
+    try: # Külső try: API kulcs, paraméterek, cache kulcs generálás és cache olvasás
+        # --- API Kulcs Lekérése ---
+        api_key = await get_api_key("EODHD")
+        if not api_key:
+            # Nem dobunk hibát, csak logolunk és None-t adunk vissza (get_api_key már logol)
+            logger.error(f"{log_prefix} API key for EODHD not found. Cannot proceed.")
+            return None # Itt ki kell lépni, mert kulcs nélkül nincs értelme
+
+        # --- API Paraméterek és Cache Beállítások Meghatározása ---
+        is_daily_or_longer = interval.lower() in ['d', 'w', 'm']
+        api_params: Dict[str, Any] = {"api_token": api_key, "fmt": "json"}
+        base_url: str
+        data_type_for_cache: str
+        cache_key_params: Dict[str, str] = {}
+
+        # ... (Ugyanaz a logika az URL, API params, cache TTL, data_type_for_cache, cache_key_params beállítására, mint előzőleg) ...
+        if is_daily_or_longer:
+            base_url = f"{EODHD_BASE_URL_EOD}/{symbol_with_exchange}"
+            api_params["period"] = interval.lower()
+            data_type_for_cache = f"ohlcv_{interval.lower()}"
+            cache_ttl = EODHD_DAILY_TTL
+            cache_key_params["period"] = interval.lower()
+
+            end_date = datetime.now(timezone.utc)
+            start_date_str: Optional[str] = None
+            current_range = period_or_start_date # Mentsük el az eredeti kérést
+
+            if period_or_start_date == "max":
+                start_date_str = "1970-01-01"
+            elif period_or_start_date == "5y":
+                start_date_str = (end_date - timedelta(days=5*365 + 2)).strftime('%Y-%m-%d')
+            elif period_or_start_date == "1y":
+                 start_date_str = (end_date - timedelta(days=365 + 2)).strftime('%Y-%m-%d')
+            else:
+                try:
+                    # Ellenőrizzük a formátumot, de a start_date_str az eredeti marad, ha valid
+                    datetime.strptime(period_or_start_date, '%Y-%m-%d')
+                    start_date_str = period_or_start_date
+                except ValueError:
+                    logger.warning(f"{log_prefix} Invalid 'period_or_start_date' format: '{period_or_start_date}'. Defaulting to 1 year.")
+                    start_date_str = (end_date - timedelta(days=365 + 2)).strftime('%Y-%m-%d')
+                    current_range = "1y" # A kulcshoz a default range-et használjuk
+
+            cache_key_params["range"] = current_range # Az eredeti vagy default range kerül a kulcsba
+
+            if start_date_str:
+                api_params["from"] = start_date_str
+            logger.debug(f"{log_prefix} Daily params set. Start date: {start_date_str}, Range for key: {current_range}")
+
+        else: # Intraday
+            if not any(char.isdigit() for char in interval) or not any(char.isalpha() for char in interval):
+                 logger.error(f"{log_prefix} Invalid intraday interval format: '{interval}'.")
+                 # Itt is None-t adunk vissza, nem dobunk hibát, hogy a külső try ne kapja el
+                 return None
+
+            base_url = f"{EODHD_BASE_URL_INTRADAY}/{symbol_with_exchange}"
+            api_params["interval"] = interval
+            data_type_for_cache = f"ohlcv_intraday_{interval}"
+            cache_ttl = EODHD_INTRADAY_TTL
+            cache_key_params["interval"] = interval
+            cache_key_params["range"] = "recent" # Intraday esetén a range fixen 'recent' a kulcsban
+            logger.debug(f"{log_prefix} Intraday params set. Interval: {interval}, Range for key: recent")
+
+
+        # --- Cache Kulcs Generálása ---
+        logger.debug(f"{log_prefix} Generating cache key with params: {cache_key_params}")
+        cache_key = generate_cache_key(
+            data_type=data_type_for_cache,
+            source=source_name,
+            identifier=symbol_with_exchange,
+            params=cache_key_params
+        )
+        logger.info(f"{log_prefix} Generated cache key: {cache_key}") # INFO-ra váltva a fontosság miatt
+
+        # --- Cache Ellenőrzés ---
+        if cache: # Csak akkor, ha van cache szolgáltatás
+            logger.debug(f"{log_prefix} Attempting cache GET for key: {cache_key}")
+            try:
+                cached_data = await cache.get(cache_key)
+
+                if cached_data is not None:
+                    logger.info(f"{log_prefix} Cache HIT. Raw data type: {type(cached_data)}. Processing cached data...")
+                    # === CACHE ADAT FELDOLGOZÁSA (NINCS RETURN ITT!) ===
+                    if cached_data == FETCH_FAILED_MARKER:
+                        logger.info(f"{log_prefix} Cache HIT with failure marker. Setting result to None.")
+                        processed_df = None # Explicit None beállítás
+                        cache_hit_status = "HIT_FAILED"
+                        # NINCS return None
+
+                    elif isinstance(cached_data, dict) and all(k in cached_data for k in ['index', 'columns', 'data']):
+                        logger.debug(f"{log_prefix} Cache HIT with potential DataFrame dictionary. Attempting reconstruction...")
+                        try:
+                            df_from_cache = pd.DataFrame(
+                                cached_data['data'],
+                                index=pd.to_datetime(cached_data['index']), # Itt konvertálunk vissza DatetimeIndex-re
+                                columns=cached_data['columns']
+                            )
+                            df_from_cache.index.name = 'Date'
+                            logger.info(f"{log_prefix} Cache HIT successful reconstruction. Shape: {df_from_cache.shape}. Assigning to result.")
+                            processed_df = df_from_cache # <<< ÉRTÉKADÁS A KÖZPONTI VÁLTOZÓNAK
+                            cache_hit_status = "HIT_VALID"
+                            # NINCS return df_from_cache
+
+                        except Exception as e_reconstruct:
+                            logger.error(f"{log_prefix} Cache HIT reconstruction failed: {e_reconstruct}. Deleting invalid entry.", exc_info=True)
+                            await cache.delete(cache_key)
+                            cache_hit_status = "HIT_INVALID" # Kezeljük MISS-ként
+                            processed_df = None # Biztos ami biztos
+
+                    else:
+                        # Nem a marker, nem a várt dict -> érvénytelen adat
+                        logger.warning(f"{log_prefix} Cache HIT with invalid data type/structure ({type(cached_data)}). Deleting entry.")
+                        await cache.delete(cache_key)
+                        cache_hit_status = "HIT_INVALID" # Kezeljük MISS-ként
+                        processed_df = None
+
+                else: # cached_data volt None
+                    logger.info(f"{log_prefix} Cache MISS for key: {cache_key}")
+                    cache_hit_status = "MISS"
+
+            except Exception as e_cache_get:
+                 logger.error(f"{log_prefix} Cache GET operation failed for key '{cache_key}': {e_cache_get}", exc_info=False)
+                 cache_hit_status = "MISS" # Hiba esetén is MISS-nek vesszük
+
+        else: # Nincs cache szolgáltatás
+             logger.warning(f"{log_prefix} Cache service is not available. Skipping cache check.")
+             cache_hit_status = "MISS" # Ha nincs cache, az MISS
+
+    except ValueError as e_init_val: # Pl. generate_cache_key hibája
+         logger.error(f"{log_prefix} Initialization Value Error: {e_init_val}. Cannot proceed.")
+         # processed_df marad None, a függvény végén None-t ad vissza
+         cache_hit_status = "INIT_ERROR" # Speciális státusz a logoláshoz
+    except Exception as e_init_or_cache:
+        logger.critical(f"{log_prefix} Critical error during initialization or cache read: {e_init_or_cache}", exc_info=True)
+        # Nem tudunk megbízhatóan folytatni, processed_df marad None
+        cache_hit_status = "INIT_ERROR"
+
+    # --- Döntés és Élő Lekérés ---
+    # Csak akkor kérünk élő adatot, ha nem volt sikeres vagy jelzett hibás cache találat, ÉS nem volt inicializációs hiba
+    if cache_hit_status in ["MISS", "HIT_INVALID"]:
+        live_fetch_attempted = True
+        logger.info(f"{log_prefix} Cache status is '{cache_hit_status}'. Attempting to fetch live data...")
+
+        try: # Try blokk az élő lekérés és feldolgozás köré
+            # --- API Hívás ---
+            logger.debug(f"{log_prefix} Making API request to: {base_url} with params: { {k:v for k,v in api_params.items() if k != 'api_token'} }") # Token nélkül logolunk
+            raw_response_json: Optional[Union[List, Dict]] = await make_api_request(
+                client=client,
+                method="GET",
+                url=base_url,
+                params=api_params,
+                cache_service=cache, # Átadjuk a hibajelző cache-eléshez
+                cache_key_for_failure=cache_key, # Használjuk a generált kulcsot
+                source_name_for_log=f"{source_name}_{data_type_for_cache}"
+            )
+
+            # --- Alapvető Válasz Ellenőrzés ---
+            if raw_response_json is None:
+                 # make_api_request már logolta a hibát és valószínűleg cache-elte a markert
+                 logger.error(f"{log_prefix} API request helper returned None. Assuming failure marker was cached.")
+                 raise ValueError("API request failed (make_api_request returned None)") # Dobjunk hibát, hogy a külső except elkapja
+
+            if not isinstance(raw_response_json, list):
+                logger.error(f"{log_prefix} Received unexpected data format from EODHD API (expected list, got {type(raw_response_json)}).")
+                raise ValueError(f"Invalid response format: expected list, got {type(raw_response_json)}")
+
+            if not raw_response_json:
+                 logger.warning(f"{log_prefix} Received empty list from EODHD API. No data available for the request?")
+                 # Kezelhetjük úgy is, hogy egy üres DataFrame-et adunk vissza és cache-elünk
+                 # De konzisztensebb, ha hibaként kezeljük, mert az API nem adott adatot
+                 raise ValueError("Received empty list from API, treating as failure.")
+
+            logger.debug(f"{log_prefix} Received {len(raw_response_json)} data points from API. Starting processing...")
+
+            # === BELSŐ FELDOLGOZÁSI TRY BLOKK (Részletes Logolással) ===
+            try:
+                # <<< ÚJ KÍSÉRLET: DataFrame létrehozás izolálása >>>
+                logger.debug(f"{log_prefix} === Pre-DataFrame Creation Attempt ===") # <<< ÚJ LOG
+                df = None # Előre inicializáljuk
+                try:
+                    # === CSAK EZ AZ EGY SOR VAN A BELSŐ TRY-BAN ===
+                    df = pd.DataFrame(raw_response_json)
+                    # ============================================
+                    logger.debug(f"{log_prefix} === Post-DataFrame Creation SUCCESS ===") # <<< ÚJ LOG
+                except Exception as e_df_create:
+                    # === EZ AZ ÚJ EXCEPT BLOKK CSAK A DF LÉTREHOZÁSHOZ ===
+                    logger.error(f"{log_prefix} !!! FAILED DURING pd.DataFrame() CALL !!! Error Type: {type(e_df_create).__name__}", exc_info=True)
+                    logger.error(f"{log_prefix} DataFrame Creation Exception Object: {repr(e_df_create)}")
+                    if cache and cache_key:
+                        try:
+                            await cache.set(cache_key, FETCH_FAILED_MARKER, timeout_seconds=FETCH_FAILURE_CACHE_TTL)
+                            logger.info(f"{log_prefix} Cached failure marker after DataFrame creation failure.")
+                        except Exception as e_cache_fail_marker_df:
+                             logger.error(f"{log_prefix} Failed to cache failure marker after DF creation failure: {e_cache_fail_marker_df}")
+                    raise e_df_create # <<< Dobjuk tovább a hibát (fontos!)
+
+                # Ha idáig eljutottunk, a DataFrame létrehozása sikerült
+                logger.debug(f"{log_prefix} Step 1: DataFrame successfully created.") # Ez most már csak egy megerősítés
+                logger.debug(f"{log_prefix} Step 1 DONE. Initial DF shape: {df.shape}, Columns: {list(df.columns)}")
+
+
+                if df.empty:
+                    logger.warning(f"{log_prefix} DataFrame is empty after initial creation. Cannot proceed.")
+                    raise ValueError("DataFrame empty after creation from non-empty list")
+
+                # --- Dátum oszlop kezelése ---
+                logger.debug(f"{log_prefix} Step 2: Handling date/time column...")
+                target_cols_to_process: List[str]
+                required_src_cols: List[str]
+
+                if is_daily_or_longer:
+                    if 'date' not in df.columns: raise ValueError("'date' column missing...")
+                    logger.debug(f"{log_prefix} Step 2a (Daily): Converting 'date' to datetime...")
+                    df['datetime_index'] = pd.to_datetime(df['date'])
+                    if 'adjusted_close' not in df.columns:
+                        logger.warning(f"{log_prefix} 'adjusted_close' column missing. Using 'close'.")
+                        df['adjusted_close'] = df['close']
+                    required_src_cols = ['date', 'open', 'high', 'low', 'close', 'adjusted_close', 'volume']
+                    target_cols_to_process = TARGET_OHLCV_COLS_LOWER
+                    logger.debug(f"{log_prefix} Step 2a (Daily): DONE.")
+                else: # Intraday
+                    dt_col = 'timestamp' if 'timestamp' in df.columns else 'datetime'
+                    if dt_col not in df.columns: raise ValueError("'timestamp' or 'datetime' missing...")
+                    logger.debug(f"{log_prefix} Step 2b (Intraday): Converting '{dt_col}' to datetime (UTC)...")
+                    df['datetime_index'] = pd.to_datetime(df[dt_col], unit='s' if dt_col == 'timestamp' else None, utc=True)
+                    required_src_cols = [dt_col, 'open', 'high', 'low', 'close', 'volume']
+                    target_cols_to_process = TARGET_OHLCV_COLS_INTRADAY_LOWER
+                    logger.debug(f"{log_prefix} Step 2b (Intraday): DONE.")
+                logger.debug(f"{log_prefix} Step 2 DONE.")
+
+                # --- Kötelező oszlopok ellenőrzése ---
+                logger.debug(f"{log_prefix} Step 3: Checking required source columns: {required_src_cols}...")
+                missing_src = [col for col in required_src_cols if col not in df.columns]
+                if missing_src: raise ValueError(f"Missing required source columns: {missing_src}")
+                logger.debug(f"{log_prefix} Step 3 DONE.")
+
+                # --- Oszlopok átnevezése (kisbetűs) ---
+                logger.debug(f"{log_prefix} Step 4: Renaming to intermediate lowercase...")
+                rename_map = {'open': 'open', 'high': 'high', 'low': 'low', 'close': 'close', 'adjusted_close': 'adj_close', 'volume': 'volume'}
+                actual_rename_map = {k: v for k, v in rename_map.items() if k in df.columns}
+                df_renamed = df.rename(columns=actual_rename_map)
+                logger.debug(f"{log_prefix} Step 4 DONE. Columns: {list(df_renamed.columns)}")
+
+                # --- Index beállítása ---
+                logger.debug(f"{log_prefix} Step 5: Setting index to 'datetime_index'...")
+                df_renamed = df_renamed.set_index('datetime_index')
+                df_renamed.index.name = 'Date'
+                logger.debug(f"{log_prefix} Step 5 DONE.")
+
+                # --- Csak a szükséges oszlopok kiválasztása ---
+                logger.debug(f"{log_prefix} Step 6: Selecting target columns: {target_cols_to_process}...")
+                cols_to_keep = [col for col in target_cols_to_process if col in df_renamed.columns]
+                if len(cols_to_keep) != len(target_cols_to_process):
+                    missing_target = list(set(target_cols_to_process) - set(cols_to_keep))
+                    raise ValueError(f"Could not find all target columns after rename. Missing: {missing_target}")
+                df_processed_lower = df_renamed[cols_to_keep].copy()
+                logger.debug(f"{log_prefix} Step 6 DONE. Shape: {df_processed_lower.shape}, Cols: {list(df_processed_lower.columns)}")
+
+                # --- Típuskonverziók ---
+                logger.debug(f"{log_prefix} Step 7: Performing numeric type conversions...")
+                for col in target_cols_to_process:
+                    if col in df_processed_lower.columns:
+                        # logger.debug(f"{log_prefix} Converting '{col}'...") # Túl sok log lehet
+                        if col == 'volume':
+                            df_processed_lower[col] = pd.to_numeric(df_processed_lower[col], errors='coerce').fillna(0).astype(int)
+                        else:
+                            df_processed_lower[col] = pd.to_numeric(df_processed_lower[col], errors='coerce')
+                logger.debug(f"{log_prefix} Step 7 DONE.")
+
+                # --- Index rendezése ---
+                logger.debug(f"{log_prefix} Step 8: Sorting DataFrame by index...")
+                df_processed_lower = df_processed_lower.sort_index()
+                logger.debug(f"{log_prefix} Step 8 DONE.")
+
+                # --- Végső oszlopnevek (nagybetűs) ---
+                logger.debug(f"{log_prefix} Step 9: Renaming final columns to uppercase standard...")
+                final_rename_map = {'open': 'Open', 'high': 'High', 'low': 'Low', 'close': 'Close', 'adj_close': 'Adj Close', 'volume': 'Volume'}
+                actual_final_rename_map = {k: v for k, v in final_rename_map.items() if k in df_processed_lower.columns}
+                df_final_temp = df_processed_lower.rename(columns=actual_final_rename_map) # <<< Átmeneti változó
+                logger.debug(f"{log_prefix} Step 9 DONE. Final columns: {list(df_final_temp.columns)}, Shape: {df_final_temp.shape}")
+
+                # --- NaN ellenőrzés ---
+                logger.debug(f"{log_prefix} Step 10: Checking for NaN values...")
+                if df_final_temp.isnull().values.any():
+                    nan_counts = df_final_temp.isnull().sum()
+                    logger.warning(f"{log_prefix} Step 10: Final DataFrame contains NaN values! Counts:\n{nan_counts[nan_counts > 0]}")
+                else:
+                    logger.debug(f"{log_prefix} Step 10 DONE. No NaN values found.")
+
+                # === SIKERES FELDOLGOZÁS ===
+                logger.info(f"{log_prefix} >>> Live Data Processing SUCCEEDED. Final Shape: {df_final_temp.shape}. Assigning result. <<<")
+                processed_df = df_final_temp # <<< ÉRTÉKADÁS A KÖZPONTI VÁLTOZÓNAK
+
+            except (KeyError, ValueError) as e_proc:
+                # Várhatóbb feldolgozási hibák
+                logger.error(f"{log_prefix} >>> Live Data Processing FAILED (Key/Value Error): {e_proc}. Check API response/logic.", exc_info=False)
+                logger.debug(f"{log_prefix} Raw data sample (first 300 chars): {str(raw_response_json)[:300]}")
+                processed_df = None # Hiba esetén None
+                # Itt kell a hibajelzőt cache-elni
+                if cache and cache_key:
+                    logger.info(f"{log_prefix} Caching failure marker due to processing error.")
+                    await cache.set(cache_key, FETCH_FAILED_MARKER, timeout_seconds=FETCH_FAILURE_CACHE_TTL)
+            except (KeyError, ValueError) as e_proc:
+                # Várhatóbb feldolgozási hibák
+                logger.error(f"{log_prefix} >>> Live Data Processing FAILED (Key/Value Error): {e_proc}. Check API response/logic.", exc_info=False)
+                logger.debug(f"{log_prefix} Raw data sample (first 300 chars): {str(raw_response_json)[:300]}")
+                processed_df = None # Hiba esetén None
+                if cache and cache_key:
+                    logger.info(f"{log_prefix} Caching failure marker due to processing error.")
+                    await cache.set(cache_key, FETCH_FAILED_MARKER, timeout_seconds=FETCH_FAILURE_CACHE_TTL)
+
+            # === ITT JÖN A TE JAVÍTOTT BLOKKOD ===
+            except Exception as e_general_proc:
+                # Bármilyen más váratlan hiba a feldolgozás során
+                try:
+                    # Próbáljuk meg a részletes logolást
+                    error_type = type(e_general_proc).__name__
+                    logger.error(f"{log_prefix} >>> Live Data Processing FAILED (Unexpected Error Type: '{error_type}'). See details below.", exc_info=True)
+                    # Külön logoljuk magát a hibát, hátha az f-string okoz gondot
+                    logger.error(f"{log_prefix} Caught Exception Object: {repr(e_general_proc)}")
+                except Exception as log_err:
+                    # Ha maga a logolás is hibát dob!
+                    # Használjunk standard print-et, mert a logger is megbízhatatlan lehet itt
+                    print(f"CRITICAL LOGGING FAILURE in {log_prefix}: Could not log original error {repr(e_general_proc)}. Logging error: {repr(log_err)}", file=sys.stderr)
+                    # Még egy próbálkozás a loggerrel, hátha csak az exc_info volt a gond
+                    try:
+                         logger.error(f"CRITICAL LOGGING FAILURE in {log_prefix}. Original error repr: {repr(e_general_proc)}. Logging error repr: {repr(log_err)}")
+                    except:
+                         pass # Ha ez is hibát dob, nincs mit tenni
+
+                processed_df = None # Hiba esetén None
+
+                if cache and cache_key:
+                    try: # A cache írás is dobhat hibát
+                         logger.info(f"{log_prefix} Caching failure marker due to unexpected processing error.")
+                         await cache.set(cache_key, FETCH_FAILED_MARKER, timeout_seconds=FETCH_FAILURE_CACHE_TTL)
+                    except Exception as e_cache_fail_marker:
+                         logger.error(f"{log_prefix} Failed to cache failure marker after unexpected processing error: {e_cache_fail_marker}")
+
+            # === BELSŐ FELDOLGOZÁSI TRY BLOKK VÉGE ===
+
+        except Exception as e_fetch_orchestration:
+             # Hiba az API hívásban, válasz ellenőrzésben, vagy a belső feldolgozási hibák újradobása esetén
+             logger.error(f"{log_prefix} Error during live fetch/processing orchestration: {e_fetch_orchestration}", exc_info=True)
+             processed_df = None # Hiba esetén None
+             # Biztosítjuk, hogy a hibajelző cache-elve legyen (make_api_request már próbálhatta, de itt is megpróbáljuk)
+             if cache and cache_key and not await cache.exists(cache_key): # Csak akkor írjunk, ha még nem létezik (pl. make_api_request nem írta)
+                 try:
+                     logger.info(f"{log_prefix} Attempting to cache failure marker due to fetch/processing orchestration error.")
+                     await cache.set(cache_key, FETCH_FAILED_MARKER, timeout_seconds=FETCH_FAILURE_CACHE_TTL)
+                 except Exception as e_cache_fail_set:
+                      logger.error(f"{log_prefix} Failed to cache failure marker even in outer exception block: {e_cache_fail_set}", exc_info=False)
+
+    elif cache_hit_status == "INIT_ERROR":
+         logger.warning(f"{log_prefix} Skipping live fetch due to initialization/cache read error.")
+    else: # HIT_VALID vagy HIT_FAILED
+         logger.info(f"{log_prefix} Skipping live fetch due to cache status: {cache_hit_status}")
+
+
+    # --- Cache Írás (Csak ha élő lekérés történt ÉS sikeres volt a feldolgozás) ---
+    if live_fetch_attempted and processed_df is not None and not processed_df.empty and cache and cache_key:
+        logger.info(f"{log_prefix} Live fetch and processing was successful. Attempting to cache the result...")
+        try:
+            # Előkészítés a cache-eléshez
+            df_to_serialize = processed_df.copy()
+            if isinstance(df_to_serialize.index, pd.DatetimeIndex):
+                # ISO 8601 formátum, ami tartalmazza a timezone infót is
+                df_to_serialize.index = df_to_serialize.index.strftime('%Y-%m-%dT%H:%M:%S.%f%z')
+                # Ha nincs timezone info, a %z üres string lesz, ami szintén jó
+                logger.debug(f"{log_prefix} Converted DatetimeIndex to string for caching.")
+
+            # 'split' orientáció a legjobb a rekonstrukcióhoz
+            data_to_cache = df_to_serialize.to_dict(orient='split')
+            # A 'name' kulcsot (ha pandas hozzáadta) töröljük, mert nincs rá szükség a rekonstrukcióhoz
+            if 'name' in data_to_cache: del data_to_cache['name']
+            logger.debug(f"{log_prefix} Data prepared for caching (type: dict, orient='split'). Sending to cache.set...")
+
+            await cache.set(cache_key, data_to_cache, timeout_seconds=cache_ttl)
+            logger.info(f"{log_prefix} Cache SET successful for processed live data (key: '{cache_key}').")
+
+        except TypeError as e_serialize:
+             logger.error(f"{log_prefix} Cache SET FAILED for live data key '{cache_key}' due to TypeError (Serialization failed). Error: {e_serialize}. Data type: {type(data_to_cache)}", exc_info=True)
+             try: logger.error(f"Preview of data failed serialization (first 500 chars): {str(data_to_cache)[:500]}")
+             except: pass
+             # Fontos: A processed_df ettől még valid, a függvény visszaadja! Csak a cache írás nem sikerült.
+        except Exception as e_cache_set:
+            logger.error(f"{log_prefix} Cache SET FAILED for live data key '{cache_key}' with general error. Error: {e_cache_set}", exc_info=True)
+            # Itt is visszaadjuk a processed_df-et.
+
+    # --- Végső Visszatérés ---
+    final_return_type = type(processed_df).__name__
+    if processed_df is not None:
+        final_shape = f"Shape: {processed_df.shape}"
+        final_cols = f"Columns: {list(processed_df.columns)}"
+    else:
+        final_shape = "N/A"
+        final_cols = "N/A"
+
+    logger.info(f"{log_prefix} === Finished fetch_eodhd_ohlcv. Returning Type: {final_return_type}, {final_shape}, {final_cols}. Cache Status on Entry: {cache_hit_status}, Live Fetch Attempted: {live_fetch_attempted} ===")
+    return processed_df
+# --- Modul betöltésének jelzése ---
+# ... (ez a rész változatlan marad) ...
+# --- Modul betöltésének jelzése ---
+if _eodhd_dependencies_met:
+    EODHD_FETCHER_LOGGER.info("--- EODHD Fetcher Module (v3.0) loaded successfully. ---")
+else:
+    EODHD_FETCHER_LOGGER.error("--- EODHD Fetcher Module (v3.0) loaded WITH ERRORS due to missing dependencies. ---")

@@ -1,0 +1,566 @@
+/** * ========================================================================== * CONTENTHUB LAYOUT & GENERAL COMPONENTS v1.0 * ========================================================================== * * Általános layout és komponens osztályok a ContentHub-hoz * Features: Container, Footer, Tools, Templates, Metrics, Projects * * Author: Aevorex Premium Team * Created: 2025-06-10 * Status: PRODUCTION ACTIVE */ /* ========================================================================== CONTAINER SYSTEM ========================================================================== */ .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--ch-space-4);
+  width: 100%;
+}
+
+@media (max-width: 1240px) {
+.container {
+  padding: 0 var(--ch-space-2);
+}
+}
+
+@media (max-width: 768px) {
+
+} /* ========================================================================== SECTION TITLES ========================================================================== */ .section-title {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: var(--ch-font-weight-bold);
+  color: var(--ch-text-primary);
+  text-align: center;
+  margin-bottom: 3rem;
+  line-height: 1.2;
+}
+/* ========================================================================== BUTTON SYSTEM (non-ch prefix compatibility) ========================================================================== */ .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: var(--ch-font-weight-medium);
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: var(--ch-radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn--primary {
+  background: var(--ch-brand-primary);
+  color: white;
+  border-color: var(--ch-brand-primary);
+}
+.btn--primary:hover {
+  background: var(--ch-brand-secondary);
+  border-color: var(--ch-brand-secondary);
+  transform: translateY(-1px);
+}
+.btn--outline {
+  background: transparent;
+  color: var(--ch-brand-primary);
+  border-color: var(--ch-brand-primary);
+}
+.btn--outline:hover {
+  background: var(--ch-brand-primary);
+  color: white;
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--ch-text-secondary);
+  border-color: transparent;
+}
+.btn--ghost:hover {
+  background: var(--ch-surface-secondary);
+  color: var(--ch-text-primary);
+}
+.btn--small {
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+}
+.btn--full {
+  width: 100%;
+}
+.btn--icon {
+  padding: 0.75rem;
+  width: auto;
+  min-width: auto;
+}
+/* ========================================================================== TOOLS SECTION ========================================================================== */ .tools {
+  padding: 4rem 0;
+  background: var(--ch-surface-primary);
+}
+.tools-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.tool-card {
+  background: var(--ch-bg-primary);
+  border: 1px solid var(--ch-border-primary);
+  border-radius: var(--ch-radius-lg);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: var(--ch-shadow-sm);
+}
+.tool-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ch-shadow-lg);
+  border-color: var(--ch-brand-primary);
+}
+.tool-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--ch-brand-50);
+  border-radius: var(--ch-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  color: var(--ch-brand-primary);
+}
+.tool-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.tool-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.tool-title {
+  font-size: 1.25rem;
+  font-weight: var(--ch-font-weight-semibold);
+  color: var(--ch-text-primary);
+  margin: 0;
+}
+.tool-description {
+  color: var(--ch-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+.tool-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+/* ========================================================================== FEATURE BADGES ========================================================================== */ .feature-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: var(--ch-font-weight-medium);
+  background: var(--ch-surface-secondary);
+  color: var(--ch-text-secondary);
+  border-radius: var(--ch-radius-full);
+  border: 1px solid var(--ch-border-secondary);
+}
+/* ========================================================================== TEMPLATES SECTION ========================================================================== */ .templates {
+  padding: 4rem 0;
+  background: var(--ch-bg-primary);
+}
+.template-categories {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+.category-btn {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: var(--ch-text-secondary);
+  border: 1px solid var(--ch-border-primary);
+  border-radius: var(--ch-radius-full);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  font-weight: var(--ch-font-weight-medium);
+  width: 100%;
+  max-width: 200px;
+}
+.category-btn--active, .category-btn:hover {
+  background: var(--ch-brand-primary);
+  color: white;
+  border-color: var(--ch-brand-primary);
+}
+.template-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+.template-card {
+  background: var(--ch-surface-primary);
+  border: 1px solid var(--ch-border-primary);
+  border-radius: var(--ch-radius-lg);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.template-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ch-shadow-md);
+  border-color: var(--ch-brand-primary);
+}
+.template-preview {
+  padding: 1.5rem;
+  background: var(--ch-surface-secondary);
+  border-bottom: 1px solid var(--ch-border-primary);
+}
+.template-info {
+  padding: 1.5rem;
+}
+.template-info h4 {
+  font-size: 1.125rem;
+  font-weight: var(--ch-font-weight-semibold);
+  color: var(--ch-text-primary);
+  margin: 0 0 0.5rem 0;
+}
+.template-info p {
+  color: var(--ch-text-secondary);
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
+}
+.preview-header {
+  font-size: 0.75rem;
+  color: var(--ch-text-secondary);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.preview-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.preview-line {
+  height: 8px;
+  background: var(--ch-border-secondary);
+  border-radius: var(--ch-radius-sm);
+}
+.preview-line.long {
+  width: 100%;
+}
+.preview-line.medium {
+  width: 75%;
+}
+.preview-line.short {
+  width: 50%;
+}
+.preview-square {
+  width: 40px;
+  height: 40px;
+  background: var(--ch-border-secondary);
+  border-radius: var(--ch-radius-sm);
+  margin-bottom: 0.5rem;
+}
+/* ========================================================================== WORKSPACE SECTION ========================================================================== */ .workspace {
+  padding: 4rem 0;
+  background: var(--ch-surface-primary);
+}
+.workspace-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.workspace-sidebar {
+  background: var(--ch-bg-primary);
+  border: 1px solid var(--ch-border-primary);
+  border-radius: var(--ch-radius-lg);
+  padding: 1.5rem;
+  height: fit-content;
+}
+.workspace-main {
+  background: var(--ch-bg-primary);
+  border: 1px solid var(--ch-border-primary);
+  border-radius: var(--ch-radius-lg);
+  display: flex;
+  flex-direction: column;
+}
+.workspace-analytics {
+  background: var(--ch-bg-primary);
+  border: 1px solid var(--ch-border-primary);
+  border-radius: var(--ch-radius-lg);
+  padding: 1.5rem;
+  height: fit-content;
+}
+/* ========================================================================== PROJECT COMPONENTS ========================================================================== */ .sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.sidebar-header h3 {
+  font-size: 1.125rem;
+  font-weight: var(--ch-font-weight-semibold);
+  color: var(--ch-text-primary);
+  margin: 0;
+}
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.project-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: var(--ch-radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.project-item:hover, .project-item--active {
+  background: var(--ch-surface-secondary);
+}
+.project-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--ch-surface-secondary);
+  border-radius: var(--ch-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ch-text-secondary);
+}
+.project-info {
+  flex: 1;
+}
+.project-name {
+  font-size: 0.875rem;
+  font-weight: var(--ch-font-weight-medium);
+  color: var(--ch-text-primary);
+  margin: 0;
+}
+.project-status {
+  font-size: 0.75rem;
+  color: var(--ch-text-secondary);
+  margin: 0;
+}
+/* ========================================================================== METRICS & ANALYTICS ========================================================================== */ .analytics-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.analytics-header h3 {
+  font-size: 1.125rem;
+  font-weight: var(--ch-font-weight-semibold);
+  color: var(--ch-text-primary);
+  margin: 0;
+}
+.analytics-period {
+  font-size: 0.75rem;
+  color: var(--ch-text-secondary);
+}
+.analytics-metrics {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.metric-card {
+  background: var(--ch-surface-secondary);
+  border-radius: var(--ch-radius-md);
+  padding: 1rem;
+  text-align: center;
+}
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: var(--ch-font-weight-bold);
+  color: var(--ch-text-primary);
+  margin-bottom: 0.25rem;
+}
+.metric-label {
+  font-size: 0.75rem;
+  color: var(--ch-text-secondary);
+  margin-bottom: 0.5rem;
+}
+.metric-change {
+  font-size: 0.75rem;
+  font-weight: var(--ch-font-weight-medium);
+}
+.metric-change.positive {
+  color: var(--ch-success-600);
+}
+.metric-change.negative {
+  color: var(--ch-error-600);
+}
+.content-performance h4 {
+  font-size: 1rem;
+  font-weight: var(--ch-font-weight-semibold);
+  color: var(--ch-text-primary);
+  margin: 0 0 1rem 0;
+}
+.performance-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.performance-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  background: var(--ch-surface-secondary);
+  border-radius: var(--ch-radius-sm);
+}
+.performance-title {
+  font-size: 0.875rem;
+  color: var(--ch-text-primary);
+}
+.performance-score {
+  font-size: 0.75rem;
+  font-weight: var(--ch-font-weight-medium);
+  color: var(--ch-success-600);
+}
+/* ========================================================================== EDITOR COMPONENTS ========================================================================== */ .editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: var(--ch-surface-secondary);
+  border-bottom: 1px solid var(--ch-border-primary);
+}
+.toolbar-left, .toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  justify-content: center;
+}
+.word-count {
+  font-size: 0.875rem;
+  color: var(--ch-text-secondary);
+}
+.editor-area {
+  flex: 1;
+  padding: 2rem;
+  min-height: 400px;
+}
+.editor-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  color: var(--ch-text-secondary);
+}
+.placeholder-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--ch-surface-secondary);
+  border-radius: var(--ch-radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: var(--ch-text-secondary);
+}
+.editor-placeholder h3 {
+  font-size: 1.25rem;
+  font-weight: var(--ch-font-weight-semibold);
+  color: var(--ch-text-primary);
+  margin: 0 0 0.5rem 0;
+}
+.editor-placeholder p {
+  margin: 0 0 1.5rem 0;
+  max-width: 400px;
+}
+/* ========================================================================== FOOTER SYSTEM ========================================================================== */ .footer {
+  background: var(--ch-surface-primary);
+  border-top: 1px solid var(--ch-border-primary);
+  padding: 3rem 0 2rem 0;
+  margin-top: 4rem;
+}
+.footer__content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.footer__brand {
+  display: flex;
+  gap: 1rem;
+}
+.footer__logo {
+  flex-shrink: 0;
+}
+.footer__brand-name {
+  font-size: 1.125rem;
+  font-weight: var(--ch-font-weight-bold);
+  color: var(--ch-text-primary);
+  margin-bottom: 0.25rem;
+}
+.footer__brand-subtitle {
+  font-size: 0.875rem;
+  color: var(--ch-brand-primary);
+  margin-bottom: 0.75rem;
+}
+.footer__description {
+  font-size: 0.875rem;
+  color: var(--ch-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+.footer__links h4 {
+  font-size: 0.875rem;
+  font-weight: var(--ch-font-weight-semibold);
+  color: var(--ch-text-primary);
+  margin: 0 0 1rem 0;
+}
+.footer__link {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--ch-text-secondary);
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+  transition: color 0.2s ease;
+}
+.footer__link:hover {
+  color: var(--ch-brand-primary);
+}
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 1px solid var(--ch-border-primary);
+  font-size: 0.875rem;
+  color: var(--ch-text-secondary);
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+}
+.footer__status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.status--success {
+  width: 8px;
+  height: 8px;
+  background: var(--ch-success-600);
+  border-radius: 50%;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+
+
+}
+
+@media (max-width: 768px) {
+
+
+
+
+.editor-toolbar {
+  flex-direction: column;
+  gap: 1rem;
+}
+
+}
+
+@media (max-width: 480px) {
+
+
+} 

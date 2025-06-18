@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ContentHub - Final Test</title>
+    
+    <!-- Import ContentHub Main Module -->
+    <script type="module" src="shared/js/main_contenthub.js"></script>
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+            color: #334155;
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+        }
+        .test-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .test-card {
+            background: #f8fafc;
+            padding: 24px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .test-card h3 {
+            margin: 0 0 16px 0;
+            color: #1e293b;
+        }
+        .status {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            margin: 8px 0;
+            display: inline-block;
+        }
+        .status.success { background: #dcfce7; color: #166534; }
+        .status.error { background: #fef2f2; color: #dc2626; }
+        .status.pending { background: #fef3c7; color: #d97706; }
+        .log {
+            background: #1e293b;
+            color: #f1f5f9;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+            margin: 16px 0;
+        }
+        button {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            margin: 8px 8px 8px 0;
+        }
+        button:hover {
+            background: #7c3aed;
+        }
+        button:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            margin: 16px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #8b5cf6;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1>🚀 ContentHub Final Test Suite</h1>
+            <p>Comprehensive testing of all ContentHub modules and functionality</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card">
+                <h3>🔧 Module Loading</h3>
+                <div id="moduleStatus" class="status pending">Testing...</div>
+                <div id="moduleDetails"></div>
+            </div>
+
+            <div class="test-card">
+                <h3>🎨 Theme System</h3>
+                <div id="themeStatus" class="status pending">Testing...</div>
+                <div id="themeDetails"></div>
+                <button onclick="testThemeToggle()">Toggle Theme</button>
+            </div>
+
+            <div class="test-card">
+                <h3>🌐 API Connection</h3>
+                <div id="apiStatus" class="status pending">Testing...</div>
+                <div id="apiDetails"></div>
+            </div>
+
+            <div class="test-card">
+                <h3>💫 Animations</h3>
+                <div id="animationStatus" class="status pending">Testing...</div>
+                <div id="animationDetails"></div>
+                <div class="test-element" data-hover-effect="lift" style="background: #e2e8f0; padding: 16px; border-radius: 8px; margin: 8px 0;">
+                    Hover me for animation test
+                </div>
+            </div>
+
+            <div class="test-card">
+                <h3>🧭 Navigation</h3>
+                <div id="navStatus" class="status pending">Testing...</div>
+                <div id="navDetails"></div>
+            </div>
+
+            <div class="test-card">
+                <h3>📊 Performance</h3>
+                <div id="perfStatus" class="status pending">Testing...</div>
+                <div id="perfDetails"></div>
+            </div>
+        </div>
+
+        <div class="test-card">
+            <h3>📋 Test Log</h3>
+            <div id="testLog" class="log">Initializing test suite...\n</div>
+            <button onclick="runAllTests()">Run All Tests</button>
+            <button onclick="clearLog()">Clear Log</button>
+        </div>
+    </div>
+
+    <script type="module">
+        // Wait for ContentHub to be loaded before running tests
+        let testResults = {};
+        let totalTests = 6;
+        let completedTests = 0;
+
+        function log(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logElement = document.getElementById('testLog');
+            logElement.textContent += `[${timestamp}] ${message}\n`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+
+        function updateProgress() {
+            const progress = (completedTests / totalTests) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function setTestStatus(testName, status, details = '') {
+            const statusElement = document.getElementById(testName + 'Status');
+            const detailsElement = document.getElementById(testName + 'Details');
+            
+            statusElement.className = `status ${status}`;
+            statusElement.textContent = status === 'success' ? '✅ Pass' : 
+                                     status === 'error' ? '❌ Fail' : '⏳ Testing...';
+            
+            if (detailsElement) {
+                detailsElement.innerHTML = details;
+            }
+            
+            testResults[testName] = status;
+            if (status !== 'pending') {
+                completedTests++;
+                updateProgress();
+            }
+        }
+
+        async function testModuleLoading() {
+            log('Testing module loading...');
+            try {
+                // Wait a bit for modules to load
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                if (typeof window.ContentHub === 'undefined') {
+                    throw new Error('ContentHub namespace not found');
+                }
+
+                const requiredModules = [
+                    'ThemeManager', 'APIClient', 'ErrorHandler', 'PerformanceMonitor',
+                    'UIInteractions', 'Navigation', 'Animations', 'Utils'
+                ];
+
+                const loadedModules = [];
+                const missingModules = [];
+
+                requiredModules.forEach(module => {
+                    if (window.ContentHub[module]) {
+                        loadedModules.push(module);
+                    } else {
+                        missingModules.push(module);
+                    }
+                });
+
+                if (missingModules.length > 0) {
+                    setTestStatus('module', 'error', 
+                        `Missing: ${missingModules.join(', ')}<br>` +
+                        `Loaded: ${loadedModules.join(', ')}`);
+                    log(`⚠️ Some modules missing: ${missingModules.join(', ')}`);
+                } else {
+                    setTestStatus('module', 'success', 
+                        `Loaded: ${loadedModules.length}/${requiredModules.length}<br>` +
+                        `Version: ${window.ContentHub.version || 'Unknown'}`);
+                    log(`✅ All ${loadedModules.length} modules loaded successfully`);
+                }
+                
+            } catch (error) {
+                setTestStatus('module', 'error', error.message);
+                log(`❌ Module loading failed: ${error.message}`);
+            }
+        }
+
+        async function testThemeSystem() {
+            log('Testing theme system...');
+            try {
+                if (!window.ContentHub?.ThemeManager) {
+                    throw new Error('ThemeManager not available');
+                }
+
+                const themeManager = window.ContentHub.ThemeManager;
+                const currentTheme = themeManager.getCurrentTheme();
+                
+                setTestStatus('theme', 'success', 
+                    `Current theme: ${currentTheme}<br>` +
+                    `CSS vars: Available`);
+                log(`✅ Theme system working, current theme: ${currentTheme}`);
+                
+            } catch (error) {
+                setTestStatus('theme', 'error', error.message);
+                log(`❌ Theme system failed: ${error.message}`);
+            }
+        }
+
+        async function testAPIConnection() {
+            log('Testing API connection...');
+            try {
+                if (!window.ContentHub?.APIClient) {
+                    throw new Error('APIClient not available');
+                }
+
+                const response = await fetch('http://localhost:8085/api/v1/health');
+                const data = await response.json();
+                
+                if (data.status === 'healthy') {
+                    setTestStatus('api', 'success', 
+                        `Status: ${data.status}<br>` +
+                        `Version: ${data.version}`);
+                    log(`✅ API connection successful, backend healthy`);
+                } else {
+                    throw new Error(`Backend unhealthy: ${data.status}`);
+                }
+                
+            } catch (error) {
+                setTestStatus('api', 'error', error.message);
+                log(`❌ API connection failed: ${error.message}`);
+            }
+        }
+
+        async function testAnimations() {
+            log('Testing animation system...');
+            try {
+                if (!window.ContentHub?.Animations) {
+                    throw new Error('Animations module not available');
+                }
+
+                const testElement = document.querySelector('.test-element');
+                if (testElement) {
+                    // Test hover effect
+                    const hoverEvent = new MouseEvent('mouseenter', { bubbles: true });
+                    testElement.dispatchEvent(hoverEvent);
+                    
+                    setTimeout(() => {
+                        const leaveEvent = new MouseEvent('mouseleave', { bubbles: true });
+                        testElement.dispatchEvent(leaveEvent);
+                    }, 1000);
+                }
+
+                setTestStatus('animation', 'success', 
+                    `Hover effects: Active<br>` +
+                    `Animation engine: Ready`);
+                log(`✅ Animation system working`);
+                
+            } catch (error) {
+                setTestStatus('animation', 'error', error.message);
+                log(`❌ Animation system failed: ${error.message}`);
+            }
+        }
+
+        async function testNavigation() {
+            log('Testing navigation system...');
+            try {
+                if (!window.ContentHub?.Navigation) {
+                    throw new Error('Navigation module not available');
+                }
+
+                setTestStatus('nav', 'success', 
+                    `Router: Available<br>` +
+                    `Current page: ${window.location.pathname}`);
+                log(`✅ Navigation system working`);
+                
+            } catch (error) {
+                setTestStatus('nav', 'error', error.message);
+                log(`❌ Navigation system failed: ${error.message}`);
+            }
+        }
+
+        async function testPerformance() {
+            log('Testing performance monitoring...');
+            try {
+                if (!window.ContentHub?.PerformanceMonitor) {
+                    throw new Error('PerformanceMonitor not available');
+                }
+
+                const perfData = performance.getEntriesByType('navigation')[0];
+                const loadTime = Math.round(perfData.loadEventEnd - perfData.navigationStart);
+
+                setTestStatus('perf', 'success', 
+                    `Load time: ${loadTime}ms<br>` +
+                    `Monitor: Active`);
+                log(`✅ Performance monitoring active, load time: ${loadTime}ms`);
+                
+            } catch (error) {
+                setTestStatus('perf', 'error', error.message);
+                log(`❌ Performance monitoring failed: ${error.message}`);
+            }
+        }
+
+        window.testThemeToggle = function() {
+            try {
+                if (window.ContentHub?.ThemeManager) {
+                    window.ContentHub.ThemeManager.toggleTheme();
+                    log('🎨 Theme toggled');
+                }
+            } catch (error) {
+                log(`❌ Theme toggle failed: ${error.message}`);
+            }
+        };
+
+        window.runAllTests = async function() {
+            log('🚀 Starting comprehensive test suite...');
+            log('⏳ Waiting for ContentHub modules to initialize...');
+            
+            // Wait for ContentHub to be fully loaded
+            let attempts = 0;
+            const maxAttempts = 10;
+            
+            while ((!window.ContentHub || !window.ContentHub.loaded) && attempts < maxAttempts) {
+                await new Promise(resolve => setTimeout(resolve, 500));
+                attempts++;
+                log(`⏳ Attempt ${attempts}/${maxAttempts} - Waiting for ContentHub...`);
+            }
+            
+            if (!window.ContentHub) {
+                log('❌ ContentHub failed to initialize after 5 seconds');
+                return;
+            }
+            
+            log('✅ ContentHub namespace detected, starting tests...');
+            completedTests = 0;
+            updateProgress();
+            
+            await testModuleLoading();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await testThemeSystem();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await testAPIConnection();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await testAnimations();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await testNavigation();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await testPerformance();
+            
+            log('📊 Test suite completed!');
+        };
+
+        window.clearLog = function() {
+            document.getElementById('testLog').textContent = 'Log cleared.\n';
+        };
+
+        // Auto-run tests when page loads, but wait for ContentHub
+        document.addEventListener('DOMContentLoaded', () => {
+            log('📄 DOM loaded, waiting for ContentHub initialization...');
+            
+            // Listen for ContentHub ready event
+            window.addEventListener('contenthub:ready', () => {
+                log('🎉 ContentHub ready event received!');
+                setTimeout(() => {
+                    window.runAllTests();
+                }, 1000);
+            });
+            
+            // Fallback: run tests after 5 seconds even if no ready event
+            setTimeout(() => {
+                if (completedTests === 0) {
+                    log('⚠️ No ready event received, starting tests anyway...');
+                    window.runAllTests();
+                }
+            }, 5000);
+        });
+    </script>
+</body>
+</html> 

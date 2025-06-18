@@ -1,0 +1,215 @@
+/**
+ * @file financial-metrics.css
+ * @description Financial Metrics bubble specific styles for FinanceHub
+ * @version 1.0.0
+ * @author AEVOREX
+ * @lastUpdated 2025-06-13
+ * @comp Financial Metrics Bubble v1.0
+ */
+
+/* Content padding */
+.fh-analysis-bubble--financial-metrics .fh-analysis-bubble__content {
+    padding: var(--fh-space-1) 0;
+  }
+  
+  /* Tables */
+  .fh-analysis-bubble--financial-metrics table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--fh-space-2) 0;
+    font-size: var(--fh-font-size-sm);
+  }
+  
+  .fh-analysis-bubble--financial-metrics th,
+  .fh-analysis-bubble--financial-metrics td {
+    padding: var(--fh-space-2) var(--fh-space-1);
+    text-align: left;
+    border-bottom: 1px solid var(--border-light);
+    transition: var(--fh-transition-fast);
+  }
+  
+  .fh-analysis-bubble--financial-metrics th {
+    font-weight: var(--fh-font-weight-semibold);
+    color: var(--text-muted);
+    font-size: var(--fh-font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--surface-tertiary);
+  }
+  
+  .fh-analysis-bubble--financial-metrics td {
+    color: var(--text-secondary);
+    font-weight: var(--fh-font-weight-medium);
+  }
+  
+  .fh-analysis-bubble--financial-metrics tr:hover td {
+    background: var(--surface-tertiary);
+    color: var(--text-primary);
+  }
+  
+  .fh-analysis-bubble--financial-metrics tr:last-child th,
+  .fh-analysis-bubble--financial-metrics tr:last-child td {
+    border-bottom: none;
+  }
+  
+  /* Metric rows */
+  .fh-analysis-bubble--financial-metrics .metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--fh-space-2) 0;
+    border-bottom: 1px solid var(--border-light);
+    transition: var(--fh-transition-fast);
+  }
+  
+  .fh-analysis-bubble--financial-metrics .metric-row:last-child {
+    border-bottom: none;
+  }
+  
+  .fh-analysis-bubble--financial-metrics .metric-row:hover {
+    background: var(--surface-tertiary);
+    margin: 0 calc(-1 * var(--fh-space-2));
+    padding-left: var(--fh-space-2);
+    padding-right: var(--fh-space-2);
+    border-radius: var(--fh-radius-sm);
+  }
+  
+  .fh-analysis-bubble--financial-metrics .metric-row__label {
+    font-size: var(--fh-font-size-sm);
+    color: var(--text-muted);
+    font-weight: var(--fh-font-weight-medium);
+    flex: 1;
+  }
+  
+  .fh-analysis-bubble--financial-metrics .metric-row__value {
+    font-size: var(--fh-font-size-sm);
+    color: var(--text-primary);
+    font-weight: var(--fh-font-weight-semibold);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  
+  /* Percentage changes */
+  .fh-analysis-bubble--financial-metrics .percentage-change {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--fh-space-1);
+    padding: var(--fh-space-1) var(--fh-space-2);
+    border-radius: var(--fh-radius-sm);
+    font-size: var(--fh-font-size-xs);
+    font-weight: var(--fh-font-weight-semibold);
+    font-variant-numeric: tabular-nums;
+  }
+  
+  .fh-analysis-bubble--financial-metrics .percentage-change--positive {
+    background: rgba(var(--color-success-rgb, 34, 197, 94), 0.1);
+    color: var(--color-success);
+  }
+  
+  .fh-analysis-bubble--financial-metrics .percentage-change--negative {
+    background: rgba(var(--color-error-rgb, 239, 68, 68), 0.1);
+    color: var(--color-error);
+  }
+  
+  .fh-analysis-bubble--financial-metrics .percentage-change--neutral {
+    background: var(--surface-tertiary);
+    color: var(--text-muted);
+  }
+  
+  .fh-analysis-bubble--financial-metrics .percentage-change::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+  
+  .fh-analysis-bubble--financial-metrics .percentage-change--positive::before {
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-bottom: 4px solid currentColor;
+  }
+  
+  .fh-analysis-bubble--financial-metrics .percentage-change--negative::before {
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 4px solid currentColor;
+  }
+  
+  /* Highlights */
+  .fh-analysis-bubble--financial-metrics .financial-highlight {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fh-space-1);
+    padding: var(--fh-space-3);
+    background: var(--surface-tertiary);
+    border-radius: var(--fh-radius-md);
+    border-left: 3px solid var(--accent-financial, #ffc107);
+    margin: var(--fh-space-3) 0;
+  }
+  
+  .fh-analysis-bubble--financial-metrics .financial-highlight__label {
+    font-size: var(--fh-font-size-xs);
+    color: var(--text-muted);
+    font-weight: var(--fh-font-weight-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .fh-analysis-bubble--financial-metrics .financial-highlight__value {
+    font-size: var(--fh-font-size-lg);
+    color: var(--text-primary);
+    font-weight: var(--fh-font-weight-semibold);
+    font-variant-numeric: tabular-nums;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .fh-analysis-bubble--financial-metrics table {
+      font-size: var(--fh-font-size-xs);
+    }
+    
+    .fh-analysis-bubble--financial-metrics th,
+    .fh-analysis-bubble--financial-metrics td {
+      padding: var(--fh-space-1);
+    }
+    
+    .fh-analysis-bubble--financial-metrics .metric-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--fh-space-1);
+    }
+    
+    .fh-analysis-bubble--financial-metrics .metric-row__value {
+      text-align: left;
+    }
+    
+    .fh-analysis-bubble--financial-metrics .financial-highlight__value {
+      font-size: var(--fh-font-size-md);
+    }
+  }
+  
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .fh-analysis-bubble--financial-metrics .metric-row,
+    .fh-analysis-bubble--financial-metrics th,
+    .fh-analysis-bubble--financial-metrics td {
+      transition: none;
+    }
+  }
+  
+  /* Scroll support for large Financial Metrics lists (160+ items) */
+  .fh-analysis-bubble--financial-metrics .metrics-section{
+    max-height: 420px;
+    overflow-y: auto;
+    padding-right: var(--fh-space-2);
+    scrollbar-width: thin;
+  }
+  
+  .fh-analysis-bubble--financial-metrics .metrics-section::-webkit-scrollbar{
+    width: 6px;
+  }
+  
+  .fh-analysis-bubble--financial-metrics .metrics-section::-webkit-scrollbar-thumb{
+    background: var(--fh-border-subtle);
+    border-radius: var(--fh-radius-sm);
+  }

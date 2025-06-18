@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Content Studio | ContentHUB</title>
+    <meta name="description" content="All-in-one Social Media Content Studio - Prompt generation, image creation, caption writing and scheduling">
+    
+    <!-- Shared CSS Resources -->
+    <link rel="stylesheet" href="../../shared/css/main_combined_contenthub.css">
+    
+    <!-- Module-Specific Styles -->
+    <style>
+        .social-studio {
+            background: var(--surface-color);
+            min-height: 100vh;
+        }
+        
+        .studio-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .studio-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .studio-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .workflow-section {
+            background: var(--card-background);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .section-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--primary-color);
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .prompt-library {
+            grid-column: 1 / -1;
+        }
+        
+        .prompt-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .prompt-category {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .prompt-category:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .content-creator {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            min-height: 400px;
+        }
+        
+        .creator-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .creator-tab {
+            padding: 0.5rem 1rem;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .creator-tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .creator-workspace {
+            background: var(--surface-color-2);
+            border-radius: 8px;
+            padding: 1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .content-input {
+            width: 100%;
+            min-height: 120px;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        
+        .ai-generate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .ai-generate-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .preview-panel {
+            background: var(--surface-color-2);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-platforms {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .platform-preview {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: white;
+            color: #333;
+        }
+        
+        .platform-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .schedule-section {
+            background: var(--card-background);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .schedule-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .schedule-input {
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+        
+        .publish-btn {
+            background: var(--success-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .workflow-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .prompt-library {
+                grid-column: 1;
+            }
+            
+            .social-platforms {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body class="social-studio" data-theme="light">
+    <!-- Studio Header -->
+    <header class="studio-header">
+        <div class="container">
+            <h1 class="studio-title">📱 Social Media Content Studio</h1>
+            <p class="studio-subtitle">Complete Social Media Workflow - Prompt → Create → Schedule → Publish</p>
+        </div>
+    </header>
+
+    <!-- Main Workflow -->
+    <main class="workflow-grid">
+        <!-- 1. Prompt Library Section -->
+        <section class="workflow-section prompt-library">
+            <div class="section-header">
+                <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                </svg>
+                <h2 class="section-title">AI Prompt Library</h2>
+            </div>
+            
+            <div class="prompt-categories">
+                <div class="prompt-category" data-type="linkedin">
+                    <h4>LinkedIn Posts</h4>
+                    <p>Professional thought leadership</p>
+                </div>
+                <div class="prompt-category" data-type="instagram">
+                    <h4>Instagram Content</h4>
+                    <p>Visual storytelling & captions</p>
+                </div>
+                <div class="prompt-category" data-type="twitter">
+                    <h4>Twitter Threads</h4>
+                    <p>Engaging conversation starters</p>
+                </div>
+                <div class="prompt-category" data-type="tiktok">
+                    <h4>TikTok Scripts</h4>
+                    <p>Viral video concepts</p>
+                </div>
+                <div class="prompt-category" data-type="youtube">
+                    <h4>YouTube Ideas</h4>
+                    <p>Video titles & descriptions</p>
+                </div>
+                <div class="prompt-category" data-type="facebook">
+                    <h4>Facebook Posts</h4>
+                    <p>Community engagement</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Image Generator -->
+        <section class="workflow-section">
+            <div class="section-header">
+                <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21,15 16,10 5,21"></polyline>
+                </svg>
+                <h2 class="section-title">AI Image Generator</h2>
+            </div>
+            
+            <div class="content-creator">
+                <div class="creator-tabs">
+                    <button class="creator-tab active">DALL-E</button>
+                    <button class="creator-tab">Midjourney</button>
+                    <button class="creator-tab">Stable Diffusion</button>
+                </div>
+                
+                <div class="creator-workspace">
+                    <textarea class="content-input" placeholder="Describe the image you want to create...
+Example: Modern minimalist Instagram post design with purple gradient background, clean typography, professional look for tech company"></textarea>
+                    <button class="ai-generate-btn">🎨 Generate Image</button>
+                </div>
+                
+                <div class="preview-panel">
+                    <div style="background: #f0f0f0; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                        <p>Generated image will appear here</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Caption & Content Writer -->
+        <section class="workflow-section">
+            <div class="section-header">
+                <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+                <h2 class="section-title">Caption & Content Writer</h2>
+            </div>
+            
+            <div class="content-creator">
+                <div class="creator-tabs">
+                    <button class="creator-tab active">Caption</button>
+                    <button class="creator-tab">Hashtags</button>
+                    <button class="creator-tab">Call-to-Action</button>
+                </div>
+                
+                <div class="creator-workspace">
+                    <textarea class="content-input" placeholder="Enter your content brief or let AI generate based on image...
+Example: Write an engaging LinkedIn post about AI in content marketing, professional tone, include question for engagement"></textarea>
+                    <button class="ai-generate-btn">✍️ Generate Caption</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Multi-Platform Preview & Publishing -->
+        <section class="workflow-section">
+            <div class="section-header">
+                <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                <h2 class="section-title">Multi-Platform Preview</h2>
+            </div>
+            
+            <div class="social-platforms">
+                <div class="platform-preview">
+                    <div class="platform-name">LinkedIn</div>
+                    <div style="font-size: 0.9rem; line-height: 1.4;">
+                        Your generated content will appear here formatted for LinkedIn...
+                    </div>
+                </div>
+                <div class="platform-preview">
+                    <div class="platform-name">Instagram</div>
+                    <div style="font-size: 0.9rem; line-height: 1.4;">
+                        Instagram-optimized format preview...
+                    </div>
+                </div>
+            </div>
+            
+            <div class="schedule-section">
+                <h4>Schedule & Publish</h4>
+                <div class="schedule-controls">
+                    <input type="datetime-local" class="schedule-input">
+                    <select class="schedule-input">
+                        <option>All Platforms</option>
+                        <option>LinkedIn Only</option>
+                        <option>Instagram Only</option>
+                        <option>Twitter Only</option>
+                    </select>
+                    <button class="publish-btn">📅 Schedule Post</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Navigation Footer -->
+    <footer style="text-align: center; padding: 2rem; background: var(--surface-color-2);">
+        <a href="../hub/contenthub_main.html" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">← Back to ContentHUB Main</a>
+    </footer>
+
+    <!-- Basic Interactivity Script -->
+    <script>
+        // Prompt category selection
+        document.querySelectorAll('.prompt-category').forEach(category => {
+            category.addEventListener('click', function() {
+                const type = this.dataset.type;
+                console.log(`Selected prompt type: ${type}`);
+                
+                // Remove active class from all
+                document.querySelectorAll('.prompt-category').forEach(c => c.classList.remove('active'));
+                // Add active class to clicked
+                this.classList.add('active');
+                
+                // TODO: Load specific prompts for this category
+            });
+        });
+
+        // Tab switching
+        document.querySelectorAll('.creator-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active from siblings
+                this.parentNode.querySelectorAll('.creator-tab').forEach(t => t.classList.remove('active'));
+                // Add active to clicked
+                this.classList.add('active');
+            });
+        });
+
+        // AI Generate button functionality
+        document.querySelectorAll('.ai-generate-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                console.log('AI Generation triggered');
+                this.textContent = '🔄 Generating...';
+                
+                // Simulate AI processing
+                setTimeout(() => {
+                    this.textContent = this.textContent.includes('Image') ? '🎨 Generate Image' : '✍️ Generate Caption';
+                }, 2000);
+            });
+        });
+
+        console.log('🚀 Social Media Content Studio loaded successfully!');
+    </script>
+</body>
+</html> 

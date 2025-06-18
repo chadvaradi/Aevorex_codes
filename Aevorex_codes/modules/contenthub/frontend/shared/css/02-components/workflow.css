@@ -1,0 +1,107 @@
+/** * ========================================================================== * WORKFLOW COMPONENT - ContentHub * ========================================================================== * Extracted from contenthub-bundle.css * Priority 2: High-Frequency Components */ /* ---- WORKFLOW STEP ---- */ .ch-workflow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ch-space-2);
+  padding: var(--ch-space-4);
+  border-radius: var(--ch-radius-lg);
+  background: var(--ch-surface-secondary);
+  transition: all var(--ch-transition-base);
+  animation: ch-pulse 3s infinite;
+}
+/* ---- WORKFLOW STEP ANIMATIONS ---- */ .ch-workflow-step:nth-child(1) {
+  animation-delay: 0s;
+}
+.ch-workflow-step:nth-child(3) {
+  animation-delay: 1s;
+}
+.ch-workflow-step:nth-child(5) {
+  animation-delay: 2s;
+}
+/* ---- STEP NUMBER ---- */ .ch-step-number {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ch-primary-600);
+  color: var(--ch-text-inverse);
+  border-radius: var(--ch-radius-full);
+  font-size: var(--ch-font-size-sm);
+  font-weight: var(--ch-font-weight-bold);
+}
+/* ---- STEP CONTENT ---- */ .ch-step-content {
+  text-align: center;
+  font-size: var(--ch-font-size-sm);
+  color: var(--ch-text-secondary);
+  font-weight: var(--ch-font-weight-medium);
+}
+/* ---- WORKFLOW PREVIEW ---- */ .ch-workflow-preview {
+  background: var(--ch-surface-secondary);
+  border-radius: var(--ch-radius-lg);
+  padding: var(--ch-space-6);
+  transition: all var(--ch-transition-base);
+}
+/* ---- WORKFLOW ARROW CONNECTOR ---- */ .ch-workflow-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ch-text-tertiary);
+  font-size: var(--ch-font-size-lg);
+  opacity: 0.6;
+}
+/* ---- LIGHT THEME OVERRIDES ---- */ [data-theme="light"] .ch-workflow-step {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  box-shadow: ;
+}
+[data-theme="light"] .ch-workflow-preview {
+  background: linear-gradient(135deg,;
+}
+/* ---- DARK THEME OVERRIDES ---- */ [data-theme="dark"] .ch-workflow-step {
+  background: var(--ch-surface-secondary);
+  border: 1px solid var(--ch-border-secondary);
+}
+[data-theme="dark"] .ch-workflow-preview {
+  background: var(--ch-surface-secondary);
+}
+
+/* ---- PULSE ANIMATION ---- */
+@keyframes ch-pulse {
+0%, 100% {
+  transform: scale(1);
+  opacity: 1;
+}
+50% {
+  transform: scale(1.02);
+  opacity: 0.95;
+}
+}
+
+/* ---- RESPONSIVE BREAKPOINTS ---- */
+@media (max-width: 768px) {
+.ch-workflow-step {
+  padding: var(--ch-space-3);
+  animation: none;
+  box-shadow: none;
+  border: 1px solid #000;
+}
+.ch-step-number {
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: var(--ch-font-size-xs);
+}
+.ch-workflow-arrow {
+  transform: rotate(90deg);
+  margin: var(--ch-space-2) 0;
+}
+}
+
+/* ---- PRINT STYLES ---- */
+@media print {
+
+.ch-workflow-preview {
+  background: white;
+  border: 1px solid #000;
+}
+} 

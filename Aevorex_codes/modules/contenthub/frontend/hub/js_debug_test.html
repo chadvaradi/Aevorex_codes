@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Debug Test - ContentHub</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #1a1a1a; 
+            color: #fff; 
+        }
+        .result { 
+            padding: 10px; 
+            margin: 10px 0; 
+            border-radius: 4px; 
+        }
+        .success { background: #4ade80; color: #000; }
+        .error { background: #ef4444; }
+        .info { background: #3b82f6; }
+    </style>
+</head>
+<body>
+    <h1>🔧 JavaScript Module Loading Debug Test</h1>
+    
+    <div id="results"></div>
+    
+    <button onclick="testThemeToggle()">🎨 Test Theme Toggle</button>
+    <button onclick="checkModules()">📋 Check All Modules</button>
+    
+    <script>
+        function addResult(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `result ${type}`;
+            div.innerHTML = message;
+            document.getElementById('results').appendChild(div);
+        }
+        
+        function checkModules() {
+            console.log('🔍 Starting module check...');
+            addResult('🔍 Starting module check...', 'info');
+            
+            // Check if ContentHub namespace exists
+            if (window.ContentHub) {
+                addResult('✅ ContentHub namespace exists', 'success');
+                console.log('✅ ContentHub namespace:', window.ContentHub);
+                
+                if (window.ContentHub.ThemeManager) {
+                    addResult('✅ ThemeManager loaded', 'success');
+                    console.log('✅ ThemeManager:', window.ContentHub.ThemeManager);
+                } else {
+                    addResult('❌ ThemeManager missing!', 'error');
+                    console.error('❌ ThemeManager missing!');
+                }
+                
+                if (window.ContentHub.loaded) {
+                    addResult('✅ All modules marked as loaded', 'success');
+                } else {
+                    addResult('⚠️ Modules not fully loaded yet', 'error');
+                }
+            } else {
+                addResult('❌ ContentHub namespace missing!', 'error');
+                console.error('❌ ContentHub namespace missing!');
+            }
+        }
+        
+        function testThemeToggle() {
+            console.log('🎨 Testing theme toggle...');
+            addResult('🎨 Testing theme toggle...', 'info');
+            
+            if (window.ContentHub?.ThemeManager?.toggleTheme) {
+                try {
+                    window.ContentHub.ThemeManager.toggleTheme();
+                    addResult('✅ Theme toggle successful!', 'success');
+                    console.log('✅ Theme toggle successful!');
+                } catch (error) {
+                    addResult(`❌ Theme toggle failed: ${error.message}`, 'error');
+                    console.error('❌ Theme toggle failed:', error);
+                }
+            } else {
+                addResult('❌ ThemeManager.toggleTheme not available!', 'error');
+                console.error('❌ ThemeManager.toggleTheme not available!');
+            }
+        }
+        
+        // Auto-check modules on load
+        document.addEventListener('DOMContentLoaded', function() {
+            addResult('📄 DOM Content Loaded', 'info');
+            
+            // Wait a bit for modules to load
+            setTimeout(checkModules, 1000);
+            setTimeout(checkModules, 3000);
+        });
+        
+        // Listen for ContentHub ready event
+        window.addEventListener('contenthub:ready', function(event) {
+            addResult('🚀 ContentHub ready event received!', 'success');
+            console.log('🚀 ContentHub ready event:', event.detail);
+            checkModules();
+        });
+        
+        // Monitor for errors
+        window.addEventListener('error', function(e) {
+            addResult(`🚨 JavaScript Error: ${e.message} (${e.filename}:${e.lineno})`, 'error');
+            console.error('🚨 JavaScript Error:', e);
+        });
+    </script>
+    
+    <!-- Load the main ContentHub JavaScript -->
+    <script type="module" src="../shared/js/main_contenthub.js"></script>
+</body>
+</html> 

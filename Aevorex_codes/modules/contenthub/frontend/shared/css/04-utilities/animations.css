@@ -1,0 +1,252 @@
+/** * ========================================================================== * CONTENTHUB ANIMATIONS & TRANSITIONS v1.0 * ========================================================================== * * Premium animation system with performance optimization * 60fps smooth animations for all interactive elements * * Features: * - CSS Transform-based animations (GPU accelerated) * - Reduced motion support * - Entrance/exit animations * - Micro-interactions * - Loading states * * Author: Aevorex Premium Team * Created: 2025-06-10 * Status: PRODUCTION ACTIVE */ /* ========================================================================== ANIMATION VARIABLES & TIMING ========================================================================== */ :root {
+  --ch-easing-ease: ease;
+  --ch-easing-ease-in: ease-in;
+  --ch-easing-ease-out: ease-out;
+  --ch-easing-ease-in-out: ease-in-out;
+  --ch-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ch-easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ch-easing-sharp: cubic-bezier(0.4, 0, 0.6, 1);
+  --ch-duration-instant: 0ms;
+  --ch-duration-fast: 150ms;
+  --ch-duration-normal: 250ms;
+  --ch-duration-slow: 350ms;
+  --ch-duration-slower: 500ms;
+  --ch-duration-slowest: 750ms;
+}
+/* ========================================================================== PERFORMANCE OPTIMIZATIONS ========================================================================== */ /* GPU Acceleration for Animated Elements */ .ch-animate, .ch-hero, .ch-btn, .tool-card, .template-card, .metric-card, .project-item {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* ==========================================================================
+   ENTRANCE ANIMATIONS
+   ========================================================================== */
+
+@keyframes fadeIn {
+from {
+  opacity: 0;
+  transform: rotate(0deg);
+  width: 0;
+}
+to {
+  opacity: 1;
+  transform: rotate(360deg);
+  width: 100%;
+}
+}
+
+@keyframes slideUp {
+
+
+}
+
+@keyframes slideDown {
+
+
+}
+
+@keyframes slideLeft {
+
+
+}
+
+@keyframes slideRight {
+
+
+}
+
+@keyframes scaleIn {
+
+
+}
+
+@keyframes bounceIn {
+0% {
+  opacity: 0;
+  transform: scale(0.3);
+  background-position: -200px 0;
+}
+50% {
+  opacity: 0.5;
+  transform: scale(1.05);
+}
+70% {
+  transform: scale(0.9);
+}
+100% {
+  opacity: 1;
+  transform: scale(1);
+  background-position: calc(200px + 100%) 0;
+}
+}
+
+/* ==========================================================================
+   LOADING ANIMATIONS
+   ========================================================================== */
+
+@keyframes spin {
+
+
+}
+
+@keyframes pulse {
+0%, 100% {
+  opacity: 1;
+}
+
+}
+
+@keyframes shimmer {
+
+
+}
+
+@keyframes typing {
+
+
+}
+
+@keyframes blink {
+0%, 50% {
+  opacity: 1;
+}
+51%, 100% {
+  opacity: 0;
+}
+} /* ========================================================================== UTILITY ANIMATION CLASSES ========================================================================== */ /* Entrance Animations */ .ch-animate-fade-in {
+  animation: fadeIn var(--ch-duration-normal) var(--ch-easing-smooth) forwards;
+}
+.ch-animate-slide-up {
+  animation: slideUp var(--ch-duration-normal) var(--ch-easing-smooth) forwards;
+}
+.ch-animate-slide-down {
+  animation: slideDown var(--ch-duration-normal) var(--ch-easing-smooth) forwards;
+}
+.ch-animate-slide-left {
+  animation: slideLeft var(--ch-duration-normal) var(--ch-easing-smooth) forwards;
+}
+.ch-animate-slide-right {
+  animation: slideRight var(--ch-duration-normal) var(--ch-easing-smooth) forwards;
+}
+.ch-animate-scale-in {
+  animation: scaleIn var(--ch-duration-normal) var(--ch-easing-bounce) forwards;
+}
+.ch-animate-bounce-in {
+  animation: bounceIn var(--ch-duration-slow) var(--ch-easing-smooth) forwards;
+}
+/* Loading States */ .ch-animate-spin {
+  animation: spin 1s linear infinite;
+}
+.ch-animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.ch-animate-shimmer {
+  background: linear-gradient(;
+  background-size: 200px 100%;
+  animation: none;
+}
+/* ========================================================================== COMPONENT-SPECIFIC ANIMATIONS ========================================================================== */ /* Hero Section Staggered Animation */ .ch-hero__title {
+  animation: slideUp var(--ch-duration-slow) var(--ch-easing-smooth) 0ms forwards;
+  opacity: 0;
+}
+.ch-hero__subtitle {
+  animation: slideUp var(--ch-duration-slow) var(--ch-easing-smooth) 150ms forwards;
+  opacity: 0;
+}
+.ch-hero__features {
+  animation: slideUp var(--ch-duration-slow) var(--ch-easing-smooth) 300ms forwards;
+  opacity: 0;
+}
+.ch-hero__visual {
+  animation: slideLeft var(--ch-duration-slow) var(--ch-easing-smooth) 450ms forwards;
+  opacity: 0;
+}
+/* Button Hover Effects */ .ch-btn {
+  transition: all var(--ch-duration-fast) var(--ch-easing-smooth);
+  position: relative;
+  overflow: hidden;
+}
+.ch-btn:hover {
+  transform: translateY(-1px);
+}
+.ch-btn:active {
+  transform: translateY(0);
+}
+.ch-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(;
+  transition: left var(--ch-duration-slow) var(--ch-easing-smooth);
+}
+.ch-btn:hover::before {
+  left: 100%;
+}
+/* Card Hover Effects */ .tool-card, .template-card, .project-item {
+  transition: all var(--ch-duration-normal) var(--ch-easing-smooth);
+}
+.tool-card:hover, .template-card:hover {
+  transform: translateY(-2px);
+}
+.project-item:hover {
+  transform: translateX(4px);
+}
+/* Icon Animations */ .hero-feature__icon {
+  transition: transform var(--ch-duration-normal) var(--ch-easing-bounce);
+}
+.hero-feature:hover .hero-feature__icon {
+  transform: scale(1.1) rotate(5deg);
+}
+/* Typing Effect */ .typing-indicator {
+  border-right: 2px solid var(--ch-brand-primary);
+  animation: typing 3s steps(20) infinite,;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/* Metric Count Up Animation */ .metric-value {
+  position: relative;
+  overflow: hidden;
+}
+.metric-value.counting::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--ch-gradient-primary);
+  animation: shimmer 1s ease-in-out;
+}
+
+/* ==========================================================================
+   RESPONSIVE ANIMATIONS
+   ========================================================================== */
+
+@media (max-width: 768px) {
+/* Reduce animation complexity on mobile */ .ch-animate-bounce-in {
+  animation: scaleIn var(--ch-duration-normal) var(--ch-easing-smooth) forwards;
+}
+
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+*, *::before, *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.typing-indicator {
+  animation: none;
+  border-right: none;
+}
+} 

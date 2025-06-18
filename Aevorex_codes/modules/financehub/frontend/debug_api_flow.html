@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceHub API & Data Flow Debug</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0;
+            opacity: 0.8;
+            font-size: 1.1em;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            font-weight: 600;
+            font-size: 1.2em;
+            color: #2c3e50;
+        }
+        
+        .section-content {
+            padding: 20px;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .test-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+        
+        .test-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .test-item.success {
+            border-color: #28a745;
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .test-item.error {
+            border-color: #dc3545;
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .test-item.warning {
+            border-color: #ffc107;
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-icon {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
+        .latency {
+            margin-left: auto;
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+        
+        .data-flow-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .data-flow-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .flow-step:last-child {
+            border-bottom: none;
+        }
+        
+        .flow-icon {
+            width: 30px;
+            text-align: center;
+            margin-right: 15px;
+            font-size: 1.2em;
+        }
+        
+        .flow-content {
+            flex: 1;
+        }
+        
+        .flow-title {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .flow-details {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        
+        .flow-data {
+            background: #e9ecef;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            margin-top: 8px;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+        
+        .controls {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .btn { 
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .console-panel {
+            background: #1e1e1e;
+            color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        
+        .console-line {
+            margin: 2px 0;
+            padding: 2px 0;
+        }
+        
+        .console-error {
+            color: #ff6b6b;
+        }
+        
+        .console-warn {
+            color: #feca57;
+        }
+        
+        .console-info {
+            color: #48dbfb;
+        }
+        
+        .console-log {
+            color: #f0f0f0;
+        }
+        
+        .iframe-container {
+            display: none;
+        }
+        
+        .endpoint-detail {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .endpoint-header {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .endpoint-content {
+            padding: 15px;
+            display: none;
+        }
+        
+        .endpoint-content.expanded {
+            display: block;
+        }
+        
+        .data-preview {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .timing-info {
+            display: flex;
+            gap: 20px;
+            margin: 10px 0;
+        }
+        
+        .timing-item {
+            background: #e9ecef;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        
+        .auto-refresh {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #667eea;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 FinanceHub API & Data Flow Debug</h1>
+            <p>Részletes diagnosztika és adatfolyam követés minden endpoint-hoz</p>
+        </div>
+
+        <div class="content">
+            <div class="controls">
+            <button class="btn" onclick="runFullDiagnostic()">🚀 Teljes Diagnosztika</button>
+                <button class="btn" onclick="clearResults()">🧹 Eredmények Törlése</button>
+                <button class="btn" onclick="exportResults()">📊 Eredmények Exportálása</button>
+            </div>
+            
+            <div class="auto-refresh">
+                <label>Automatikus frissítés (10s):</label>
+                <label class="switch">
+                    <input type="checkbox" id="autoRefreshToggle" onchange="toggleAutoRefresh()">
+                    <span class="slider"></span>
+                </label>
+                <span id="refreshStatus">Kikapcsolva</span>
+        </div>
+
+        <!-- Backend API Tests -->
+            <div class="section">
+                <div class="section-header">🔗 Backend API Tesztek</div>
+                <div class="section-content">
+                    <div class="test-grid" id="backendTests"></div>
+                    <div id="endpointDetails"></div>
+            </div>
+        </div>
+
+        <!-- Frontend Component Tests -->
+            <div class="section">
+                <div class="section-header">⚙️ Frontend Komponens Tesztek</div>
+                <div class="section-content">
+                    <div class="test-grid" id="frontendTests"></div>
+            </div>
+        </div>
+
+            <!-- Data Flow Analysis -->
+            <div class="section">
+                <div class="section-header">🔄 Adatfolyam Elemzés</div>
+                <div class="section-content">
+                    <div id="dataFlowAnalysis"></div>
+            </div>
+        </div>
+
+        <!-- Live API Response -->
+            <div class="section">
+                <div class="section-header">📊 Élő API Válasz Elemzés</div>
+                <div class="section-content">
+                    <div id="liveApiResponse"></div>
+                </div>
+            </div>
+            
+            <!-- Console Monitor -->
+            <div class="section">
+                <div class="section-header">🖥️ Konzol Monitor</div>
+                <div class="section-content">
+                    <div class="console-panel" id="consolePanel"></div>
+        </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hidden iframe for testing -->
+    <div class="iframe-container">
+        <iframe id="testFrame" src="financehub.html" width="1200" height="800"></iframe>
+    </div>
+
+    <script>
+        let autoRefreshInterval = null;
+        let consoleMessages = [];
+        let testResults = {};
+        
+        // Backend API endpoints to test
+        const API_ENDPOINTS = [
+            { name: 'Health Check', url: 'http://localhost:8084/api/v1/health', key: 'health' },
+            { name: 'Fundamentals (AAPL)', url: 'http://localhost:8084/api/v1/stock/fundamentals/AAPL', key: 'fundamentals' },
+            { name: 'Chart Data (AAPL)', url: 'http://localhost:8084/api/v1/stock/chart/AAPL', key: 'chart' },
+            { name: 'News (AAPL)', url: 'http://localhost:8084/api/v1/stock/news/AAPL', key: 'news' },
+            { name: 'AI Summary (AAPL)', url: 'http://localhost:8084/api/v1/stock/ai-summary/AAPL', key: 'ai_summary' },
+            { name: 'Ticker Tape', url: 'http://localhost:8084/api/v1/stock/ticker-tape', key: 'ticker_tape' },
+            { name: 'Technical Analysis', url: 'http://localhost:8084/api/v1/stock/technical-analysis/AAPL', key: 'technical' },
+            { name: 'Chat (ping)', url: 'http://localhost:8084/api/v1/stock/chat/AAPL', key: 'chat', method: 'POST', body: { question: 'ping', history: [] } }
+        ];
+        
+        // Frontend components to test
+        const FRONTEND_COMPONENTS = [
+            { name: 'window.FinanceHubAPIService', check: function() { return this.FinanceHubAPIService; } },
+            { name: 'window.FinanceHubState', check: function() { return this.FinanceHubState; } },
+            { name: 'window.TickerTapeUnified', check: function() { return this.TickerTapeUnified; } },
+            { name: 'window.AnalysisBubbles', check: function() { return this.AnalysisBubbles; } },
+            { name: 'window.FinanceHubChat', check: function() { return this.FinanceHubChat; } },
+            { name: 'window.ThemeManager', check: function() { return this.ThemeManager; } }
+        ];
+        
+        // DOM elements to test
+        const DOM_ELEMENTS = [
+            { name: 'Stock Header', selector: '#stock-header-section, #fh-stock-header, .fh-stock-header' },
+            { name: 'Ticker Tape', selector: '#fh-ticker-tape, #ticker-tape-container, .fh-ticker-tape' },
+            { name: 'Analysis Bubbles', selector: '#fh-analysis-bubbles, #analysis-bubbles-container, .fh-analysis-bubbles' },
+            { name: 'Chart Container', selector: '#fh-chart-container, #chart-container, #tradingview_chart, .fh-chart__container' },
+            { name: 'Chat Container', selector: '#fh-ai-chat, #fh-ai-chat__messages, .fh-ai-chat' }
+        ];
+        
+        function getFrameDoc() {
+            const iframe = document.getElementById('testFrame');
+            return iframe.contentDocument || iframe.contentWindow.document;
+        }
+        
+        function getFrameWindow() {
+            const iframe = document.getElementById('testFrame');
+            return iframe.contentWindow;
+        }
+        
+        async function testBackendAPI() {
+            console.log('Testing Backend API...');
+            const results = [];
+            const detailedResults = {};
+            
+            for (const endpoint of API_ENDPOINTS) {
+                const startTime = performance.now();
+                try {
+                    const options = {
+                        method: endpoint.method || 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    };
+                    
+                    if (endpoint.body) {
+                        options.body = JSON.stringify(endpoint.body);
+                    }
+                    
+                    const response = await fetch(endpoint.url, options);
+                    const endTime = performance.now();
+                    const latency = Math.round(endTime - startTime);
+                    
+                    let data = null;
+                    let dataPreview = '';
+                    
+                    try {
+                        data = await response.json();
+                        dataPreview = JSON.stringify(data, null, 2).substring(0, 500) + '...';
+                    } catch (e) {
+                        dataPreview = 'Non-JSON response';
+                    }
+                    
+                    const result = {
+                        name: endpoint.name,
+                        status: response.ok ? 'success' : 'error',
+                        latency: latency,
+                        statusCode: response.status,
+                        data: data,
+                        dataPreview: dataPreview,
+                        url: endpoint.url,
+                        method: endpoint.method || 'GET',
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    results.push(result);
+                    detailedResults[endpoint.key] = result;
+                    
+                } catch (error) {
+                    const endTime = performance.now();
+                    const latency = Math.round(endTime - startTime);
+                    
+                    const result = {
+                        name: endpoint.name,
+                        status: 'error',
+                        latency: latency,
+                        error: error.message,
+                        url: endpoint.url,
+                        method: endpoint.method || 'GET',
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    results.push(result);
+                    detailedResults[endpoint.key] = result;
+                }
+            }
+            
+            displayBackendResults(results, detailedResults);
+            return detailedResults;
+        }
+        
+        function displayBackendResults(results, detailedResults) {
+            const container = document.getElementById('backendTests');
+            const detailsContainer = document.getElementById('endpointDetails');
+            
+            container.innerHTML = results.map(result => `
+                <div class="test-item ${result.status}">
+                    <span class="status-icon">${result.status === 'success' ? '✅' : '❌'}</span>
+                    <span>${result.name}: ${result.status === 'success' ? 'OK' : 'FAILED'}</span>
+                    <span class="latency">(${result.latency}ms)</span>
+                </div>
+            `).join('');
+            
+            detailsContainer.innerHTML = results.map(result => `
+                <div class="endpoint-detail">
+                    <div class="endpoint-header" onclick="toggleEndpointDetail('${result.name.replace(/\s+/g, '_')}')">
+                        <span>${result.name} - ${result.status === 'success' ? 'SUCCESS' : 'FAILED'}</span>
+                        <span>▼</span>
+                    </div>
+                    <div class="endpoint-content" id="detail_${result.name.replace(/\s+/g, '_')}">
+                        <div class="timing-info">
+                            <div class="timing-item">Latency: ${result.latency}ms</div>
+                            <div class="timing-item">Status: ${result.statusCode || 'N/A'}</div>
+                            <div class="timing-item">Method: ${result.method}</div>
+                            <div class="timing-item">Time: ${new Date(result.timestamp).toLocaleTimeString()}</div>
+                        </div>
+                        <div><strong>URL:</strong> ${result.url}</div>
+                        ${result.error ? `<div style="color: red;"><strong>Error:</strong> ${result.error}</div>` : ''}
+                        ${result.dataPreview ? `
+                            <div><strong>Response Preview:</strong></div>
+                            <div class="data-preview">${result.dataPreview}</div>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function toggleEndpointDetail(id) {
+            const content = document.getElementById(`detail_${id}`);
+            content.classList.toggle('expanded');
+        }
+        
+        async function testFrontendComponents() {
+            console.log('Testing Frontend Components...');
+            const frameWin = getFrameWindow();
+            const frameDoc = getFrameDoc();
+            const results = [];
+            
+            // Poll up to 10s for globals to become available (increased from 5s)
+            const waitUntil = Date.now() + 20000; // ⏱️ extend to 20s to allow full app boot
+            let foundCount = 0;
+            
+            while (Date.now() < waitUntil) {
+                foundCount = 0;
+                if (frameWin.FinanceHubAPIService) foundCount++;
+                if (frameWin.FinanceHubState) foundCount++;
+                if (frameWin.TickerTapeUnified) foundCount++;
+                if (frameWin.AnalysisBubbles) foundCount++;
+                if (frameWin.FinanceHubChat) foundCount++;
+                if (frameWin.ThemeManager) foundCount++;
+                
+                console.log(`Polling globals... Found ${foundCount}/6 objects`);
+                
+                if (foundCount >= 4) break; // Wait for at least 4 core objects
+                await new Promise(r => setTimeout(r, 500));
+            }
+            
+            console.log(`Final check: Found ${foundCount}/6 global objects after polling`);
+            
+            // Test global objects with better error handling
+            for (const component of FRONTEND_COMPONENTS) {
+                try {
+                    const exists = component.check.call(frameWin);
+                    const type = exists ? typeof exists : 'undefined';
+                    results.push({
+                        name: component.name,
+                        status: exists ? 'success' : 'error',
+                        details: exists ? `Elérhető (${type})` : 'Nem található'
+                    });
+                } catch (error) {
+                    results.push({
+                        name: component.name,
+                        status: 'error',
+                        details: `Hiba: ${error.message}`
+                    });
+                }
+            }
+            
+            // Test DOM elements with better selectors
+            for (const element of DOM_ELEMENTS) {
+                try {
+                    const found = frameDoc.querySelector(element.selector);
+                    const elementInfo = found ? `${found.tagName}#${found.id || 'no-id'}.${found.className || 'no-class'}` : null;
+                    results.push({
+                        name: element.name,
+                        status: found ? 'success' : 'error',
+                        details: found ? `DOM elem megtalálva (${elementInfo})` : 'DOM elem hiányzik'
+                    });
+                } catch (error) {
+                    results.push({
+                        name: element.name,
+                        status: 'error',
+                        details: `Hiba: ${error.message}`
+                    });
+                }
+            }
+            
+            displayFrontendResults(results);
+            return results;
+        }
+        
+        function displayFrontendResults(results) {
+            const container = document.getElementById('frontendTests');
+            container.innerHTML = results.map(result => `
+                <div class="test-item ${result.status}">
+                    <span class="status-icon">${result.status === 'success' ? '✅' : '❌'}</span>
+                    <span>${result.name}: ${result.details}</span>
+                </div>
+            `).join('');
+        }
+        
+        async function analyzeDataFlow() {
+            console.log('Testing Data Flow...');
+            const frameWin = getFrameWindow();
+            const frameDoc = getFrameDoc();
+            const flows = [];
+            
+            try {
+                // Test API → StateManager flow
+                const apiService = frameWin.FinanceHubAPIService;
+                if (apiService) {
+                    const fundamentalsData = await apiService.getFundamentals('AAPL');
+                    flows.push({
+                        step: 'API → Fundamentals',
+                        status: fundamentalsData ? 'success' : 'error',
+                        details: fundamentalsData ? 'ok' : 'failed',
+                        data: fundamentalsData ? JSON.stringify(fundamentalsData).substring(0, 200) + '...' : null
+                    });
+                    
+                    // Test StateManager
+                    const stateMgr = (frameWin.financeHubApp && frameWin.financeHubApp.stateManager) ? frameWin.financeHubApp.stateManager : (frameWin.FinanceHubState || null);
+                    if (stateMgr && fundamentalsData) {
+                        const stateData = stateMgr.getState();
+                        const fundamentalsState = stateData?.stock?.fundamentals || stateData?.fundamentals;
+                        flows.push({
+                            step: 'StateManager → fundamentals',
+                            status: fundamentalsState ? 'success' : 'warning',
+                            details: fundamentalsState ? 'present' : 'missing',
+                            data: fundamentalsState ? JSON.stringify(fundamentalsState).substring(0, 200) + '...' : null
+                        });
+                    }
+                    
+                    // Test Component Rendering
+                    const companyOverview = frameDoc.getElementById('company-overview-content');
+                    if (companyOverview) {
+                        const hasContent = companyOverview.innerHTML.trim().length > 50;
+                        flows.push({
+                            step: 'CompanyOverview',
+                            status: hasContent ? 'success' : 'warning',
+                            details: hasContent ? 'rendered' : 'empty',
+                            data: hasContent ? companyOverview.innerHTML.substring(0, 200) + '...' : null
+                        });
+                    }
+                    
+                    // Test News Component
+                    const newsData = await apiService.getStockNews('AAPL');
+                    const newsContainer = frameDoc.getElementById('news-highlights-content');
+                    if (newsContainer && newsData) {
+                        const newsArticles = newsContainer.querySelectorAll('.news-item');
+                        const firstHeadline = newsArticles.length > 0 ? 
+                            newsArticles[0].querySelector('.news-headline')?.textContent : null;
+                        
+                        flows.push({
+                            step: 'NewsHighlights',
+                            status: newsArticles.length > 0 ? 'success' : 'warning',
+                            details: newsArticles.length > 0 ? 'rendered' : 'not rendered',
+                            data: firstHeadline ? `First headline: ${firstHeadline.substring(0, 100)}` : 'No headlines found'
+                        });
+                    }
+                    
+                    // Test AI Summary
+                    const chatContainer = frameDoc.getElementById('chat-messages');
+                    if (chatContainer) {
+                        const messages = chatContainer.querySelectorAll('.message');
+                        flows.push({
+                            step: 'AI Summary',
+                            status: messages.length > 0 ? 'success' : 'warning',
+                            details: messages.length > 0 ? `${messages.length} messages` : 'no messages',
+                            data: messages.length > 0 ? messages[0].textContent.substring(0, 200) + '...' : null
+                        });
+                    }
+                }
+            } catch (error) {
+                flows.push({
+                    step: 'Data Flow Analysis',
+                    status: 'error',
+                    details: `Error: ${error.message}`,
+                    data: null
+                });
+            }
+            
+            displayDataFlowResults(flows);
+            return flows;
+        }
+        
+        function displayDataFlowResults(flows) {
+            const container = document.getElementById('dataFlowAnalysis');
+            container.innerHTML = `
+                <div class="data-flow-section">
+                    <div class="data-flow-title">Adatfolyam Tesztek</div>
+                    ${flows.map(flow => `
+                        <div class="flow-step">
+                            <div class="flow-icon">
+                                ${flow.status === 'success' ? '✅' : flow.status === 'warning' ? '⚠️' : '❌'}
+                            </div>
+                            <div class="flow-content">
+                                <div class="flow-title">${flow.step} → ${flow.details}</div>
+                                ${flow.data ? `<div class="flow-data">${flow.data}</div>` : ''}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        async function testLiveAPIResponse() {
+            console.log('📊 Testing Live API Response...');
+            const frameWin = getFrameWindow();
+            
+            try {
+                const apiService = frameWin.FinanceHubAPIService;
+                if (!apiService) {
+                    throw new Error('API Service not available');
+                }
+                
+                // Fetch all data types
+                const [fundamentals, chart, news, aiSummary, tickerTape, technical] = await Promise.all([
+                    apiService.getFundamentals('AAPL').catch(e => ({ error: e.message })),
+                    apiService.getChartData('AAPL').catch(e => ({ error: e.message })),
+                    apiService.getStockNews('AAPL').catch(e => ({ error: e.message })),
+                    apiService.getStockAISummary('AAPL').catch(e => ({ error: e.message })),
+                    apiService.getTickerTapeData().catch(e => ({ error: e.message })),
+                    apiService.getTechnicalAnalysis('AAPL').catch(e => ({ error: e.message }))
+                ]);
+                
+                const components = [
+                    { name: 'Fundamentals', data: fundamentals },
+                    { name: 'Chart Data', data: chart },
+                    { name: 'News', data: news },
+                    { name: 'AI Summary', data: aiSummary },
+                    { name: 'Ticker Tape', data: tickerTape },
+                    { name: 'Technical Analysis', data: technical }
+                ];
+                
+                const validComponents = components.filter(c => c.data && !c.data.error);
+                
+                displayLiveAPIResults(components, validComponents.length);
+                
+            } catch (error) {
+                document.getElementById('liveApiResponse').innerHTML = `
+                    <div class="test-item error">
+                        <span class="status-icon">❌</span>
+                        <span>Live API test failed: ${error.message}</span>
+                    </div>
+                `;
+            }
+        }
+        
+        function displayLiveAPIResults(components, successCount) {
+            const container = document.getElementById('liveApiResponse');
+            container.innerHTML = `
+                <div class="test-item ${successCount === components.length ? 'success' : 'warning'}">
+                    <span class="status-icon">${successCount === components.length ? '✅' : '⚠️'}</span>
+                    <span>${successCount} komponensből álló élő API válasz fogadva</span>
+                </div>
+                <div style="margin-top: 15px;">
+                    ${components.map(comp => `
+                        <div class="endpoint-detail">
+                            <div class="endpoint-header" onclick="toggleEndpointDetail('live_${comp.name.replace(/\s+/g, '_')}')">
+                                <span>${comp.name} - ${comp.data && !comp.data.error ? 'SUCCESS' : 'FAILED'}</span>
+                                <span>▼</span>
+                            </div>
+                            <div class="endpoint-content" id="detail_live_${comp.name.replace(/\s+/g, '_')}">
+                                <div class="data-preview">
+                                    ${comp.data ? JSON.stringify(comp.data, null, 2).substring(0, 1000) + '...' : 'No data'}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        // Console monitoring
+        function setupConsoleMonitoring() {
+            const originalLog = console.log;
+            const originalError = console.error;
+            const originalWarn = console.warn;
+            const originalInfo = console.info;
+            
+            function addConsoleMessage(type, args) {
+                const message = {
+                    type: type,
+                    content: Array.from(args).map(arg => 
+                        typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+                    ).join(' '),
+                    timestamp: new Date().toLocaleTimeString()
+                };
+                
+                consoleMessages.push(message);
+                if (consoleMessages.length > 100) {
+                    consoleMessages.shift();
+                }
+                
+                updateConsolePanel();
+            }
+            
+            console.log = function(...args) {
+                originalLog.apply(console, args);
+                addConsoleMessage('log', args);
+            };
+            
+            console.error = function(...args) {
+                originalError.apply(console, args);
+                addConsoleMessage('error', args);
+            };
+            
+            console.warn = function(...args) {
+                originalWarn.apply(console, args);
+                addConsoleMessage('warn', args);
+            };
+            
+            console.info = function(...args) {
+                originalInfo.apply(console, args);
+                addConsoleMessage('info', args);
+            };
+        }
+        
+        function updateConsolePanel() {
+            const panel = document.getElementById('consolePanel');
+            panel.innerHTML = consoleMessages.slice(-50).map(msg => `
+                <div class="console-line console-${msg.type}">
+                    [${msg.timestamp}] ${msg.content}
+                </div>
+            `).join('');
+            panel.scrollTop = panel.scrollHeight;
+        }
+        
+        async function runFullDiagnostic() {
+            console.log('🚀 Running Full Diagnostic...');
+            
+            const backendResults = await testBackendAPI();
+            const frontendResults = await testFrontendComponents();
+            const dataFlowResults = await analyzeDataFlow();
+            const liveApiResults = await testLiveAPIResponse();
+            
+            testResults = {
+                backend: backendResults,
+                frontend: frontendResults,
+                dataFlow: dataFlowResults,
+                liveApi: liveApiResults,
+                timestamp: new Date().toISOString()
+            };
+
+            console.log('✅ Teljes diagnosztika befejezve');
+            console.log('Test Results:', testResults);
+        }
+
+        function clearResults() {
+            document.getElementById('backendTests').innerHTML = '';
+            document.getElementById('endpointDetails').innerHTML = '';
+            document.getElementById('frontendTests').innerHTML = '';
+            document.getElementById('dataFlowAnalysis').innerHTML = '';
+            document.getElementById('liveApiResponse').innerHTML = '';
+            consoleMessages = [];
+            updateConsolePanel();
+        }
+        
+        function exportResults() {
+            const dataStr = JSON.stringify(testResults, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `financehub-debug-${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        function toggleAutoRefresh() {
+            const toggle = document.getElementById('autoRefreshToggle');
+            const status = document.getElementById('refreshStatus');
+            
+            if (toggle.checked) {
+                autoRefreshInterval = setInterval(runFullDiagnostic, 10000);
+                status.textContent = 'Bekapcsolva (10s)';
+            } else {
+                if (autoRefreshInterval) {
+                    clearInterval(autoRefreshInterval);
+                    autoRefreshInterval = null;
+                }
+                status.textContent = 'Kikapcsolva';
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setupConsoleMonitoring();
+            
+            // Attach error listener to iframe window to capture runtime JS errors inside FinanceHub app
+            const iframe = document.getElementById('testFrame');
+            iframe.addEventListener('load', () => {
+                try {
+                    const frameWin = iframe.contentWindow;
+                    if (frameWin) {
+                        frameWin.addEventListener('error', (evt) => {
+                            console.error('[IFRAME ERROR]', evt.message, 'at', evt.filename + ':' + evt.lineno + ':' + evt.colno);
+                        });
+                        frameWin.addEventListener('unhandledrejection', (evt) => {
+                            console.error('[IFRAME PROMISE REJECTION]', evt.reason);
+                        });
+                    }
+                } catch (err) {
+                    console.error('Unable to attach iframe error listeners:', err);
+                }
+            });
+            
+            // Wait for iframe to load then run diagnostics
+            document.getElementById('testFrame').onload = function() {
+                setTimeout(runFullDiagnostic, 2000);
+            };
+        });
+    </script>
+</body>
+</html> 

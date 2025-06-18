@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceHub API Endpoints Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .loading { background-color: #fff3cd; border-color: #ffeaa7; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🧪 FinanceHub API Endpoints Test</h1>
+    <p>Testing all 6 new API endpoints with the combined JavaScript bundle.</p>
+    
+    <div class="test-section">
+        <h3>🔧 API Service Status</h3>
+        <div id="api-status">Loading...</div>
+    </div>
+    
+    <div class="test-section">
+        <h3>📊 Test Controls</h3>
+        <button onclick="testAllEndpoints()">🚀 Test All Endpoints</button>
+        <button onclick="testSingleEndpoint('chart')">📈 Test Chart</button>
+        <button onclick="testSingleEndpoint('fundamentals')">💰 Test Fundamentals</button>
+        <button onclick="testSingleEndpoint('news')">📰 Test News</button>
+        <button onclick="testSingleEndpoint('ai-summary')">🤖 Test AI Summary</button>
+        <button onclick="testSingleEndpoint('search')">🔍 Test Search</button>
+        <button onclick="clearResults()">🧹 Clear Results</button>
+    </div>
+    
+    <div id="test-results"></div>
+    
+    <!-- Load the combined JavaScript bundle -->
+    <script src="static/js/core/modelRegistry.js"></script>
+    <script src="static/js/main_combined_financehub.js"></script>
+    
+    <script>
+        // Test configuration
+        const TEST_TICKER = 'AAPL';
+        const TEST_SEARCH_QUERY = 'Apple';
+        
+        // Wait for API to be ready
+        window.addEventListener('load', async () => {
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second
+            checkAPIStatus();
+        });
+        
+        function checkAPIStatus() {
+            const statusDiv = document.getElementById('api-status');
+            
+            if (window.FinanceHubAPI) {
+                statusDiv.innerHTML = `
+                    <div class="success">
+                        ✅ FinanceHubAPI loaded successfully<br>
+                        📍 Base URL: ${window.FinanceHubAPI.getBaseURL()}<br>
+                        🔧 Version: ${window.FinanceHubAPI.constructor.VERSION}
+                    </div>
+                `;
+            } else {
+                statusDiv.innerHTML = `
+                    <div class="error">
+                        ❌ FinanceHubAPI not found! Check console for errors.
+                    </div>
+                `;
+            }
+        }
+        
+        async function testAllEndpoints() {
+            const endpoints = ['chart', 'fundamentals', 'news', 'ai-summary', 'search'];
+            
+            for (const endpoint of endpoints) {
+                await testSingleEndpoint(endpoint);
+                await new Promise(resolve => setTimeout(resolve, 500)); // Small delay between tests
+            }
+        }
+        
+        async function testSingleEndpoint(endpointType) {
+            const resultsDiv = document.getElementById('test-results');
+            const testId = `test-${endpointType}-${Date.now()}`;
+            
+            // Create test section
+            const testSection = document.createElement('div');
+            testSection.className = 'test-section loading';
+            testSection.id = testId;
+            testSection.innerHTML = `
+                <h4>🔄 Testing ${endpointType.toUpperCase()} endpoint...</h4>
+                <div>Status: Loading...</div>
+            `;
+            resultsDiv.appendChild(testSection);
+            
+            try {
+                let result;
+                const startTime = Date.now();
+                
+                switch (endpointType) {
+                    case 'chart':
+                        result = await window.FinanceHubAPI.getStockChart(TEST_TICKER, '1y', '1d');
+                        break;
+                    case 'fundamentals':
+                        result = await window.FinanceHubAPI.getStockFundamentals(TEST_TICKER);
+                        break;
+                    case 'news':
+                        result = await window.FinanceHubAPI.getStockNews(TEST_TICKER, 5);
+                        break;
+                    case 'ai-summary':
+                        result = await window.FinanceHubAPI.getStockAISummary(TEST_TICKER);
+                        break;
+                    case 'search':
+                        result = await window.FinanceHubAPI.searchStocks(TEST_SEARCH_QUERY, 5);
+                        break;
+                    default:
+                        throw new Error(`Unknown endpoint type: ${endpointType}`);
+                }
+                
+                const endTime = Date.now();
+                const duration = endTime - startTime;
+                
+                // Success
+                testSection.className = 'test-section success';
+                testSection.innerHTML = `
+                    <h4>✅ ${endpointType.toUpperCase()} endpoint - SUCCESS</h4>
+                    <div><strong>Duration:</strong> ${duration}ms</div>
+                    <div><strong>Response:</strong></div>
+                    <pre>${JSON.stringify(result, null, 2).substring(0, 1000)}${JSON.stringify(result, null, 2).length > 1000 ? '...' : ''}</pre>
+                `;
+                
+            } catch (error) {
+                // Error
+                testSection.className = 'test-section error';
+                testSection.innerHTML = `
+                    <h4>❌ ${endpointType.toUpperCase()} endpoint - ERROR</h4>
+                    <div><strong>Error:</strong> ${error.message}</div>
+                    <pre>${error.stack || 'No stack trace available'}</pre>
+                `;
+                console.error(`Test failed for ${endpointType}:`, error);
+            }
+        }
+        
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '';
+        }
+        
+        // Log any JavaScript errors
+        window.addEventListener('error', (event) => {
+            console.error('JavaScript Error:', event.error);
+        });
+        
+        // Log unhandled promise rejections
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('Unhandled Promise Rejection:', event.reason);
+        });
+    </script>
+</body>
+</html> 

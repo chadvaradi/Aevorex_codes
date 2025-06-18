@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anahi - Személyes Galéria</title>
+    <link rel="stylesheet" href="static/css/anahi-gallery.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1><i class="fas fa-camera-retro"></i> Anahi</h1>
+                <span class="nav-subtitle">Személyes Galéria</span>
+            </div>
+            <div class="nav-actions">
+                <button class="btn btn-primary" id="upload-btn">
+                    <i class="fas fa-upload"></i> Kép Feltöltés
+                </button>
+                <button class="btn btn-secondary" id="stats-btn">
+                    <i class="fas fa-chart-bar"></i> Statisztikák
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header Section -->
+        <header class="gallery-header">
+            <div class="container">
+                <h2>Fotó Gyűjtemény</h2>
+                <div class="gallery-controls">
+                    <div class="view-controls">
+                        <button class="view-btn active" data-view="grid">
+                            <i class="fas fa-th"></i> Rács
+                        </button>
+                        <button class="view-btn" data-view="list">
+                            <i class="fas fa-list"></i> Lista
+                        </button>
+                    </div>
+                    <div class="sort-controls">
+                        <select id="sort-select">
+                            <option value="newest">Legújabb</option>
+                            <option value="oldest">Legrégebbi</option>
+                            <option value="name">Név szerint</option>
+                            <option value="size">Méret szerint</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Gallery Section -->
+        <section class="gallery-section">
+            <div class="container">
+                <!-- Loading Indicator -->
+                <div id="loading" class="loading-indicator">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Képek betöltése...</p>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div id="gallery-grid" class="gallery-grid">
+                    <!-- Photos will be loaded here by JavaScript -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="empty-state hidden">
+                    <i class="fas fa-images"></i>
+                    <h3>Nincsenek képek</h3>
+                    <p>Tölts fel képeket a galéria elkezdéséhez!</p>
+                    <button class="btn btn-primary" onclick="document.getElementById('upload-btn').click()">
+                        <i class="fas fa-upload"></i> Első kép feltöltése
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Upload Modal -->
+    <div id="upload-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-upload"></i> Kép Feltöltés</h3>
+                <button class="modal-close" id="close-upload">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h4>Húzd ide a képeket vagy kattints a böngészéshez</h4>
+                        <p>Támogatott formátumok: JPG, PNG, GIF</p>
+                        <input type="file" id="file-input" multiple accept="image/*" hidden>
+                        <button class="btn btn-secondary" onclick="document.getElementById('file-input').click()">
+                            Fájlok kiválasztása
+                        </button>
+                    </div>
+                </div>
+                <div id="upload-progress" class="upload-progress hidden">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <p id="progress-text">Feltöltés...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Photo Viewer Modal -->
+    <div id="photo-modal" class="modal photo-modal">
+        <div class="modal-content photo-modal-content">
+            <div class="modal-header">
+                <h3 id="photo-title">Kép megtekintése</h3>
+                <div class="photo-actions">
+                    <button class="btn btn-danger" id="delete-photo">
+                        <i class="fas fa-trash"></i> Törlés
+                    </button>
+                    <button class="modal-close" id="close-photo">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="photo-container">
+                    <img id="modal-photo" src="" alt="Fotó">
+                </div>
+                <div class="photo-info">
+                    <div class="info-row">
+                        <span class="info-label">Fájlnév:</span>
+                        <span id="photo-filename">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Méret:</span>
+                        <span id="photo-size">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Létrehozva:</span>
+                        <span id="photo-created">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Modal -->
+    <div id="stats-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-chart-bar"></i> Galéria Statisztikák</h3>
+                <button class="modal-close" id="close-stats">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4 id="total-photos">-</h4>
+                            <p>Összes kép</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-hdd"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4 id="total-size">-</h4>
+                            <p>Összes méret</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="static/js/anahi-gallery.js"></script>
+</body>
+</html> 

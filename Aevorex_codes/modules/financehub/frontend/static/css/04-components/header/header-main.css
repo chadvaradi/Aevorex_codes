@@ -1,0 +1,228 @@
+/* Header Main Component */
+.header-main {
+  padding: var(--fh-space-4) var(--fh-space-8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* Brand Section */
+.header-brand, .fh-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.brand-logo, .fh-header__logo {
+  height: 32px;
+  width: auto;
+}
+
+.brand-name, .fh-header__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.version-badge {
+  background: var(--aevorex-brand-primary);
+  color: var(--bg-primary);
+      padding: var(--fh-space-1) var(--fh-space-2);
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Navigation */
+.header-nav {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+  justify-content: center;
+}
+
+/* Navigation buttons use shared button base styles */
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--fh-space-2) var(--fh-space-4);
+  border: 1px solid transparent;
+  border-radius: var(--fh-radius-full);
+  font-family: var(--fh-font-family-sans);
+  font-size: var(--fh-font-size-xs);
+  font-weight: var(--fh-font-weight-medium);
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--fh-transition-fast);
+  white-space: nowrap;
+  user-select: none;
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.nav-btn:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-primary);
+}
+
+.nav-btn.active {
+  background: var(--aevorex-brand-primary);
+  color: var(--bg-primary);
+  border-color: var(--aevorex-brand-secondary);
+  font-weight: var(--fh-font-weight-semibold);
+}
+
+/* Search Section */
+.header-search {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.search-input {
+  background: var(--bg-secondary);
+}
+
+.header-search {
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .header-main {
+    padding: 0.75rem 1rem;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-brand {
+    gap: 0.5rem;
+  }
+  .brand-name {
+    font-size: 1.125rem;
+  }
+  .search-input, .analyze-btn {
+    padding: 0.625rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+}
+
+.header-controls, .fh-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.theme-toggle, .fh-header__theme-toggle {
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--fh-transition-colors);
+  color: var(--text-secondary);
+}
+
+.theme-toggle:hover, .fh-header__theme-toggle:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.theme-toggle:focus-visible, .fh-header__theme-toggle:focus-visible {
+  outline: 2px solid var(--aevorex-brand-primary);
+  outline-offset: 2px;
+}
+
+/* Theme Icons */
+.theme-icon, .fh-header__theme-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* Stock price display in header */
+.fh-header__stock-display {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* === Legacy stock display aliases === */
+.fh-header__stock-text {
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--text-secondary);
+}
+
+/* === Legacy theme icon variants === */
+.theme-icon--light, .fh-header__theme-icon.theme-icon--light {
+  display: none;
+}
+
+[data-theme="light"] .theme-icon--light {
+  display: inline-block;
+}
+
+.theme-icon--dark, .fh-header__theme-icon.theme-icon--dark {
+  display: none;
+}
+
+[data-theme="dark"] .theme-icon--dark {
+  display: inline-block;
+}
+
+.tv-symbol-search {
+  width: 120px;
+  max-width: 160px;
+  height: 28px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--fh-radius-full);
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--text-primary);
+  transition: var(--fh-transition-fast);
+}
+
+.tv-symbol-search::placeholder {
+  color: var(--text-muted);
+}
+
+.tv-symbol-search:focus {
+  outline: none;
+  border-color: var(--aevorex-brand-primary);
+  background: var(--bg-tertiary);
+}
+
+.tv-symbol-search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--fh-transition-fast);
+}
+
+.tv-symbol-search-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.tv-symbol-search-btn:focus-visible {
+  outline: 2px solid var(--aevorex-brand-primary);
+} 

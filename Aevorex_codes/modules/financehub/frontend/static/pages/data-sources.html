@@ -1,0 +1,112 @@
+<h1>Adatforrások és Harmadik Fél Szolgáltatások</h1>
+<p><strong>Hatálybalépés dátuma / Utolsó frissítés dátuma:</strong> 2024. április 27.</p>
+
+<p>Az Aevorex platform („Szolgáltatások”), beleértve annak minden modulját (pl. FinBot Alpha), elkötelezett az átláthatóság mellett az általunk felhasznált adatok és technológiák tekintetében. A Szolgáltatások funkcionalitásának biztosítása, különösen a pénzügyi adatok megjelenítése, a hírek aggregálása és a mesterséges intelligencia (AI) által generált elemzések nyújtása érdekében különböző, harmadik féltől származó adatforrásokra, Application Programming Interface-ekre (API-kra) és szolgáltatásokra támaszkodunk.</p>
+
+<p>Jelen dokumentum célja, hogy tájékoztatást nyújtson ezen külső forrásokról és szolgáltatókról. Kérjük, vegye figyelembe, hogy ezen harmadik felek saját felhasználási feltételekkel (Terms of Service) és adatvédelmi irányelvekkel (Privacy Policy) rendelkeznek, amelyek szabályozzák az ő szolgáltatásaik használatát és az általuk kezelt adatokat. Az Aevorex nem gyakorol ellenőrzést ezen harmadik felek szolgáltatásai, adatkezelési gyakorlatai vagy az általuk szolgáltatott adatok pontossága, teljessége és időszerűsége felett, és azokért felelősséget nem vállal. Javasoljuk, hogy tekintse át az alább felsorolt szolgáltatók saját dokumentációját.</p>
+
+<h2>1. Pénzügyi Piaci Adatok</h2>
+<p>A Szolgáltatások keretében megjelenített pénzügyi piaci adatok (pl. részvényárfolyamok, historikus adatok [OHLCV], vállalati fundamentumok, pénzügyi mutatók) elsődlegesen az alábbi forrásokból származnak:</p>
+<ul>
+    <li>
+        <strong>Yahoo Finance (yfinance library által):</strong>
+        <ul>
+            <li>Szolgáltatott Adatok: Általános piaci adatok, historikus és (késleltetett) kvázi-valós idejű árfolyamadatok, vállalati alapinformációk, osztalékok, hírek.</li>
+            <li>Szolgáltató Feltételei: A Yahoo Finance saját felhasználási feltételei érvényesek. Az adatok késleltetettek lehetnek és további felhasználásuk korlátozott lehet.</li>
+            <li>Weboldal: <a href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">https://finance.yahoo.com/</a></li>
+        </ul>
+    </li>
+    <li>
+        <strong>Alpha Vantage:</strong>
+        <ul>
+            <li>Szolgáltatott Adatok: Historikus és valós idejű árfolyamadatok, devizaárfolyamok (FX), kriptovaluta adatok, technikai indikátorok, fundamentális adatok, gazdasági mutatók, hírek és hangulatelemzés.</li>
+            <li>API Kulcs Szükséges: Igen (a `.env` fájlban konfigurálva: `FINBOT_API_KEYS__ALPHA_VANTAGE`)</li>
+            <li>Szolgáltató Feltételei: Kérjük, tanulmányozza az Alpha Vantage felhasználási feltételeit és adatvédelmi irányelveit.</li>
+            <li>Weboldal: <a href="https://www.alphavantage.co/" target="_blank" rel="noopener noreferrer">https://www.alphavantage.co/</a></li>
+        </ul>
+    </li>
+     <li>
+        <strong>Financial Modeling Prep (FMP):</strong>
+        <ul>
+            <li>Szolgáltatott Adatok: Vállalati fundamentális adatok (mérleg, eredménykimutatás, cash flow), valós idejű és historikus árfolyamadatok, vállalati profilok, pénzügyi mutatók, bennfentes kereskedések, SEC bejelentések, sajtóközlemények, piaci hírek.</li>
+            <li>API Kulcs Szükséges: Igen (a `.env` fájlban konfigurálva: `FINBOT_API_KEYS__FMP`)</li>
+            <li>Szolgáltató Feltételei: Kérjük, tanulmányozza az FMP felhasználási feltételeit és adatvédelmi irányelveit.</li>
+            <li>Weboldal: <a href="https://site.financialmodelingprep.com/" target="_blank" rel="noopener noreferrer">https://site.financialmodelingprep.com/</a></li>
+        </ul>
+    </li>
+</ul>
+
+<h2>2. Hírek és Tartalmi Adatok</h2>
+<p>A releváns piaci hírek, sajtóközlemények és egyéb szöveges tartalmak gyűjtéséhez és elemzéséhez az alábbi API-kat és forrásokat használjuk (a fentieken túl):</p>
+<ul>
+    <li>
+        <strong>MarketAux:</strong>
+        <ul>
+            <li>Szolgáltatott Adatok: Pénzügyi hírek API, amely híreket, piaci hangulatot és eseményeket szolgáltat globális forrásokból.</li>
+            <li>API Kulcs Szükséges: Igen (a `.env` fájlban konfigurálva: `FINBOT_API_KEYS__MARKETAUX`)</li>
+            <li>Szolgáltató Feltételei: Kérjük, tanulmányozza a MarketAux felhasználási feltételeit és adatvédelmi irányelveit.</li>
+            <li>Weboldal: <a href="https://www.marketaux.com/" target="_blank" rel="noopener noreferrer">https://www.marketaux.com/</a></li>
+        </ul>
+    </li>
+    <li>
+        <strong>NewsAPI.org:</strong>
+        <ul>
+            <li>Szolgáltatott Adatok: Globális hírforrásokból származó hírcikkek és főcímek kereshető API-ja.</li>
+            <li>API Kulcs Szükséges: Igen (a `.env` fájlban konfigurálva: `FINBOT_API_KEYS__NEWSAPI`)</li>
+            <li>Szolgáltató Feltételei: Kérjük, tanulmányozza a NewsAPI.org felhasználási feltételeit és adatvédelmi irányelveit.</li>
+            <li>Weboldal: <a href="https://newsapi.org/" target="_blank" rel="noopener noreferrer">https://newsapi.org/</a></li>
+        </ul>
+    </li>
+     <li>
+        <strong>FMP (Financial Modeling Prep) - Hírek:</strong>
+        <ul>
+            <li>Szolgáltatott Adatok: Az FMP a fundamentális adatok mellett dedikált API végpontokat kínál részvényekkel kapcsolatos hírekhez és sajtóközleményekhez is.</li>
+            <li>API Kulcs Szükséges: Igen (lásd fentebb az FMP szakaszt).</li>
+            <li>Szolgáltató Feltételei: Lásd FMP feltételei fentebb.</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Alpha Vantage - Hírek és Hangulat:</strong>
+        <ul>
+            <li>Szolgáltatott Adatok: Az Alpha Vantage is biztosít híreket és piaci hangulatelemzési adatokat API-n keresztül.</li>
+            <li>API Kulcs Szükséges: Igen (lásd fentebb az Alpha Vantage szakaszt).</li>
+            <li>Szolgáltató Feltételei: Lásd Alpha Vantage feltételei fentebb.</li>
+        </ul>
+    </li>
+     <li>
+        <strong>Yahoo Finance - Hírek:</strong>
+        <ul>
+            <li>Szolgáltatott Adatok: A Yahoo Finance API (yfinance library) szintén biztosít hozzáférést az adott tickerhez kapcsolódó hírekhez.</li>
+            <li>API Kulcs Szükséges: Általában nem.</li>
+            <li>Szolgáltató Feltételei: Lásd Yahoo Finance feltételei fentebb.</li>
+        </ul>
+    </li>
+</ul>
+<p>A hírek feldolgozása és rangsorolása a `.env` fájlban meghatározott prioritási sorrend (`FINBOT_NEWS_SOURCE_PRIORITY`) és engedélyezett források (`FINBOT_NEWS_ENABLED_SOURCES`) alapján történik.</p>
+
+
+<h2>3. Mesterséges Intelligencia (AI) Modellek</h2>
+<p>A Szolgáltatások bizonyos funkciói, mint például az adatok összegzése, a szöveges elemzések generálása vagy a tartalomkészítés támogatása, nagyméretű nyelvi modellekre (LLM) és más AI technológiákra támaszkodnak. Ezekhez a modellekhez jelenleg az alábbi platformon keresztül férünk hozzá:</p>
+<ul>
+    <li>
+        <strong>OpenRouter.ai:</strong>
+        <ul>
+            <li>Szolgáltatás: Egy API aggregátor platform, amely hozzáférést biztosít különböző fejlesztők által készített AI modellekhez egységes interfészen keresztül.</li>
+            <li>Használt Modell (konfiguráció szerint): Jelenleg a(z) `mistralai/mistral-7b-instruct` modellt használjuk (a `.env` fájl `FINBOT_AI__MODEL_NAME` beállítása alapján). Ez változhat.</li>
+            <li>API Kulcs Szükséges: Igen (a `.env` fájlban konfigurálva: `FINBOT_API_KEYS__OPENROUTER`)</li>
+            <li>Fontos Megjegyzés: Az OpenRouter és az általa elérhetővé tett modellek (pl. Mistral AI) saját felhasználási feltételekkel és irányelvekkel rendelkeznek. Az AI által generált kimenetek ("AI Kimenet") pontatlanságokat, hibákat vagy félrevezető információkat tartalmazhatnak ("hallucinációk"). Ezeket az információkat kritikusan kell kezelni, nem helyettesítenek szakmai tanácsadást, és felhasználásuk kizárólag a felhasználó felelősségére történik.</li>
+            <li>Weboldal: <a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer">https://openrouter.ai/</a></li>
+        </ul>
+    </li>
+    <!-- Ide lehetne felvenni az OpenAI-t, Google AI-t stb., ha a .env alapján használnánk őket -->
+</ul>
+
+<h2>4. Általános Felelősségkizárás</h2>
+<p>Az Aevorex törekszik a megbízható és elismert adatforrások és technológiai partnerek kiválasztására. Azonban ismételten hangsúlyozzuk, hogy nem vállalunk felelősséget a harmadik felek által szolgáltatott adatok vagy az AI modellek által generált kimenetek pontosságáért, teljességéért, megbízhatóságáért vagy egy adott célra való alkalmasságáért. A Szolgáltatások használata és az azokon keresztül elérhető információkra való támaszkodás kizárólag az Ön saját kockázatára történik.</p>
+<p>További részletekért kérjük, olvassa el a <a href="#/terms">Felhasználási Feltételeinket</a> és a <a href="#/disclaimer">Jogi Nyilatkozatunkat</a>.</p>
+
+<h2>5. A Lista Frissítése</h2>
+<p>Fenntartjuk a jogot, hogy az általunk használt adatforrások és harmadik fél szolgáltatások listáját időről időre, előzetes értesítés nélkül frissítsük vagy módosítsuk, ahogy a Szolgáltatásaink fejlődnek. Javasoljuk, hogy rendszeresen látogasson vissza erre az oldalra a legfrissebb információkért.</p>
+
+<hr>
+<p><a href="#">Vissza a főoldalra</a></p>

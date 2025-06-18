@@ -1,0 +1,274 @@
+/* =================================================================== FINANCEHUB SEARCH COMPONENT - BEM + PREMIUM UX Stock ticker search functionality with autocomplete ================================================================ */ .fh-search {
+  background: var(--bg-card);
+  border-radius: var(--fh-radius-xl);
+  border: 1px solid var(--border-primary);
+  margin: var(--fh-space-6) 0;
+  padding: var(--fh-space-6);
+  transition: var(--fh-transition-all);
+  box-shadow: var(--fh-shadow-md);
+}
+.fh-search:hover {
+  border-color: var(--aevorex-brand-accent);
+  box-shadow: var(--fh-shadow-lg);
+}
+.fh-search__form {
+  display: flex;
+  gap: var(--fh-space-4);
+  align-items: stretch;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+.fh-search__input-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: unset;
+}
+.fh-search__input {
+  width: 100%;
+  padding: var(--fh-space-3) var(--fh-space-4);
+  border: 2px solid var(--border-primary);
+  border-radius: var(--fh-radius-lg);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: var(--fh-font-size-sm);
+  font-weight: 500;
+  transition: var(--fh-transition-all);
+  outline: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.fh-search__input::placeholder {
+  color: var(--text-placeholder);
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+}
+.fh-search__input:focus {
+  border-color: var(--aevorex-brand-primary);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  background: var(--bg-secondary);
+}
+.fh-search__input:invalid {
+  border-color: var(--color-error);
+}
+.fh-search__input--loading {
+  background-image: linear-gradient(90deg, var(--bg-tertiary) 25%, var(--bg-secondary) 50%, var(--bg-tertiary) 75%);
+  background-size: 200% 100%;
+  animation: searchShimmer 1.5s infinite;
+}
+.fh-search__button {
+  background: var(--aevorex-brand-primary);
+  color: white;
+  border: none;
+  border-radius: var(--fh-radius-lg);
+  padding: var(--fh-space-3) var(--fh-space-4);
+  font-size: var(--fh-font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--fh-transition-all);
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-2);
+  min-width: 120px;
+  justify-content: center;
+  white-space: nowrap;
+  width: 100%;
+}
+.fh-search__button:hover {
+  background: var(--aevorex-brand-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--fh-shadow-lg);
+}
+.fh-search__button:active {
+  transform: translateY(0);
+}
+.fh-search__button:disabled {
+  background: var(--neutral-400);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.fh-search__button-icon {
+  font-size: var(--fh-font-size-lg);
+  transition: var(--fh-transition-all);
+}
+.fh-search__button--loading .fh-search__button-icon {
+  animation: searchSpin 1s linear infinite;
+}
+.fh-search__autocomplete {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-top: none;
+  border-radius: 0 0 var(--fh-radius-lg) var(--fh-radius-lg);
+  box-shadow: var(--fh-shadow-lg);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+  display: none;
+}
+.fh-search__autocomplete--visible {
+  display: block;
+}
+.fh-search__autocomplete-item {
+  padding: var(--fh-space-2) var(--fh-space-3);
+  cursor: pointer;
+  transition: var(--fh-transition-all);
+  border-bottom: 1px solid var(--border-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.fh-search__autocomplete-item:last-child {
+  border-bottom: none;
+}
+.fh-search__autocomplete-item:hover, .fh-search__autocomplete-item--highlighted {
+  background: var(--bg-secondary);
+  color: var(--aevorex-brand-primary);
+}
+.fh-search__autocomplete-symbol {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: var(--fh-font-size-base);
+}
+.fh-search__autocomplete-name {
+  color: var(--text-secondary);
+  font-size: var(--fh-font-size-sm);
+  margin-left: var(--fh-space-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fh-search__autocomplete-exchange {
+  color: var(--text-tertiary);
+  font-size: var(--fh-font-size-xs);
+  background: var(--bg-tertiary);
+  padding: var(--fh-space-1) var(--fh-space-2);
+  border-radius: var(--fh-radius-sm);
+  font-weight: 500;
+}
+.fh-search__suggestions {
+  margin-top: var(--fh-space-4);
+  padding-top: var(--fh-space-4);
+  border-top: 1px solid var(--border-primary);
+}
+.fh-search__suggestions-title {
+  font-size: var(--fh-font-size-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0 0 var(--fh-space-3) 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.fh-search__suggestions-list {
+  display: flex;
+  gap: var(--fh-space-2);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.fh-search__suggestion-tag {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  padding: var(--fh-space-2) var(--fh-space-3);
+  border-radius: var(--fh-radius-md);
+  font-size: var(--fh-font-size-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--fh-transition-all);
+  border: 1px solid transparent;
+}
+.fh-search__suggestion-tag:hover {
+  background: var(--aevorex-brand-primary);
+  color: white;
+  transform: translateY(-1px);
+}
+.fh-search__error {
+  margin-top: var(--fh-space-3);
+  padding: var(--fh-space-3) var(--fh-space-4);
+  background: rgba(var(--color-error-rgb), 0.1);
+  border: 1px solid var(--color-error);
+  border-radius: var(--fh-radius-md);
+  color: var(--color-error);
+  font-size: var(--fh-font-size-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-2);
+}
+.fh-search__error-icon {
+  font-size: var(--fh-font-size-base);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+.fh-search {
+  padding: var(--fh-space-3);
+  margin: var(--fh-space-4) 0;
+  border-radius: var(--fh-radius-lg);
+}
+} @media (max-width: 480px) {
+
+}
+
+/* Animations */
+@keyframes searchShimmer {
+0% {
+  background-position: -200% 0;
+  transform: rotate(0deg);
+}
+100% {
+  background-position: 200% 0;
+  transform: rotate(360deg);
+}
+} @keyframes searchSpin {
+
+} /* Dark/Light Theme Support */ [data-theme="dark"] .fh-search {
+background: var(--dark-bg-card); border-color: var(--dark-border-primary); } [data-theme="dark"] .fh-search__input {
+  background: var(--dark-bg-primary);
+  border-color: var(--dark-border-primary);
+  color: var(--dark-text-primary);
+}
+[data-theme="dark"] .fh-search__autocomplete {
+  background: var(--dark-bg-card);
+  border-color: var(--dark-border-primary);
+}
+[data-theme="light"] .fh-search {
+  background: var(--neutral-0);
+  border-color: var(--neutral-200);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+.fh-search__input, .fh-search__button, .fh-search__suggestion-tag {
+  transition: none;
+}
+.fh-search__input--loading, .fh-search__button--loading .fh-search__button-icon {
+  animation: none;
+}
+} /* Focus states for accessibility */ .fh-search__button:focus-visible {
+  outline: 2px solid var(--aevorex-brand-primary);
+  outline-offset: 2px;
+}
+.fh-search__suggestion-tag:focus-visible {
+  outline: 2px solid var(--aevorex-brand-primary);
+  outline-offset: 2px;
+}
+.fh-search__autocomplete-item:focus-visible {
+  outline: 2px solid var(--aevorex-brand-primary);
+  outline-offset: -2px;
+}
+/* Custom scrollbar for autocomplete */ .fh-search__autocomplete::-webkit-scrollbar {
+  width: 6px;
+}
+.fh-search__autocomplete::-webkit-scrollbar-track {
+  background: var(--bg-tertiary);
+}
+.fh-search__autocomplete::-webkit-scrollbar-thumb {
+  background: var(--border-primary);
+  border-radius: 3px;
+}
+.fh-search__autocomplete::-webkit-scrollbar-thumb:hover {
+  background: var(--aevorex-brand-primary);
+} 

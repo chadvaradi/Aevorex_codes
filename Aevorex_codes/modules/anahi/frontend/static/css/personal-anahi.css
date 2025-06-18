@@ -1,0 +1,499 @@
+/* Personal Anahí - Romantic & Elegant Styles */ :root {
+  --rose-gold: #E8B4B8;
+  --soft-pink: #F8E8E9;
+  --deep-rose: #D4A5A8;
+  --warm-cream: #FDF8F6;
+  --romantic-purple: #C8A2C8;
+  --sunset-coral: #FF9A8B;
+  --gentle-lavender: #E6D7E8;
+  --pearl-white: #FEFEFE;
+  --soft-gray: #F5F2F0;
+  --text-dark: #4A4A4A;
+  --text-light: #757575;
+  --accent-gold: #D4AF37;
+  --romantic-shadow: 0 10px 30px rgba(212, 165, 168, 0.15);
+  --soft-shadow: 0 5px 15px rgba(212, 165, 168, 0.1);
+  --glow-effect: 0 0 20px rgba(232, 180, 184, 0.3);
+  --text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --font-title: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+  --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: var(--font-body);
+  background: linear-gradient(135deg, var(--warm-cream) 0%, var(--soft-pink) 50%, var(--gentle-lavender) 100%);
+  color: var(--text-dark);
+  line-height: 1.6;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+/* Romantic Particles Background */ .particle-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--rose-gold);
+  border-radius: 50%;
+  animation: float 8s infinite ease-in-out;
+  opacity: 0.6;
+}
+
+@keyframes float {
+0%, 100% {
+  transform: scale(1);
+  filter: hue-rotate(0deg);
+}
+25% {
+  transform: translateY(-20px) translateX(10px) rotate(90deg); opacity: 1;
+  filter: hue-rotate(90deg);
+}
+50% {
+  transform: scale(1.2);
+  opacity: 1; transform: scaleX(1);
+  filter: hue-rotate(180deg);
+}
+75% {
+  transform: translateY(-20px) translateX(15px) rotate(270deg); opacity: 1;
+  filter: hue-rotate(270deg);
+}
+} /* Header Section */ .romantic-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  background: linear-gradient(rgba(253, 248, 246, 0.9), rgba(248, 232, 233, 0.95));
+  backdrop-filter: blur(10px);
+}
+.header-content {
+  max-width: 800px;
+  padding: 1rem;
+}
+.header-decoration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.header-decoration i {
+  color: var(--rose-gold);
+  font-size: 1.5rem;
+  animation: heartBeat 2s infinite;
+}
+.sparkle-line {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--rose-gold), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes heartBeat {
+0%, 50%, 100% {
+  transform: scale(1);
+}
+25%, 75% {
+  transform: scale(1.2);
+}
+}
+
+@keyframes shimmer {
+0% {
+  opacity: 0.5; transform: scaleX(0.5);
+  filter: drop-shadow(0 0 10px rgba(232, 180, 184, 0.3));
+  width: 40px; opacity: 0.7;
+}
+
+100% {
+  opacity: 0.5; transform: scaleX(0.5);
+  filter: drop-shadow(0 0 20px rgba(232, 180, 184, 0.6));
+  width: 80px; opacity: 1;
+}
+} .main-title {
+  font-family: var(--font-title);
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--rose-gold), var(--sunset-coral), var(--romantic-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: var(--text-shadow);
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+.title-prefix {
+  font-size: 0.7em;
+  font-weight: 300;
+  display: block;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+.title-name {
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+@keyframes titleGlow {
+
+
+} .subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: var(--text-light);
+}
+.subtitle-es, .subtitle-hu {
+  display: block;
+  margin: 0.5rem 0;
+}
+.subtitle-es {
+  font-style: italic;
+  color: var(--deep-rose);
+}
+.subtitle-hu {
+  font-weight: 500;
+  color: var(--romantic-purple);
+}
+.intro-text {
+  margin-top: 2rem;
+}
+.intro-spanish, .intro-hungarian {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(232, 180, 184, 0.2);
+  box-shadow: var(--soft-shadow);
+  font-size: 0.95rem;
+}
+.intro-spanish {
+  font-style: italic;
+  color: var(--deep-rose);
+  border-left: 4px solid var(--rose-gold);
+}
+.intro-hungarian {
+  color: var(--romantic-purple);
+  border-left: 4px solid var(--romantic-purple);
+}
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+}
+.scroll-indicator i {
+  color: var(--rose-gold);
+  font-size: 2rem;
+}
+
+@keyframes bounce {
+0%, 20%, 50%, 80%, 100% {
+  transform: translateX(-50%) translateY(0);
+}
+40% {
+  transform: translateX(-50%) translateY(-10px);
+}
+60% {
+  transform: translateX(-50%) translateY(-5px);
+}
+} /* Gallery Section */ .romantic-gallery {
+  padding: 4rem 0;
+  z-index: 10;
+  position: relative;
+}
+.photo-story {
+  max-width: 1200px;
+  margin: 0 auto 6rem auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: var(--transition-smooth);
+  margin-bottom: 4rem;
+  animation: slideInFromBottom 0.8s ease-out forwards;
+  animation-delay: calc(var(--index) * 0.2s);
+}
+.photo-story.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.photo-story:nth-child(even) {
+  grid-template-columns: 1fr 1fr;
+}
+.photo-story:nth-child(even) .photo-container {
+  order: 2;
+}
+.photo-story:nth-child(even) .quote-container {
+  order: 1;
+}
+.photo-container {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--romantic-shadow);
+  transform: scale(0.95);
+  transition: var(--transition-smooth);
+}
+.photo-container:hover {
+  transform: scale(1);
+  box-shadow: var(--glow-effect);
+}
+.story-image {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  object-position: center 35%;
+  transition: var(--transition-smooth);
+  border-radius: 15px;
+}
+.photo-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(232, 180, 184, 0.1), rgba(200, 162, 200, 0.1));
+  opacity: 0;
+  transition: var(--transition-smooth);
+}
+.photo-container:hover .photo-overlay {
+  opacity: 1;
+}
+.quote-container {
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(232, 180, 184, 0.3);
+  box-shadow: var(--romantic-shadow);
+  position: relative;
+  transform: translateY(20px);
+  transition: var(--transition-bounce);
+}
+.photo-story.visible .quote-container {
+  transform: translateY(0);
+}
+.quote-decoration {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.quote-decoration i {
+  font-size: 2rem;
+  color: var(--rose-gold);
+  animation: pulse 3s infinite;
+}
+.quote-decoration.special i {
+  background: linear-gradient(135deg, var(--rose-gold), var(--sunset-coral));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: rainbow 4s infinite;
+}
+
+@keyframes pulse {
+
+
+}
+
+@keyframes rainbow {
+
+
+
+
+} .spanish-quote, .hungarian-quote {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin: 1.5rem 0;
+  position: relative;
+  padding-left: 1rem;
+}
+.spanish-quote {
+  font-family: var(--font-title);
+  font-style: italic;
+  color: var(--deep-rose);
+  border-left: 3px solid var(--rose-gold);
+}
+.hungarian-quote {
+  font-weight: 500;
+  color: var(--romantic-purple);
+  border-left: 3px solid var(--romantic-purple);
+  font-size: 1.1rem;
+}
+.final-quote {
+  font-size: 1.3rem !important;
+  font-weight: 600;
+  text-align: center;
+  border: none !important;
+  padding-left: 0 !important;
+}
+.quote-accent {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--rose-gold), var(--sunset-coral));
+  margin: 1.5rem auto 0;
+  border-radius: 2px;
+  animation: expand 2s ease-in-out infinite alternate;
+}
+.quote-accent.final {
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--rose-gold), var(--sunset-coral), var(--romantic-purple));
+  animation: finalGlow 3s ease-in-out infinite;
+}
+
+@keyframes expand {
+
+
+}
+
+@keyframes finalGlow {
+
+
+} /* Final Story Special Styling */ .final-story {
+  background: linear-gradient(135deg, rgba(232, 180, 184, 0.1), rgba(200, 162, 200, 0.1));
+  padding: 3rem;
+  border-radius: 30px;
+  border: 2px solid rgba(232, 180, 184, 0.3);
+  margin-bottom: 4rem;
+}
+.final-story .quote-container {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid var(--rose-gold);
+}
+/* Footer */ .romantic-footer {
+  background: linear-gradient(135deg, var(--rose-gold), var(--romantic-purple));
+  padding: 3rem 0;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+.footer-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.footer-message {
+  font-size: 1.3rem;
+  color: white;
+  text-shadow: var(--text-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.footer-spanish, .footer-hungarian {
+  display: block;
+  margin: 0.5rem 0;
+}
+.footer-decoration {
+  margin-top: 2rem;
+}
+.heart-pulse {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 50%;
+  animation: heartPulse 2s infinite;
+}
+
+@keyframes heartPulse {
+
+
+}
+
+/* Animations */
+@keyframes fadeInUp {
+from {
+  opacity: 0;
+  transform: translateY(100px);
+}
+to {
+  opacity: 1;
+  transform: translateY(0);
+}
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+.main-title {
+  font-size: 2rem;
+}
+
+.photo-story:nth-child(even) .photo-container, .photo-story:nth-child(even) .quote-container {
+  order: unset;
+}
+
+
+.spanish-quote, .hungarian-quote {
+  font-size: 1.1rem;
+}
+.final-story {
+  padding: 2rem;
+  margin: 0 1rem 3rem;
+}
+}
+
+@media (max-width: 480px) {
+
+
+
+
+}
+
+/* Scroll animations */
+@media (prefers-reduced-motion: no-preference) {
+
+}
+
+@keyframes slideInFromBottom {
+
+
+} /* Specifikus képpozicionálás az egyes képekhez */ .story-image[src*="177C73C2"] {
+  object-position: center 45%; /* Első kép - tükrös szelfi */;
+}
+.story-image[src*="03E4A4F2"] {
+  object-position: center 35%; /* Második kép - lift tükör */;
+}
+.story-image[src*="1E1EDE74"] {
+  object-position: center 30%; /* Harmadik kép - napszemüveges */;
+}
+.story-image[src*="1AE7B847"] {
+  object-position: center 60%; /* Negyedik kép - lift virágokkal - lejjebb */;
+}
+.story-image[src*="5F8592E3"] {
+  object-position: center 25%; /* Ötödik kép - közeli portré */;
+}
+.story-image[src*="5727B81E"] {
+  object-position: center 40%; /* Hatodik kép - tenisz */;
+}
+.story-image[src*="642623A9"] {
+  object-position: center 35%; /* Hetedik kép */;
+}
+.story-image[src*="6B4AEBF0"] {
+  object-position: center 30%; /* Nyolcadik kép */;
+}
+.story-image[src*="6D7AF302"] {
+  object-position: center 45%; /* Kilencedik kép */;
+} 

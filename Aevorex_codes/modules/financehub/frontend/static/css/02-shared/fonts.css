@@ -1,0 +1,395 @@
+/* =================================================================== PREMIUM FONTS SYSTEM - V20.0.0 Professional typography for financial interfaces =================================================================== */ /* ===== FONT IMPORTS ===== */ /* ===== FONT SIZE UTILITIES ===== */ .text-xs {
+  font-size: var(--fh-font-size-xs); line-height: var(--leading-tight);
+}
+.text-sm {
+  font-size: var(--fh-font-size-sm); line-height: var(--leading-normal);
+}
+.text-base {
+  font-size: var(--fh-font-size-base); line-height: var(--leading-normal);
+}
+.text-lg {
+  font-size: var(--fh-font-size-lg); line-height: var(--leading-relaxed);
+}
+.text-xl {
+  font-size: var(--fh-font-size-xl); line-height: var(--leading-relaxed);
+}
+.text-2xl {
+  font-size: var(--text-2xl); line-height: var(--leading-tight);
+}
+.text-3xl {
+  font-size: var(--text-3xl); line-height: var(--leading-tight);
+}
+.text-4xl {
+  font-size: var(--text-4xl); line-height: var(--leading-none);
+}
+.text-5xl {
+  font-size: var(--text-5xl); line-height: var(--leading-none);
+}
+/* ===== FONT WEIGHT UTILITIES ===== */ .font-light {
+  font-weight: var(--font-weight-light);
+}
+.font-normal {
+  font-weight: var(--font-weight-normal);
+}
+.font-medium {
+  font-weight: var(--font-weight-medium);
+}
+.font-semibold {
+  font-weight: var(--font-weight-semibold);
+}
+.font-bold {
+  font-weight: var(--font-weight-bold);
+}
+.font-extrabold {
+  font-weight: var(--font-weight-extrabold);
+}
+/* ===== FONT FAMILY UTILITIES ===== */ .font-primary {
+  font-family: var(--font-family-primary);
+}
+.font-secondary {
+  font-family: var(--font-family-secondary);
+}
+.font-mono {
+  font-family: var(--font-family-mono);
+}
+.font-display {
+  font-family: var(--font-family-display);
+}
+/* ===== LINE HEIGHT UTILITIES ===== */ .leading-none {
+  line-height: var(--leading-none);
+}
+.leading-tight {
+  line-height: var(--leading-tight);
+}
+.leading-snug {
+  line-height: var(--leading-snug);
+}
+.leading-normal {
+  line-height: var(--leading-normal);
+}
+.leading-relaxed {
+  line-height: var(--leading-relaxed);
+}
+.leading-loose {
+  line-height: var(--leading-loose);
+}
+/* ===== LETTER SPACING UTILITIES ===== */ .tracking-tighter {
+  letter-spacing: var(--tracking-tighter);
+}
+.tracking-tight {
+  letter-spacing: var(--tracking-tight);
+}
+.tracking-normal {
+  letter-spacing: var(--tracking-normal);
+}
+.tracking-wide {
+  letter-spacing: var(--tracking-wide);
+}
+.tracking-wider {
+  letter-spacing: var(--tracking-wider);
+}
+.tracking-widest {
+  letter-spacing: var(--tracking-widest);
+}
+/* ===== TEXT ALIGNMENT ===== */ .text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+/* ===== TEXT DECORATION ===== */ .underline {
+  text-decoration: underline;
+}
+.line-through {
+  text-decoration: line-through;
+}
+.no-underline {
+  text-decoration: none;
+}
+/* ===== TEXT TRANSFORM ===== */ .uppercase {
+  text-transform: uppercase;
+}
+.lowercase {
+  text-transform: lowercase;
+}
+.capitalize {
+  text-transform: capitalize;
+}
+.normal-case {
+  text-transform: none;
+}
+/* ===== TEXT COLORS ===== */ .text-primary {
+  color: var(--text-primary);
+}
+.text-secondary {
+  color: var(--text-secondary);
+}
+.text-tertiary {
+  color: var(--text-tertiary);
+}
+.text-muted {
+  color: var(--text-muted);
+}
+.text-inverse {
+  color: var(--text-inverse);
+}
+.text-brand {
+  color: var(--aevorex-brand-primary);
+}
+.text-accent {
+  color: var(--aevorex-brand-accent);
+}
+.text-success {
+  color: var(--aevorex-brand-success);
+}
+.text-error {
+  color: var(--aevorex-brand-error);
+}
+.text-warning {
+  color: var(--aevorex-brand-warning);
+}
+/* ===== FINANCIAL TYPOGRAPHY COMPONENTS ===== */ .financial-heading {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+}
+.financial-heading-xl {
+  font-size: var(--text-4xl);
+  margin-bottom: var(--fh-space-6);
+}
+.financial-heading-lg {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--fh-space-5);
+}
+.financial-heading-md {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--fh-space-4);
+}
+.financial-heading-sm {
+  font-size: var(--fh-font-size-xl);
+  margin-bottom: var(--fh-space-3);
+}
+.financial-subheading {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+  font-size: var(--fh-font-size-lg);
+  margin-bottom: var(--fh-space-3);
+  letter-spacing: var(--tracking-normal);
+}
+.financial-body {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-normal);
+  color: var(--text-primary);
+  font-size: var(--fh-font-size-base);
+  line-height: var(--leading-relaxed);
+}
+.financial-caption {
+  font-family: var(--font-family-secondary);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-muted);
+  font-size: var(--fh-font-size-sm);
+  line-height: var(--leading-normal);
+}
+.financial-label {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  font-size: var(--fh-font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+/* ===== PRICE DISPLAY TYPOGRAPHY ===== */ .price-display {
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-2xl);
+  line-height: var(--leading-none);
+  letter-spacing: var(--tracking-tight);
+}
+.price-display-lg {
+  font-size: var(--text-3xl);
+}
+.price-display-sm {
+  font-size: var(--fh-font-size-xl);
+}
+.price-display-xs {
+  font-size: var(--fh-font-size-lg);
+}
+.price-change {
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--fh-font-size-sm);
+  line-height: var(--leading-tight);
+}
+.price-change.positive {
+  color: var(--aevorex-brand-success);
+}
+.price-change.negative {
+  color: var(--aevorex-brand-error);
+}
+.price-change.neutral {
+  color: var(--text-muted);
+}
+/* ===== METRIC DISPLAY TYPOGRAPHY ===== */ .metric-value {
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--fh-font-size-lg);
+  color: var(--text-primary);
+  line-height: var(--leading-tight);
+}
+.metric-label {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--fh-font-size-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  margin-bottom: var(--fh-space-1);
+}
+.metric-unit {
+  font-family: var(--font-family-secondary);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--fh-font-size-sm);
+  color: var(--text-tertiary);
+  margin-left: var(--fh-space-1);
+}
+/* ===== CHART TEXT STYLING ===== */ .chart-title {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--fh-font-size-xl);
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: var(--fh-space-4);
+}
+.chart-axis-label {
+  font-family: var(--font-family-secondary);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--fh-font-size-xs);
+  color: var(--text-muted);
+}
+.chart-legend {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--fh-font-size-sm);
+  color: var(--text-secondary);
+}
+.chart-tooltip {
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--fh-font-size-xs);
+  color: var(--text-primary);
+  background: var(--bg-overlay);
+  padding: var(--fh-space-2);
+  border-radius: var(--fh-radius-sm);
+}
+/* ===== BUTTON TEXT STYLING ===== */ .btn-text {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-normal);
+  text-transform: none;
+}
+.btn-text-sm {
+  font-size: var(--fh-font-size-sm);
+}
+.btn-text-base {
+  font-size: var(--fh-font-size-base);
+}
+.btn-text-lg {
+  font-size: var(--fh-font-size-lg);
+}
+/* ===== FORM TEXT STYLING ===== */ .form-label {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--fh-font-size-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--fh-space-2);
+  display: block;
+}
+.form-input-text {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--fh-font-size-base);
+  color: var(--text-primary);
+}
+.form-help-text {
+  font-family: var(--font-family-secondary);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--fh-font-size-xs);
+  color: var(--text-muted);
+  margin-top: var(--fh-space-1);
+}
+.form-error-text {
+  font-family: var(--font-family-secondary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--fh-font-size-xs);
+  color: var(--aevorex-brand-error);
+  margin-top: var(--fh-space-1);
+}
+/* ===== PREMIUM TEXT EFFECTS ===== */ .text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-shadow-sm {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.text-shadow-lg {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+.text-glow {
+  text-shadow: 0 0 10px rgba(212, 185, 150, 0.5);
+}
+.text-premium {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-bold);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: var(--tracking-tight);
+  position: relative;
+}
+.text-premium::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  border-radius: 1px;
+}
+/* ===== READING OPTIMIZATIONS ===== */ .optimized-reading {
+  font-family: var(--font-family-primary);
+  font-size: var(--fh-font-size-base);
+  line-height: var(--leading-relaxed);
+  color: var(--text-primary);
+  max-width: 65ch;
+  hyphens: auto;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== RESPONSIVE TYPOGRAPHY ===== */
+@media (max-width: 768px) {
+  /* TODO: add responsive typography overrides */
+}
+
+@media (max-width: 480px) {
+  /* TODO: add mobile typography overrides */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* TODO: add reduced-motion overrides */
+}
+
+@media print {
+  /* TODO: print-specific typography */
+} 

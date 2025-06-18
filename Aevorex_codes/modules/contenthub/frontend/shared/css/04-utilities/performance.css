@@ -1,0 +1,38 @@
+/* ========================================== CONTENTHUB PERFORMANCE UTILITIES ========================================== Performance optimization utilities Part of ContentHub CSS Architecture v2.0 Author: Aevorex Premium Team ========================================== */ /* === FONT OPTIMIZATIONS === */ /* Preload critical fonts */ @font-face {
+  font-family: 'Inter';
+  font-display: swap;
+  font-weight: 300 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-display: swap;
+  font-weight: 300 800;
+  font-style: normal;
+}
+/* === ANIMATION PERFORMANCE === */ /* Hardware acceleration for animations */ .animate-smooth {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+.animate-gpu {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+/* === TRANSITION OPTIMIZATIONS === */ /* Disable transitions during page load */ .preload * {
+  transition: none !important;
+}
+/* === PERFORMANCE HINTS === */ /* Optimize image loading */ .lazy-img {
+  content-visibility: auto;
+  contain-intrinsic-size: 300px 200px;
+}
+/* Optimize large content blocks */ .content-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+/* === CRITICAL RENDERING PATH === */ /* Above the fold optimization */ .above-fold {
+  contain: layout style paint;
+}
+/* Below the fold content */ .below-fold {
+  content-visibility: auto;
+}

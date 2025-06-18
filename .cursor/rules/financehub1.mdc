@@ -1,0 +1,54 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+attachments:
+  - path: modules/financehub/**
+    strategy: directory
+Rule Type: Manual
+
+Ez a szabály kizárólag a `modules/financehub/` alatti frontend–backend kódrészre vonatkozik.
+
+### Modul-küldetés
+
+- **Cél:** Professzionális **equity research** élmény, amely ötvözi egy *trading platform* (pl. TradingView) mélységét és az *LLM-oldalak* (pl. Perplexity, Grok) intuitív párbeszéd-élményét.  
+- **Egyedi érték:** Olyan, valós időben frissülő AI-sztrukturált insightokat ad, amelyeket a Bloomberg Terminal / Yahoo Finance / IBKR sem kínál (pl. tokenenként streamelt „Grok-stílusú” AI-összefoglaló, moduláris buborékrendszer).
+
+### Fő UI-elemek (nem bonthatók szét)
+
+1. **Header alatti Ticker-szalag**  
+   - Minden elem kattintható; kattintáskor `GET /api/v1/stock/{ticker}` → teljes modul újradátázódik.
+
+2. **Elemző buborék-rács**  
+   - Négy fix buborék:  
+     1. Company Overview  
+     2. Financial Metrics  
+     3. Technical Analysis  
+     4. News Highlights  
+   - Ezek aszinkron renderelnek, **de nem** kerülnek külön route-ba; maradnak egy komponensen belül a sequencing miatt.
+
+3. **TradingView Advanced Chart**  
+   - Integrációt ne cseréld le; csak konfigurálj (pl. default time-frame, mutatók).
+
+4. **AI Summary Chat**  
+   - A backend streameli tokenenként a válaszokat (`text/event-stream` SSE).  
+   - **Nincs** „0. placeholder” üzenet; az AI-összefoglaló automatikusan első üzenetként jelenik meg.
+
+### Fejlesztési irányelvek
+
+- **Adat-fedés vizsgálata:** Minden új backend-mezőt (pl. `pe_ratio_trailing`, `beta`, `esg_score`) 72 órán belül propagálj a buborék-UI-ba vagy a chat-kontextusba.  
+- **Kód-méret limit:** Egy komponens ≤ 160 sor; ha meghaladja, bontsd `*.view.tsx` és `*.logic.ts` fájlokra.  
+- **Prémium UX minősítések:**  
+  - 60 fps animációk (`requestAnimationFrame`),  
+  - skeleton-loader shimmer effekt < 200 ms-ig,  
+  - dark/light témaváltás konzisztens stílustokennel.  
+- **Felhasználói fókusz:** Minden fejlesztésnél tedd fel a kérdést: *„Mi az a döntéstámogató információ, amit még a Bloomberg/Perplexity/IBKR sem ad, de mi könnyen elő tudunk állítani?”* – csak ezeket építsd be.
+
+### Tiltások
+
+- Ne nyúlj a chat-stream handlerhez, csak ha backend változik.  
+- Ne bontsd szét a négy elemző buborékot külön route-okra; a sorrend és együtt-scrollozás UX-kritikus.  
+- Ne jeleníts meg reklám- vagy upsell-bannert a FinanceHub fő nézetben.
+
+Describe the tasks this rule is helpful for, tags: ["financehub", "equity-research", "ux-premium", "data-integrity"]

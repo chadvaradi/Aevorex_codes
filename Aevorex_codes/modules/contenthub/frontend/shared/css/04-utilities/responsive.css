@@ -1,0 +1,47 @@
+/* ========================================== CONTENTHUB RESPONSIVE UTILITIES ========================================== Mobile-first responsive design system Part of ContentHub CSS Architecture v2.0 Author: Aevorex Premium Team ========================================== */ /* === MOBILE-FIRST RESPONSIVE BREAKPOINTS === */ /* Mobile (default) - 0px to 768px */ .container {
+  max-width: 100%;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+/* Tablet - 769px to 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+.container {
+  max-width: 1200px;
+}
+
+}
+
+/* Desktop - 1025px and up */
+@media (min-width: 1025px) {
+
+
+}
+
+/* === RESPONSIVE UTILITIES === */
+
+/* Hide elements on mobile */
+@media (max-width: 768px) {
+.hide-mobile {
+  display: none !important;
+}
+}
+
+/* Hide elements on tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+.hide-tablet {
+  display: none !important;
+}
+}
+
+/* Hide elements on desktop */
+@media (min-width: 1025px) {
+.hide-desktop {
+  display: none !important;
+}
+}

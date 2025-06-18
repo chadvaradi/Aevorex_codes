@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="hu" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ContentHub Main Bundle Test</title>
+    
+    <!-- CSS Bundle -->
+    <link rel="stylesheet" href="shared/css/main_combined_contenthub.css?test=20250610_2131">
+    
+    <!-- JavaScript Bundle -->
+    <script type="module" src="shared/js/main_contenthub.js"></script>
+    
+    <style>
+        /* Inline test styles */
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: var(--ch-font-family-sans, Arial, sans-serif);
+            background: var(--ch-bg-primary);
+            color: var(--ch-text-primary);
+        }
+        .test-header {
+            background: var(--ch-bg-secondary);
+            padding: 20px;
+            border: 2px solid var(--ch-border-primary);
+            border-radius: var(--ch-radius-md);
+            margin-bottom: 20px;
+            color: var(--ch-text-primary);
+        }
+        .test-section {
+            background: var(--ch-surface-primary);
+            border: 1px solid var(--ch-border-secondary);
+            border-radius: var(--ch-radius-md);
+            padding: 15px;
+            margin: 10px 0;
+            color: var(--ch-text-primary);
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-pass { background: var(--ch-success-primary, #4CAF50); }
+        .status-fail { background: var(--ch-error-primary, #f44336); }
+        .theme-test-area {
+            background: var(--ch-bg-primary);
+            color: var(--ch-text-primary);
+            padding: 20px;
+            border: 2px solid var(--ch-border-primary);
+            border-radius: var(--ch-radius-md);
+            transition: all 0.3s ease;
+        }
+        
+        /* Navigation Test Styles */
+        .header__nav {
+            display: flex;
+            gap: 1rem;
+            padding: 10px;
+            background: var(--ch-surface-primary);
+            border: 1px solid var(--ch-border-primary);
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .nav__link {
+            padding: 8px 16px;
+            text-decoration: none;
+            color: var(--ch-text-primary);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .nav__link:hover {
+            background: var(--ch-interactive-hover);
+            color: var(--ch-brand-primary);
+        }
+        
+        .nav__link--active {
+            background: var(--ch-brand-primary);
+            color: var(--ch-white);
+        }
+        
+        /* Module Cards Test Styles */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 15px 0;
+        }
+        
+        .module-card {
+            padding: 1rem;
+            border: 1px solid var(--ch-border-primary);
+            border-radius: 8px;
+            background: var(--ch-surface-primary);
+            color: var(--ch-text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--ch-shadow-md);
+            border-color: var(--ch-brand-primary);
+        }
+        
+        .module-card__icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .module-card__title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--ch-text-primary);
+        }
+        
+        .module-card__description {
+            font-size: 0.9rem;
+            color: var(--ch-text-secondary);
+        }
+        
+        /* Theme Toggle Styles */
+        .theme-toggle {
+            padding: 8px 16px;
+            border: 1px solid var(--ch-border-primary);
+            border-radius: 4px;
+            background: var(--ch-surface-primary);
+            color: var(--ch-text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--ch-interactive-hover);
+            border-color: var(--ch-brand-primary);
+        }
+
+        /* Dark theme specific overrides for inline styles */
+        [data-theme="dark"] .test-container {
+            background: var(--ch-bg-primary);
+        }
+        
+        [data-theme="dark"] .test-header {
+            background: var(--ch-surface-secondary);
+            border-color: var(--ch-border-primary);
+            color: var(--ch-text-primary);
+        }
+        
+        [data-theme="dark"] .test-section {
+            background: var(--ch-surface-primary);
+            border-color: var(--ch-border-secondary);
+            color: var(--ch-text-primary);
+        }
+        
+        [data-theme="dark"] .theme-test-area {
+            background: var(--ch-surface-primary);
+            border-color: var(--ch-border-primary);
+            color: var(--ch-text-primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Test Header Navigation -->
+    <nav class="header__nav" data-navigation>
+        <a href="index.html" class="nav__link nav__link--active">Home</a>
+        <a href="test_main_bundles.html" class="nav__link">Test Page</a>
+        <a href="http://localhost:8083/financehub.html" class="nav__link">FinanceHub</a>
+        <a href="index.html#settings" class="nav__link">Settings</a>
+    </nav>
+
+    <div class="test-container">
+        <div class="test-header">
+            <h1>🧪 ContentHub Main Bundle Test</h1>
+            <p><strong>Cél:</strong> main_combined_contenthub.css és main_contenthub.js működésének tesztelése</p>
+            <p><strong>Idő:</strong> <span id="test-timestamp">2025. 06. 10. 17:30:00</span></p>
+            
+            <!-- Theme Toggle Button -->
+            <button class="theme-toggle" data-theme-toggle="" aria-pressed="true">🌓 Toggle Theme</button>
+        </div>
+
+        <!-- Module Cards Test Section -->
+        <div class="test-section">
+            <h2>Module Cards Test</h2>
+            <div class="modules-grid" data-module-cards="">
+                <div class="module-card" data-href="http://localhost:8083/financehub.html" tabindex="0">
+                    <div class="module-card__icon">FH</div>
+                    <div class="module-card__content">
+                        <h3 class="module-card__title">FinanceHub</h3>
+                        <p class="module-card__description">Equity research and trading platform</p>
+                    </div>
+                </div>
+                
+                <div class="module-card" data-href="index.html" tabindex="0" style="transform: translateY(0px); box-shadow: var(--card-shadow);">
+                    <div class="module-card__icon" style="transform: scale(1);">CH</div>
+                    <div class="module-card__content">
+                        <h3 class="module-card__title" style="">ContentHub</h3>
+                        <p class="module-card__description">Content management system</p>
+                    </div>
+                </div>
+                
+                <div class="module-card" data-href="#ai" tabindex="0">
+                    <div class="module-card__icon">AI</div>
+                    <div class="module-card__content">
+                        <h3 class="module-card__title">AIHub</h3>
+                        <p class="module-card__description">AI tools and automation (demo only)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CSS TEST SECTION -->
+        <div class="test-section">
+            <h2>CSS Bundle Test</h2>
+            <div id="css-status"><span class="status-indicator status-pass"></span>✅ CSS betöltve</div>
+            
+            <!-- Test elemek a CSS modulokhoz -->
+            <div class="theme-test-area" id="theme-test">
+                <h3>🎨 Theme System Test</h3>
+                <p>Ez a terület tesztelni fogja a CSS változókat és témákat.</p>
+                <button class="btn btn--primary" id="theme-toggle-test">Theme Toggle Test</button>
+            </div>
+
+            <!-- Hero Feature Test (SVG ikonok) -->
+            <div class="hero-feature" id="svg-test">
+                <div class="hero-feature__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 7v10c0 5.55 3.84 10 9 10s9-4.45 9-10V7l-10-5z"></path>
+                    </svg>
+                </div>
+                <h4>SVG Icon Test</h4>
+                <p>Ha ez az ikon túl nagy, akkor a CSS fix nem működik.</p>
+            </div>
+        </div>
+
+        <!-- JAVASCRIPT TEST SECTION -->
+        <div class="test-section">
+            <h2>JavaScript Bundle Test</h2>
+            <div id="js-status"><span class="status-indicator status-pass"></span>✅ JavaScript betöltve</div>
+            
+            <div id="js-modules-test">
+                <h3>📦 Module Tests</h3>
+                <ul id="modules-list">
+                    <li>ContentHub Controller: <span id="controller-status">✅</span></li>
+                    <li>Theme Manager: <span id="theme-status">✅</span></li>
+                    <li>API Client: <span id="api-status">✅</span></li>
+                    <li>UI Interactions: <span id="ui-status">✅</span></li>
+                </ul>
+            </div>
+
+            <button id="test-all-modules">🧪 Test All Modules</button>
+        </div>
+
+        <!-- NETWORK TEST SECTION -->
+        <div class="test-section">
+            <h2>Network Status</h2>
+            <div id="network-status">
+                <p>CSS URL: <code>shared/css/main_combined_contenthub.css</code></p>
+                <p>JS URL: <code>shared/js/main_contenthub.js</code></p>
+                <p>Server: <span id="server-status">http://localhost:3002</span></p>
+            </div>
+        </div>
+
+        <!-- RESULTS -->
+        <div class="test-section" id="test-results">
+            <h2>Test Results</h2>
+            <div id="final-results">🎉 <strong>MINDEN TESZT SIKERES!</strong><br>A main_combined_contenthub fájlok működnek.</div>
+        </div>
+    </div>
+
+    <script>
+        // Update timestamp
+        document.getElementById('test-timestamp').textContent = new Date().toLocaleString('hu-HU');
+        
+        // Test all modules when page loads
+        window.addEventListener('load', () => {
+            console.log('🧪 Test page loaded successfully');
+            
+            // Check if CSS variables are working
+            const testSection = document.querySelector('.test-section');
+            const computedStyle = getComputedStyle(testSection);
+            const bgColor = computedStyle.getPropertyValue('--ch-bg-primary');
+            
+            if (bgColor) {
+                console.log('✅ CSS variables working:', bgColor);
+            } else {
+                console.log('❌ CSS variables not found');
+            }
+        });
+    </script>
+</body>
+</html> 

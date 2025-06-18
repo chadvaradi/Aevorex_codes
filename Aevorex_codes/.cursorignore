@@ -1,0 +1,25 @@
+# Add directories or file patterns to ignore during indexing (e.g. foo/ or *.csv)
+# Teljes Cursor stabilizáló kizáráslista
+
+# Duplikált charting_library példányok kizárása
+# Kizárja az összes charting_library változatot
+**/charting_library/**
+**/charting_library_OLD/**
+**/charting_library_old2/**
+**/charting_library-master/**
+**/tv_udf_test/charting_library/**
+**/static/charting_library/**
+**/frontend_backup_*/static/charting_library/**
+# Python cache és virtuális környezet kizárása
+**/__pycache__/**
+**/venv/**
+**/.venv/**
+**/__pypackages__/**
+
+# Node és build artefaktumok
+**/node_modules/**
+**/dist/**
+**/build/**
+
+# Minified JS-ek
+**/*.min.js

@@ -1,0 +1,383 @@
+/* =================================================================== FUNDAMENTAL ANALYSIS BUBBLE - V20.0.0 Premium fundamental analysis component for FinanceHub =================================================================== */ /* ===== BASE FUNDAMENTAL ANALYSIS BUBBLE ===== */ .fundamental-analysis-bubble {
+  background: linear-gradient(135deg,;
+  backdrop-filter: blur(var(--blur-lg));
+  -webkit-backdrop-filter: blur(var(--blur-lg));
+  border: 1px solid rgba(212, 185, 150, 0.15);
+  border-radius: var(--border-radius-2xl);
+  padding: var(--space-6);
+  box-shadow: ;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+.fundamental-analysis-bubble::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,;
+  opacity: 0.8;
+}
+.fundamental-analysis-bubble:hover {
+  transform: translateY(-2px);
+  box-shadow: ;
+  border-color: rgba(212, 185, 150, 0.25);
+}
+/* ===== BUBBLE HEADER ===== */ .fundamental-bubble-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid rgba(212, 185, 150, 0.15);
+}
+.fundamental-bubble-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--text-primary);
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+.fundamental-bubble-icon {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg,;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.fundamental-bubble-icon::after {
+  content: '📊';
+  font-size: 12px;
+}
+.fundamental-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid rgba(212, 185, 150, 0.2);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+.fundamental-status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--aevorex-brand-success);
+  border-radius: 50%;
+  animation: none;
+}
+/* ===== FUNDAMENTAL METRICS GRID ===== */ .fundamental-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+.metric-section {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(212, 185, 150, 0.3);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-4);
+  transition: all var(--transition-fast);
+}
+.metric-section:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(212, 185, 150, 0.2);
+  transform: translateY(-1px);
+}
+.metric-section-title {
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-3) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.metric-section-title::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: var(--aevorex-brand-primary);
+  border-radius: 50%;
+}
+/* ===== VALUATION METRICS ===== */ .valuation-metrics {
+  border-left: 3px solid var(--aevorex-brand-primary);
+  background: linear-gradient(135deg,;
+}
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid rgba(212, 185, 150, 0.08);
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.metric-row:last-child {
+  border-bottom: none;
+}
+.metric-label {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-normal);
+}
+.metric-value {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+.metric-trend {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: var(--border-radius-xs);
+  font-weight: var(--font-weight-medium);
+}
+.metric-trend.positive {
+  background: var(--aevorex-brand-success);
+  color: white;
+}
+.metric-trend.negative {
+  background: var(--aevorex-brand-error);
+  color: white;
+}
+.metric-trend.neutral {
+  background: var(--text-secondary);
+  color: white;
+}
+/* ===== PROFITABILITY METRICS ===== */ .profitability-metrics {
+  border-left: 3px solid var(--aevorex-brand-success);
+  background: linear-gradient(135deg,;
+}
+/* ===== LIQUIDITY METRICS ===== */ .liquidity-metrics {
+  border-left: 3px solid var(--aevorex-brand-accent);
+  background: linear-gradient(135deg,;
+}
+/* ===== FINANCIAL HEALTH INDICATORS ===== */ .financial-health-section {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(212, 185, 150, 0.15);
+}
+.health-indicators {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+.health-indicator {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 185, 150, 0.1);
+  border-radius: var(--border-radius);
+  padding: var(--space-3);
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+.health-indicator:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+}
+.health-score {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-1);
+}
+.health-score.excellent {
+  color: var(--aevorex-brand-success);
+}
+.health-score.good {
+  color: var(--aevorex-brand-primary);
+}
+.health-score.fair {
+  color: #F59E0B;
+}
+.health-score.poor {
+  color: var(--aevorex-brand-error);
+}
+.health-label {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+/* ===== COMPARISON CHART ===== */ .comparison-chart {
+  margin-top: var(--space-5);
+  padding: var(--space-4);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(212, 185, 150, 0.1);
+  border-radius: var(--border-radius-lg);
+}
+.chart-title {
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+  text-align: center;
+}
+.comparison-bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.comparison-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-1);
+  flex-direction: column;
+}
+.comparison-label {
+  min-width: auto;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+.comparison-bar-container {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-xs);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.comparison-bar {
+  height: 100%;
+  background: linear-gradient(90deg,;
+  border-radius: var(--border-radius-xs);
+  transition: none;
+}
+.comparison-value {
+  min-width: 60px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  text-align: right;
+}
+/* ===== KEY INSIGHTS ===== */ .key-insights {
+  margin-top: var(--space-5);
+  padding: var(--space-4);
+  background: linear-gradient(135deg,;
+  border: 1px solid rgba(212, 185, 150, 0.2);
+  border-radius: var(--border-radius-lg);
+}
+.insights-title {
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.insights-title::before {
+  content: '💡';
+  font-size: 16px;
+}
+.insights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.insight-item {
+  padding: var(--space-2) 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  position: relative;
+  padding-left: var(--space-4);
+  line-height: var(--line-height-relaxed);
+}
+.insight-item::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--aevorex-brand-primary);
+  font-weight: var(--font-weight-bold);
+}
+.insight-item:not(:last-child) {
+  border-bottom: 1px solid rgba(212, 185, 150, 0.08);
+}
+/* ===== LOADING STATES ===== */ .fundamental-loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+.loading-skeleton {
+  background: rgba(212, 185, 150, 0.1);
+  background-size: 200% 100%;
+  animation: none;
+  border-radius: var(--border-radius-xs);
+  height: 16px;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes statusPulse {
+0%, 100% {
+  opacity: 1;
+  transform: scale(1);
+}
+50% {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+}
+
+@keyframes shimmer {
+0% {
+  background-position: -200% 0;
+}
+100% {
+  background-position: 200% 0;
+}
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+.fundamental-analysis-bubble {
+  padding: var(--space-4);
+  border: 2px solid var(--aevorex-brand-primary);
+  background: rgba(255, 255, 255, 0.95);
+}
+.fundamental-metrics-grid {
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+.fundamental-bubble-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+
+
+
+}
+
+@media (max-width: 480px) {
+
+
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+.fundamental-analysis-bubble, .metric-section, .health-indicator {
+  transition: none;
+  animation: none;
+}
+
+
+
+}
+
+/* ===== HIGH CONTRAST SUPPORT ===== */
+@media (prefers-contrast: high) {
+
+
+
+
+
+} 

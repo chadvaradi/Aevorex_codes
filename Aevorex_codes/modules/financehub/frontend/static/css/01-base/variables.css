@@ -1,0 +1,515 @@
+/* * FinanceHub CSS Variables - PHASE 2 UNIFIED NAMING ✅ * Unified --fh- prefix for all FinanceHub variables * Premium UX Architecture - AEVOREX FinanceHub Module */ :root {
+  --fh-primary-50: #eff6ff;
+  --fh-primary-100: #dbeafe;
+  --fh-primary-200: #bfdbfe;
+  --fh-primary-300: #93c5fd;
+  --fh-primary-400: #60a5fa;
+  --fh-primary-500: #3b82f6;
+  --fh-primary-600: #2563eb;
+  --fh-primary-700: #1d4ed8;
+  --fh-primary-800: #1e40af;
+  --fh-primary-900: #1e3a8a;
+  --fh-primary-950: #172554;
+  --fh-neutral-0: #ffffff;
+  --fh-neutral-50: #f8f7f4;
+  --fh-neutral-100: #f1ede6;
+  --fh-neutral-200: #e3dbd0;
+  --fh-neutral-300: #d5c9ba;
+  --fh-neutral-400: #c7b7a4;
+  --fh-neutral-500: #b9a58e;
+  --fh-neutral-600: #948376;
+  --fh-neutral-700: #6f615e;
+  --fh-neutral-800: #1e222a;
+  --fh-neutral-900: #0e1116;
+  --fh-neutral-950: #030712;
+  --fh-success-50: #f0fdf4;
+  --fh-success-500: #22c55e;
+  --fh-success-900: #14532d;
+  --fh-warning-50: #fffbeb;
+  --fh-warning-500: #f59e0b;
+  --fh-warning-900: #78350f;
+  --fh-error-50: #fef2f2;
+  --fh-error-500: #ef4444;
+  --fh-error-900: #7f1d1d;
+  --fh-info-50: #eff6ff;
+  --fh-info-500: #3b82f6;
+  --fh-info-900: #1e3a8a;
+  --fh-font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --fh-font-family-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  --fh-font-size-xs: 0.75rem;
+  --fh-font-size-sm: 0.875rem;
+  --fh-font-size-base: 1rem;
+  --fh-font-size-lg: 1.125rem;
+  --fh-font-size-xl: 1.25rem;
+  --fh-font-size-2xl: 1.5rem;
+  --fh-font-size-3xl: 1.875rem;
+  --fh-font-size-4xl: 2.25rem;
+  --fh-font-size-5xl: 3rem;
+  --fh-font-weight-light: 300;
+  --fh-font-weight-normal: 400;
+  --fh-font-weight-medium: 500;
+  --fh-font-weight-semibold: 600;
+  --fh-font-weight-bold: 700;
+  --fh-line-height-tight: 1.25;
+  --fh-line-height-normal: 1.5;
+  --fh-line-height-relaxed: 1.75;
+  --fh-letter-spacing-tight: -0.025em;
+  --fh-letter-spacing-normal: 0;
+  --fh-letter-spacing-wide: 0.025em;
+  --fh-space-0: 0;
+  --fh-space-px: 1px;
+  --fh-space-0-5: 0.125rem;
+  --fh-space-1: 0.25rem;
+  --fh-space-1-5: 0.375rem;
+  --fh-space-2: 0.5rem;
+  --fh-space-2-5: 0.625rem;
+  --fh-space-3: 0.75rem;
+  --fh-space-3-5: 0.875rem;
+  --fh-space-4: 1rem;
+  --fh-space-5: 1.25rem;
+  --fh-space-6: 1.5rem;
+  --fh-space-7: 1.75rem;
+  --fh-space-8: 2rem;
+  --fh-space-9: 2.25rem;
+  --fh-space-10: 2.5rem;
+  --fh-space-11: 2.75rem;
+  --fh-space-12: 3rem;
+  --fh-space-14: 3.5rem;
+  --fh-space-16: 4rem;
+  --fh-space-20: 5rem;
+  --fh-space-24: 6rem;
+  --fh-space-28: 7rem;
+  --fh-space-32: 8rem;
+  --fh-space-36: 9rem;
+  --fh-space-40: 10rem;
+  --fh-space-44: 11rem;
+  --fh-space-48: 12rem;
+  --fh-space-52: 13rem;
+  --fh-space-56: 14rem;
+  --fh-space-60: 15rem;
+  --fh-space-64: 16rem;
+  --fh-space-72: 18rem;
+  --fh-space-80: 20rem;
+  --fh-space-96: 24rem;
+  --fh-radius-none: 0;
+  --fh-radius-sm: 0.125rem;
+  --fh-radius-base: 0.25rem;
+  --fh-radius-md: 0.375rem;
+  --fh-radius-lg: 0.5rem;
+  --fh-radius-xl: 0.75rem;
+  --fh-radius-2xl: 1rem;
+  --fh-radius-3xl: 1.5rem;
+  --fh-radius-full: 9999px;
+  --fh-transition-fast: 150ms ease-in-out;
+  --fh-transition-normal: 250ms ease-in-out;
+  --fh-transition-slow: 350ms ease-in-out;
+  --fh-transition-all: all 150ms ease-in-out;
+  --fh-transition-colors: color 150ms ease-in-out, background-color 150ms ease-in-out, border-color 150ms ease-in-out;
+  --fh-transition-transform: transform 150ms ease-in-out;
+  --fh-transition-opacity: opacity 150ms ease-in-out;
+  --fh-z-auto: auto;
+  --fh-z-0: 0;
+  --fh-z-10: 10;
+  --fh-z-20: 20;
+  --fh-z-30: 30;
+  --fh-z-40: 40;
+  --fh-z-50: 50;
+  --fh-z-dropdown: 100;
+  --fh-z-overlay: 200;
+  --fh-z-modal: 300;
+  --fh-z-popover: 400;
+  --fh-z-tooltip: 500;
+  --fh-z-toast: 600;
+  --fh-z-loading: 700;
+  --fh-z-max: 9999;
+  --fh-breakpoint-xs: 480px;
+  --fh-breakpoint-sm: 640px;
+  --fh-breakpoint-md: 768px;
+  --fh-breakpoint-lg: 1024px;
+  --fh-breakpoint-xl: 1280px;
+  --fh-breakpoint-2xl: 1536px;
+  --fh-container-xs: 480px;
+  --fh-container-sm: 640px;
+  --fh-container-md: 768px;
+  --fh-container-lg: 1024px;
+  --fh-container-xl: 1280px;
+  --fh-container-2xl: 1536px;
+  --fh-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --fh-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --fh-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --fh-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --fh-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --fh-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --fh-shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  --fh-shadow-premium: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --fh-blur-sm: 4px;
+  --fh-blur-md: 8px;
+  --fh-blur-lg: 16px;
+  --fh-blur-xl: 24px;
+  --fh-blur-2xl: 40px;
+  --fh-blur-3xl: 64px;
+  --fh-backdrop-blur-sm: blur(4px);
+  --fh-backdrop-blur-md: blur(8px);
+  --fh-backdrop-blur-lg: blur(16px);
+  --fh-backdrop-blur-xl: blur(24px);
+  --fh-size-xs: 1.5rem;
+  --fh-size-sm: 2rem;
+  --fh-size-md: 2.5rem;
+  --fh-size-lg: 3rem;
+  --fh-size-xl: 3.5rem;
+  --fh-size-2xl: 4rem;
+  --fh-input-height-xs: 1.75rem;
+  --fh-input-height-sm: 2rem;
+  --fh-input-height-md: 2.5rem;
+  --fh-input-height-lg: 3rem;
+  --fh-input-height-xl: 3.5rem;
+  --fh-icon-xs: 0.75rem;
+  --fh-icon-sm: 1rem;
+  --fh-icon-md: 1.25rem;
+  --fh-icon-lg: 1.5rem;
+  --fh-icon-xl: 2rem;
+  --fh-icon-2xl: 2.5rem;
+  --fh-aspect-square: 1 / 1;
+  --fh-aspect-video: 16 / 9;
+  --fh-text-primary: var(--fh-neutral-900);
+  --fh-text-secondary: var(--fh-neutral-600);
+  --fh-text-muted: var(--fh-neutral-400);
+  --fh-text-inverse: var(--fh-neutral-0);
+  --fh-bg-primary: var(--fh-neutral-0);
+  --fh-bg-secondary: var(--fh-neutral-50);
+  --fh-bg-tertiary: var(--fh-neutral-100);
+  --fh-border-light: var(--fh-neutral-200);
+  --fh-border-medium: var(--fh-neutral-300);
+  --fh-border-strong: var(--fh-neutral-400);
+  --fh-border-subtle: var(--fh-neutral-200);
+  --primary-500: var(--fh-primary-500);
+  --text-primary: var(--fh-text-primary);
+  --text-secondary: var(--fh-text-secondary);
+  --text-muted: var(--fh-text-muted);
+  --bg-primary: var(--fh-bg-primary);
+  --bg-secondary: var(--fh-bg-secondary);
+  --bg-card: var(--fh-bg-primary);
+  --border-light: var(--fh-border-light);
+  --border-primary: var(--fh-border-light);
+  --font-weight-normal: var(--fh-font-weight-normal);
+  --font-weight-medium: var(--fh-font-weight-medium);
+  --font-weight-semibold: var(--fh-font-weight-semibold);
+  --font-weight-bold: var(--fh-font-weight-bold);
+  --radius-sm: var(--fh-radius-sm);
+  --radius-md: var(--fh-radius-md);
+  --radius-lg: var(--fh-radius-lg);
+  --radius-full: var(--fh-radius-full);
+  --shadow-sm: var(--fh-shadow-sm);
+  --shadow-md: var(--fh-shadow-md);
+  --shadow-lg: var(--fh-shadow-lg);
+  --shadow-premium: var(--fh-shadow-premium);
+  --text-sm: var(--fh-font-size-sm);
+  --text-lg: var(--fh-font-size-lg);
+  --text-2xl: var(--fh-font-size-2xl);
+  --text-3xl: var(--fh-font-size-3xl);
+  --line-height-tight: var(--fh-line-height-tight);
+  --line-height-relaxed: var(--fh-line-height-relaxed);
+  --border-radius-lg: var(--fh-radius-lg);
+  --border-radius-full: var(--fh-radius-full);
+  --aevorex-brand-primary: var(--fh-accent-primary);
+  --color-success: var(--fh-success-500);
+  --color-success-rgb: 34, 197, 94;
+  --color-warning: var(--fh-warning-500);
+  --color-warning-rgb: 245, 158, 11;
+  --color-error: var(--fh-error-500);
+  --color-error-rgb: 239, 68, 68;
+  --color-error-dark: var(--fh-error-600);
+  --color-info: var(--fh-accent-primary);
+  --color-info-rgb: 26, 102, 232;
+  --z-toast: var(--fh-z-toast);
+  --transition-all: var(--fh-transition-all);
+  --surface-primary: var(--bg-primary);
+  --surface-secondary: var(--bg-secondary);
+  --surface-tertiary: var(--fh-bg-tertiary);
+  --surface-inverse: var(--bg-inverse);
+  --surface-elevated: var(--bg-secondary);
+  --surface-glass: var(--fh-surface-glass, rgba(255, 255, 255, 0.1));
+  --fh-header-height: 4rem;
+  --fh-sidebar-width: 16rem;
+  --fh-sidebar-width-collapsed: 4rem;
+  --fh-footer-height: 3rem;
+  --fh-surface-glass-dark: var(--fh-neutral-900, rgba(30, 41, 59, 0.9));
+  --fh-border-dark: var(--fh-border-dark, rgba(255, 255, 255, 0.1));
+  --fh-brand-secondary: var(--fh-brand-secondary, #6366f1);
+  --fh-brand-success: var(--fh-brand-success, #10b981);
+  --fh-ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --fh-ease-in: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  --fh-ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --shadow_glow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+
+  /* === ADDED LEGACY↔UNIFIED ALIASES (2025-06-13) === */
+  /* Typography families & sizes */
+  --font-family-base: var(--fh-font-family-sans);
+  --font-primary: var(--fh-font-family-sans);
+  --font-mono: var(--fh-font-family-mono);
+  --font-display: var(--fh-font-family-sans);
+  --font-size-base: var(--fh-font-size-base);
+  --line-height-base: var(--fh-line-height-normal);
+
+  /* Font-weight shorthands */
+  --weight-light: var(--fh-font-weight-light);
+  --weight-regular: var(--fh-font-weight-normal);
+  --weight-medium: var(--fh-font-weight-medium);
+  --weight-semibold: var(--fh-font-weight-semibold);
+  --weight-bold: var(--fh-font-weight-bold);
+  --font-semibold: var(--fh-font-weight-semibold);
+
+  /* Line-height & letter-spacing utilities */
+  --leading-tight: var(--fh-line-height-tight);
+  --leading-snug: calc((var(--fh-line-height-tight) + var(--fh-line-height-normal)) / 2);
+  --leading-normal: var(--fh-line-height-normal);
+  --leading-relaxed: var(--fh-line-height-relaxed);
+  --tracking-tighter: calc(var(--fh-letter-spacing-tight) * 1.25);
+  --tracking-tight: var(--fh-letter-spacing-tight);
+  --tracking-normal: var(--fh-letter-spacing-normal);
+  --tracking-wide: var(--fh-letter-spacing-wide);
+
+  /* Expanded colour palette aliases */
+  --primary-50: var(--fh-primary-50);
+  --primary-100: var(--fh-primary-100);
+  --primary-200: var(--fh-primary-200);
+  --primary-300: var(--fh-primary-300);
+  --primary-400: var(--fh-primary-400);
+  --primary-600: var(--fh-primary-600);
+  --primary-700: var(--fh-primary-700);
+  --primary-800: var(--fh-primary-800);
+  --primary-900: var(--fh-primary-900);
+  --success-50: var(--fh-success-50);
+  --success-200: var(--fh-success-500);
+  --success-600: var(--fh-success-500);
+  --warning-50: var(--fh-warning-50);
+  --warning-200: var(--fh-warning-500);
+  --warning-600: var(--fh-warning-500);
+  --error-50: var(--fh-error-50);
+  --error-200: var(--fh-error-500);
+  --error-600: var(--fh-error-500);
+
+  /* Accent / link helpers */
+  --text-accent: var(--fh-accent-primary);
+  --text-accent-hover: var(--fh-accent-hover);
+  --accent-color: var(--fh-accent-primary);
+  --accent-hover: var(--fh-accent-hover);
+  --accent-primary: var(--fh-accent-primary);
+
+  /* Border helpers */
+  --border-default: var(--border-light);
+  --border-hover: var(--border-medium);
+
+  /* Container helpers */
+  --container-max-width: var(--fh-container-xl);
+  --container-padding: var(--fh-space-4);
+  --container-padding-lg: var(--fh-space-6);
+
+  /* Background helpers */
+  --bg-muted: var(--bg-secondary);
+  --premium-gold-accent: var(--aevorex-brand-primary);
+
+  /* Numeric spacing aliases for legacy utilities */
+
+  /* === Animation duration tokens === */
+  --fh-duration-fast: 150ms;
+  --fh-duration-normal: 300ms;
+  --fh-duration-slow: 500ms;
+
+  /* === Z-INDEX SCALE === */
+  --fh-z-dropdown: 1000;
+  --fh-z-sticky: 1020;
+  --fh-z-fixed: 1030;
+  --fh-z-modal-backdrop: 1040;
+  --fh-z-modal: 1050;
+  --fh-z-popover: 1060;
+  --fh-z-tooltip: 1070;
+  --fh-z-toast: 1080;
+  
+  --fh-accent-success: #22c55e;
+  --fh-accent-danger: #ef4444;
+  --fh-accent-warning: #f59e0b;
+  --fh-accent-info: var(--fh-accent-primary);
+
+  /* Premium & custom accents */
+  --color-premium-rgb: 212, 175, 55;            /* Gold accent in RGB, for particle effects */
+  --color-premium: #d4af37;                     /* Gold accent hex fallback */
+
+  /* Context-specific accents */
+  --accent-company: var(--fh-accent-info);      /* Company-overview blue accent */
+
+  /* Legacy variable alias for layout files */
+  --background-primary: var(--bg-primary);
+
+  /* === COMPATIBILITY ALIASES (2025-06-15) === */
+  --neutral-0: var(--fh-neutral-0);
+  --neutral-50: var(--fh-neutral-50);
+  --neutral-100: var(--fh-neutral-100);
+  --neutral-200: var(--fh-neutral-200);
+  --neutral-300: var(--fh-neutral-300);
+  --neutral-400: var(--fh-neutral-400);
+  --neutral-500: var(--fh-neutral-500);
+  --neutral-600: var(--fh-neutral-600);
+  --neutral-700: var(--fh-neutral-700);
+  --neutral-800: var(--fh-neutral-800);
+  --neutral-900: var(--fh-neutral-900);
+  --neutral-950: var(--fh-neutral-950);
+
+  /* === SEMANTIC ACCENT TOKENS (2025-06-15) === */
+  /* Primary accent – used for CTA buttons, links, headings */
+  --fh-accent-primary: var(--fh-primary-500);
+  --fh-accent-hover: var(--fh-primary-600);
+  --fh-accent-surface: var(--fh-primary-50);
+
+  /* Map legacy brand alias to new semantic token */
+  --aevorex-brand-primary: var(--fh-accent-primary);
+
+  --bg-glass: rgba(255, 255, 255, 0.06); /* subtle frosted-glass hover background */
+  --border-secondary: var(--fh-border-medium); /* secondary border alias (used e.g. in ticker tape) */
+  --color-bullish: #16a085; /* positive/green accent */
+  --color-bearish: #e74c3c; /* negative/red accent */
+
+  /* === Ticker Tape Specific Tokens (2025-06-15) === */
+  --ticker-bg: var(--bg-secondary);
+  --ticker-border: rgba(255,255,255,0.08);
+  --ticker-border-light: rgba(0,0,0,0.08);
+  --ticker-pos: var(--color-success);
+  --ticker-neg: var(--color-error);
+  --ticker-pos-bg: color-mix(in srgb, var(--color-success) 12%, transparent);
+  --ticker-neg-bg: color-mix(in srgb, var(--color-error) 12%, transparent);
+  --ticker-hover-elev: 0 2px 4px rgba(0,0,0,0.15);
+  --scrollbar-track: var(--bg-tertiary, #f3f4f6);
+  --scrollbar-thumb: var(--border-medium);
+  --scrollbar-thumb-hover: var(--border-strong);
+}
+
+/* ===== RESPONSIVE OVERRIDES (NO MORE :root BLOCKS) ===== */
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+html {
+  --text-primary: var(--fh-neutral-50);
+  --text-secondary: var(--fh-neutral-300);
+  --text-muted: var(--fh-neutral-500);
+  --text-inverse: var(--fh-neutral-900);
+  --bg-primary: var(--fh-neutral-900);
+  --bg-secondary: var(--fh-neutral-800);
+  --bg-tertiary: var(--fh-neutral-700);
+  --bg-inverse: var(--fh-neutral-50);
+  --border-light: var(--fh-neutral-700);
+  --border-medium: var(--fh-neutral-600);
+  --border-strong: var(--fh-neutral-500);
+  --fh-border-subtle: var(--fh-neutral-700);
+  --glass-background: rgba(0, 0, 0, 0.2);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+}
+}
+
+/* ===== EXPLICIT THEME OVERRIDES (data-theme attribute) ===== */
+
+/* Light Theme Override */
+[data-theme="light"],
+.light-theme {
+  --fh-text-primary: var(--fh-neutral-900);
+  --fh-text-secondary: var(--fh-neutral-600);
+  --fh-text-muted: var(--fh-neutral-400);
+  --fh-text-inverse: var(--fh-neutral-0);
+  --fh-bg-primary: var(--fh-neutral-0);
+  --fh-bg-secondary: var(--fh-neutral-50);
+  --fh-bg-tertiary: var(--fh-neutral-100);
+  --fh-border-light: var(--fh-neutral-200);
+  --fh-border-medium: var(--fh-neutral-300);
+  --fh-border-strong: var(--fh-neutral-400);
+  --fh-border-subtle: var(--fh-neutral-200);
+  
+  /* Semantic aliases for light theme → point to canonical --fh-* tokens */
+  --text-primary: var(--fh-text-primary);
+  --text-secondary: var(--fh-text-secondary);
+  --text-muted: var(--fh-text-muted);
+  --text-inverse: var(--fh-text-inverse);
+  --bg-primary: var(--fh-bg-primary);
+  --bg-secondary: var(--fh-bg-secondary);
+  --bg-tertiary: var(--fh-bg-tertiary);
+  --bg-inverse: var(--fh-neutral-900);
+  --border-light: var(--fh-border-light);
+  --border-medium: var(--fh-border-medium);
+  --border-strong: var(--fh-border-strong);
+  --glass-background: rgba(255, 255, 255, 0.8);
+  --glass-border: 1px solid rgba(0, 0, 0, 0.1);
+
+  /* Accent overrides */
+  --fh-accent-primary: #1666E8; /* blueprint light primary */
+  --fh-accent-hover: #145bd1;  /* ~10% darker */
+  --fh-accent-surface: #e8f1ff;
+}
+
+/* Dark Theme Override */
+[data-theme="dark"],
+.dark-theme {
+  --fh-text-primary: var(--fh-neutral-50);
+  --fh-text-secondary: var(--fh-neutral-300);
+  --fh-text-muted: var(--fh-neutral-500);
+  --fh-text-inverse: var(--fh-neutral-900);
+  /* Graphite palette for finance-friendly dark mode */
+  --fh-bg-primary: #0e1116;   /* almost black */
+  --fh-bg-secondary: #161b22; /* card surfaces */
+  --fh-bg-tertiary: #161b22; /* unify tertiary with secondary for cohesive dark palette */
+
+  /* Borders */
+  --fh-border-light: #2c3545;
+  --fh-border-medium: #3c4558;
+  --fh-border-strong: #4a5568;
+  
+  /* Semantic aliases for dark theme → point to canonical --fh-* tokens */
+  --text-primary: var(--fh-text-primary);
+  --text-secondary: var(--fh-text-secondary);
+  --text-muted: var(--fh-text-muted);
+  --text-inverse: var(--fh-text-inverse);
+  --bg-primary: var(--fh-bg-primary);
+  --bg-secondary: var(--fh-bg-secondary);
+  --bg-tertiary: var(--fh-bg-tertiary);
+  --bg-inverse: var(--fh-neutral-50);
+  --border-light: var(--fh-border-light);
+  --border-medium: var(--fh-border-medium);
+  --border-strong: var(--fh-border-strong);
+  --glass-background: rgba(0, 0, 0, 0.2);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+
+  /* Accent overrides */
+  --fh-accent-primary: #8ab4f8; /* blueprint dark primary */
+  --fh-accent-hover: #76a3f6;  /* slightly darker */
+  --fh-accent-surface: #20325a;
+}
+
+/* High Contrast */ @media (prefers-contrast: high) {
+
+}
+/* Reduced Motion */ @media (prefers-reduced-motion: reduce) {
+
+}
+/* Print Styles */ @media print {
+
+}
+
+/* ===== LEGACY TOKEN ALIASES (TEMP HOT-FIX) ===== */
+:root {
+
+  /* Color shorthands */
+  --aevorex-primary: var(--fh-primary-500);
+  --aevorex-gradient: linear-gradient(135deg, var(--fh-primary-500) 0%, var(--fh-primary-700) 100%);
+  --success: var(--color-success);
+  --warning: var(--color-warning);
+  --error: var(--color-error);
+  --info: var(--fh-info-500);
+
+  /* Background helpers */
+  --bg-hover: var(--fh-bg-tertiary);
+  --bg-elevated: var(--surface-elevated);
+
+  /* Borders */
+  --border-primary: var(--fh-border-light);
+  --border-accent: var(--fh-border-medium);
+
+  /* Shadow */
+  --shadow-glow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}

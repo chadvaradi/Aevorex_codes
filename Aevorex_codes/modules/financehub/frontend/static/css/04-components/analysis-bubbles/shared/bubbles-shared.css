@@ -1,0 +1,246 @@
+/**
+ * @file bubbles-shared.css
+ * @description Shared utilities and animations for Analysis Bubbles
+ * @version 1.0.0
+ * @author AEVOREX
+ * @lastUpdated 2025-06-13
+ * @comp Analysis Bubbles Shared v1.0
+ * 
+ * Common utilities, loading states, and animations
+ * Used across all analysis bubble variants
+ */
+
+/* ===================================================================
+   BUBBLE ENTRANCE ANIMATION
+   =================================================================== */
+
+@keyframes fh-anim-bubbleEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.fh-analysis-bubble {
+  animation: fh-anim-bubbleEntrance 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ===================================================================
+   LOADING STATES
+   =================================================================== */
+
+.fh-analysis-bubble--loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.fh-analysis-bubble--loading .fh-analysis-bubble__content {
+  position: relative;
+  overflow: hidden;
+}
+
+.fh-analysis-bubble--loading .fh-analysis-bubble__content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: fh-anim-loadingSweep 1.5s infinite;
+}
+
+@keyframes fh-anim-loadingSweep {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* ===================================================================
+   ERROR STATES
+   =================================================================== */
+
+.fh-analysis-bubble--error {
+  border-color: var(--fh-accent-danger);
+  background: rgba(var(--color-error-rgb), 0.05);
+}
+
+.fh-analysis-bubble--error .fh-analysis-bubble__title {
+  color: var(--fh-accent-danger);
+}
+
+.fh-analysis-bubble--error .fh-analysis-bubble__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--fh-space-2);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.fh-analysis-bubble--error .error-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--fh-accent-danger);
+  opacity: 0.7;
+}
+
+/* ===================================================================
+   EMPTY STATES
+   =================================================================== */
+
+.fh-analysis-bubble--empty .fh-analysis-bubble__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--fh-space-2);
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+}
+
+.fh-analysis-bubble--empty .empty-icon {
+  width: 32px;
+  height: 32px;
+  opacity: 0.5;
+}
+
+/* ===================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   =================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .fh-analysis-bubble {
+    animation: none;
+  }
+  
+  .fh-analysis-bubble--loading .fh-analysis-bubble__content::before {
+    animation: none;
+  }
+}
+
+/* ===================================================================
+   HIGH CONTRAST MODE
+   =================================================================== */
+
+@media (prefers-contrast: high) {
+  .fh-analysis-bubble--error {
+    border-width: 2px;
+    background: rgba(239, 68, 68, 0.1);
+  }
+}
+
+/* ===================================================================
+   SECTION CONTROLS & TITLE
+   =================================================================== */
+
+.fh-bubble-controls,
+.bubble-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--fh-space-3);
+  padding: var(--fh-space-2) 0;
+}
+
+.fh-bubble-controls__left,
+.fh-bubble-controls__right,
+.bubble-controls-left,
+.bubble-controls-right {
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-2);
+}
+
+.fh-bubble-section-title,
+.bubble-section-title {
+  font-size: var(--fh-font-size-lg);
+  font-weight: var(--fh-font-weight-semibold);
+  color: var(--fh-text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.fh-bubble-toggle-btn,
+.bubble-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--fh-space-1);
+  padding: var(--fh-space-1-5) var(--fh-space-3);
+  background: var(--fh-bg-secondary);
+  color: var(--fh-text-secondary);
+  border: 1px solid var(--fh-border-light);
+  border-radius: var(--fh-radius-md);
+  font-size: var(--fh-font-size-sm);
+  font-weight: var(--fh-font-weight-medium);
+  cursor: pointer;
+  transition: var(--fh-transition-fast);
+  white-space: nowrap;
+}
+
+.fh-bubble-toggle-btn:hover,
+.bubble-toggle-btn:hover,
+.fh-bubble-toggle-btn:focus-visible,
+.bubble-toggle-btn:focus-visible {
+  background: var(--fh-bg-tertiary);
+  color: var(--fh-text-primary);
+  border-color: var(--fh-border-medium);
+  transform: translateY(-1px);
+  box-shadow: var(--fh-shadow-sm);
+}
+
+.fh-bubble-toggle-btn:active,
+.bubble-toggle-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.fh-toggle-icon,
+.toggle-icon {
+  font-size: var(--fh-font-size-sm);
+  line-height: 1;
+  transition: transform var(--fh-transition-fast);
+}
+
+.fh-bubble-toggle-btn:hover .fh-toggle-icon,
+.bubble-toggle-btn:hover .toggle-icon {
+  transform: scale(1.1);
+}
+
+/* Reduced motion & accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .fh-bubble-toggle-btn { 
+    transition: none; 
+  }
+  .fh-bubble-toggle-btn:hover {
+    transform: none;
+  }
+  .fh-toggle-icon {
+    transition: none;
+  }
+  .fh-bubble-toggle-btn:hover .fh-toggle-icon {
+    transform: none;
+  }
+  .bubble-toggle-btn { 
+    transition: none; 
+  }
+  .bubble-toggle-btn:hover {
+    transform: none;
+  }
+  .toggle-icon {
+    transition: none;
+  }
+  .bubble-toggle-btn:hover .toggle-icon {
+    transform: none;
+  }
+} 

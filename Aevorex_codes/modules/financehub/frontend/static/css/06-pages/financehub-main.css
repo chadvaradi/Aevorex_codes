@@ -1,0 +1,317 @@
+/** * =================================================================== * FINANCEHUB MAIN PAGE STYLES * Premium Financial Analysis Dashboard * =================================================================== */ /* Main Page Layout */ .fh-main-page {
+  min-height: 100vh;
+  background: var(--surface-primary);
+  display: flex;
+  flex-direction: column;
+  scroll-behavior: smooth;
+}
+.fh-main-content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr auto;
+  gap: var(--fh-space-6);
+  padding: var(--fh-space-6);
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+/* Hero Section */ .financehub-hero {
+  background: linear-gradient(135deg, var(--surface-primary) 0%, var(--surface-secondary) 100%);
+  padding: var(--fh-space-8) 0;
+  border-bottom: 1px solid var(--border-primary);
+}
+.hero-content {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 var(--fh-space-4);
+  text-align: center;
+}
+.hero-title {
+  font-size: var(--text-5xl);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--fh-space-4);
+  background: linear-gradient(135deg, var(--premium-gold-accent), var(--aevorex-brand-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-subtitle {
+  font-size: var(--fh-font-size-xl);
+  color: var(--text-secondary);
+  margin-bottom: var(--fh-space-6);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Dashboard Grid */ .dashboard-main-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--fh-space-6);
+  max-width: var(--container-2xl);
+  margin: 0 auto;
+  padding: 0 var(--fh-space-4);
+}
+.dashboard-section {
+  background: var(--surface-secondary);
+  border-radius: var(--fh-radius-lg);
+  border: 1px solid var(--border-primary);
+  overflow: hidden;
+  transition: var(--fh-transition-all);
+}
+.dashboard-section:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--fh-shadow-lg);
+}
+/* Stock Analysis Section */ .stock-analysis-main {
+  padding: var(--fh-space-6);
+}
+.analysis-header {
+  display: flex;
+  justify-content: between;
+  align-items: center;
+  margin-bottom: var(--fh-space-6);
+  padding-bottom: var(--fh-space-4);
+  border-bottom: 1px solid var(--border-primary);
+}
+.analysis-title {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+}
+.analysis-controls {
+  display: flex;
+  gap: var(--fh-space-3);
+}
+/* Chart Section */ .chart-main-container {
+  background: var(--surface-primary);
+  border-radius: var(--fh-radius-lg);
+  padding: var(--fh-space-4);
+  margin-bottom: var(--fh-space-6);
+}
+.chart-header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--fh-space-4);
+}
+.chart-title-main {
+  font-size: var(--fh-font-size-lg);
+  font-weight: var(--font-medium);
+  color: var(--text-primary);
+}
+.chart-controls-main {
+  display: flex;
+  gap: var(--fh-space-2);
+}
+/* Analysis Bubbles Grid */ .bubbles-main-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--fh-space-4);
+  margin-bottom: var(--fh-space-6);
+}
+.bubble-main-container {
+  background: var(--surface-secondary);
+  border-radius: var(--fh-radius-md);
+  border: 1px solid var(--border-primary);
+  padding: var(--fh-space-5);
+  transition: var(--fh-transition-all);
+}
+.bubble-main-container:hover {
+  border-color: var(--premium-gold-accent);
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1);
+}
+/* Chat Section */ .chat-main-section {
+  background: var(--surface-primary);
+  border-radius: var(--fh-radius-lg);
+  border: 1px solid var(--border-primary);
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+.chat-main-header {
+  padding: var(--fh-space-4);
+  border-bottom: 1px solid var(--border-primary);
+  background: var(--surface-secondary);
+}
+.chat-main-title {
+  font-size: var(--fh-font-size-lg);
+  font-weight: var(--font-medium);
+  color: var(--text-primary);
+}
+.chat-main-body {
+  flex: 1;
+  padding: var(--fh-space-4);
+  overflow-y: auto;
+}
+/* Loading States */ .main-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+.main-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-primary);
+  border-top: 3px solid var(--premium-gold-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* Error States */ .main-error {
+  text-align: center;
+  padding: var(--fh-space-8);
+  color: var(--text-secondary);
+}
+.main-error-icon {
+  font-size: var(--text-4xl);
+  margin-bottom: var(--fh-space-4);
+  color: var(--aevorex-brand-error);
+}
+.main-error-message {
+  font-size: var(--fh-font-size-lg);
+  margin-bottom: var(--fh-space-4);
+}
+.main-error-action {
+  background: var(--premium-gold-accent);
+  color: var(--surface-primary);
+  border: none;
+  padding: var(--fh-space-3) var(--fh-space-6);
+  border-radius: var(--fh-radius-md);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: var(--fh-transition-all);
+}
+.main-error-action:hover {
+  background: var(--premium-gold-hover);
+  transform: translateY(-1px);
+}
+/* Responsive Design */ @media (max-width: 1200px) {
+  .fh-main-content {
+    padding: var(--fh-space-4);
+    gap: var(--fh-space-4);
+  }
+  
+  .fh-analysis-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+@media (max-width: 768px) {
+  .fh-main-content {
+    padding: var(--fh-space-3);
+    gap: var(--fh-space-3);
+  }
+  
+  .fh-analysis-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .fh-stock-header-placeholder {
+    min-height: 100px;
+  }
+  
+  .fh-chart-placeholder {
+    min-height: 300px;
+  }
+} @media (max-width: 480px) {
+
+}
+/* Print Styles */ @media print {
+  .fh-main-page {
+    scroll-snap-type: none;
+  }
+  
+  .fh-chat-section {
+    display: none;
+  }
+}
+/* ===================================================================
+   AEVOREX FINANCEHUB – MAIN PAGE LAYOUT (v3)
+   Page-specific styles with CLS prevention and scroll optimization
+   =================================================================== */
+
+/* CLS Prevention - Reserve space for dynamic content */
+.fh-stock-header-placeholder {
+  min-height: 120px;
+  background: var(--bg-secondary);
+  border-radius: var(--fh-radius-lg);
+  animation: fh-anim-shimmer 1.5s infinite;
+}
+
+.fh-chart-placeholder {
+  min-height: 400px;
+  background: var(--bg-secondary);
+  border-radius: var(--fh-radius-lg);
+  animation: fh-anim-shimmer 1.5s infinite;
+}
+
+.fh-bubbles-grid-placeholder {
+  min-height: 300px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--fh-space-4);
+}
+
+.fh-bubble-placeholder {
+  background: var(--bg-secondary);
+  border-radius: var(--fh-radius-lg);
+  animation: fh-anim-shimmer 1.5s infinite;
+}
+
+/* Scroll Snapping for Better UX */
+.fh-main-content {
+  scroll-snap-type: y mandatory;
+}
+
+.fh-section {
+  scroll-snap-align: start;
+  scroll-margin-top: var(--fh-space-6);
+}
+
+/* Analysis Bubbles Grid */
+.fh-analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--fh-space-4);
+  margin: var(--fh-space-6) 0;
+}
+
+/* Chat Section */
+.fh-chat-section {
+  min-height: 500px;
+  margin-top: var(--fh-space-6);
+}
+
+/* Performance Optimizations */
+.fh-main-page * {
+  contain: layout style;
+}
+
+.fh-main-page img {
+  content-visibility: auto;
+  contain-intrinsic-size: 300px 200px;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .fh-main-page {
+    scroll-behavior: auto;
+  }
+  
+  .fh-main-content {
+    scroll-snap-type: none;
+  }
+  
+  .fh-stock-header-placeholder,
+  .fh-chart-placeholder,
+  .fh-bubble-placeholder {
+    animation: none;
+  }
+} 

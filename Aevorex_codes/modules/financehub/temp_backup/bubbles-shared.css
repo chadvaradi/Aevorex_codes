@@ -1,0 +1,335 @@
+/** * Premium Analysis Bubbles - Shared Styles - DARK THEME ONLY * All CSS variables now centralized in base/variables.css */ /* Analysis bubbles shared styles - no variables */ /* ============================================================= ANALYSIS BUBBLES - SHARED PREMIUM SYSTEM Common styling for all 4 analysis bubbles ============================================================= */ /* ============================================================= HORIZONTAL BUBBLES CONTAINER ============================================================= */ .info-sections-horizontal {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  gap: var(--bubble-gap) !important;
+  margin: 32px 0 !important;
+  width: 100% !important;
+}
+.info-bubbles-row {
+  display: contents !important;
+}
+/* ============================================================= SHARED BUBBLE CONTAINER ============================================================= */ .info-bubble-horizontal {
+  position: relative !important;
+  background: var(--bubble-background) !important;
+  backdrop-filter: var(--bubble-backdrop) !important;
+  -webkit-backdrop-filter: var(--bubble-backdrop) !important;
+  border: 1px solid var(--bubble-border) !important;
+  border-radius: var(--bubble-border-radius) !important;
+  box-shadow: var(--bubble-shadow) !important;
+  min-height: var(--bubble-min-height) !important;
+  overflow: hidden !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+.info-bubble-horizontal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(;
+  animation: bubbleGlow 3s ease-in-out infinite;
+  z-index: 1;
+}
+.info-bubble-horizontal::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(;
+  pointer-events: none;
+  z-index: 1;
+}
+.info-bubble-horizontal:hover {
+  transform: none !important;
+  box-shadow: ;
+  border-color: var(--bubble-accent) !important;
+}
+
+@keyframes bubbleGlow {
+0%, 100% {
+  opacity: 1;
+  transform: scale(1);
+}
+50% {
+  opacity: 1;
+  transform: scale(1.2);
+  background-position: 100% 100%;
+}
+} /* ============================================================= BUBBLE HEADER SYSTEM ============================================================= */ .bubble-header {
+  position: relative !important;
+  height: var(--bubble-header-height) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 20px !important;
+  background: rgba(139, 92, 246, 0.08) !important;
+  border-bottom: 1px solid var(--bubble-border) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  z-index: 2 !important;
+}
+.bubble-header::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+  background: linear-gradient(;
+  opacity: 0.5;
+}
+.bubble-header h3 {
+  font-size: 0.9rem !important;
+  font-weight: 800 !important;
+  color: var(--bubble-accent) !important;
+  letter-spacing: 0.5px !important;
+  text-shadow: none !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+.bubble-header h3::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--bubble-accent);
+  border-radius: 50%;
+  display: inline-block;
+  animation: headerDot 2s ease-in-out infinite;
+}
+
+@keyframes headerDot {
+
+
+} .bubble-header .bubble-status {
+  padding: 4px 8px !important;
+  background: rgba(139, 92, 246, 0.2) !important;
+  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+  border-radius: 12px !important;
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
+  color: var(--bubble-accent) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+.bubble-header .bubble-status.loading {
+  background: rgba(249, 115, 22, 0.2) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  color: #f97316 !important;
+}
+.bubble-header .bubble-status.error {
+  background: rgba(239, 68, 68, 0.2) !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
+  color: #ef4444 !important;
+}
+.bubble-header .bubble-status.ready {
+  background: rgba(16, 185, 129, 0.2) !important;
+  border-color: rgba(16, 185, 129, 0.3) !important;
+  color: #10b981 !important;
+}
+/* ============================================================= BUBBLE CONTENT SYSTEM ============================================================= */ .bubble-content {
+  flex: 1 !important;
+  padding: 20px !important;
+  overflow-y: auto !important;
+  position: relative !important;
+  z-index: 2 !important;
+  color: var(--bubble-text-secondary) !important;
+  line-height: 1.6 !important;
+}
+.bubble-content.scrollable {
+  max-height: calc(var(--bubble-min-height) - var(--bubble-header-height)) !important;
+}
+/* Custom Scrollbar */ .bubble-content::-webkit-scrollbar {
+  width: 6px !important;
+}
+.bubble-content::-webkit-scrollbar-track {
+  background: rgba(139, 92, 246, 0.1) !important;
+  border-radius: 3px !important;
+}
+.bubble-content::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.3) !important;
+  border-radius: 3px !important;
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.bubble-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.5) !important;
+}
+/* ============================================================= LOADING STATES ============================================================= */ .info-bubble-horizontal.loading {
+  position: relative !important;
+}
+.info-bubble-horizontal.loading .bubble-content {
+  background: linear-gradient(;
+  background-size: 400% 400% !important;
+  animation: bubbleLoadingShimmer 2s ease-in-out infinite !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--bubble-text-muted) !important;
+  font-weight: 600 !important;
+}
+.info-bubble-horizontal.loading .bubble-content::after {
+  content: 'Loading data...' !important;
+}
+
+@keyframes bubbleLoadingShimmer {
+0% {
+  background-position: 0% 0%;
+  opacity: 0.8;
+}
+
+100% {
+  background-position: 0% 0%;
+  opacity: 0.8;
+}
+} /* ============================================================= CONTENT TYPOGRAPHY ============================================================= */ .bubble-content h4 {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: var(--bubble-text-primary) !important;
+  margin: 0 0 12px 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+.bubble-content h4::before {
+  content: '';
+  width: 4px;
+  height: 16px;
+  background: var(--bubble-accent);
+  border-radius: 2px;
+}
+.bubble-content p {
+  font-size: 0.9rem !important;
+  color: var(--bubble-text-secondary) !important;
+  margin: 0 0 16px 0 !important;
+  line-height: 1.6 !important;
+}
+.bubble-content ul, .bubble-content ol {
+  margin: 0 0 16px 20px !important;
+  padding: 0 !important;
+}
+.bubble-content li {
+  font-size: 0.9rem !important;
+  color: var(--bubble-text-secondary) !important;
+  margin: 8px 0 !important;
+  line-height: 1.5 !important;
+}
+.bubble-content li::marker {
+  color: var(--bubble-accent) !important;
+}
+/* ============================================================= DATA DISPLAY ELEMENTS ============================================================= */ .bubble-metric {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 8px 0 !important;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.1) !important;
+}
+.bubble-metric:last-child {
+  border-bottom: none !important;
+}
+.bubble-metric .label {
+  font-size: 0.85rem !important;
+  color: var(--bubble-text-muted) !important;
+  font-weight: 500 !important;
+}
+.bubble-metric .value {
+  font-size: 0.9rem !important;
+  color: var(--bubble-text-primary) !important;
+  font-weight: 600 !important;
+  font-family: 'Inter', monospace !important;
+}
+.bubble-metric .value.positive {
+  color: #10b981 !important;
+}
+.bubble-metric .value.negative {
+  color: #ef4444 !important;
+}
+.bubble-metric .value.neutral {
+  color: var(--bubble-accent) !important;
+}
+
+/* =============================================================
+   RESPONSIVE DESIGN
+   ============================================================= */
+
+@media (max-width: 1024px) {
+.info-sections-horizontal {
+  grid-template-columns: 1fr !important;
+  gap: 12px !important;
+  margin: 24px 0 !important;
+}
+:root {
+  --bubble-min-height: 220px;
+  --bubble-header-height: 48px;
+  --bubble-border-radius: 10px;
+  --bubble-background: rgba(255, 255, 255, 0.95);
+  --bubble-text-primary: #1a1a1a;
+  --bubble-text-secondary: #4a5568;
+  --bubble-text-muted: #718096;
+}
+.bubble-header {
+  padding: 0 12px !important;
+  border-bottom: 2px solid var(--bubble-accent) !important;
+}
+.bubble-content {
+  padding: 10px !important;
+}
+}
+
+@media (max-width: 768px) {
+
+
+
+
+}
+
+@media (max-width: 480px) {
+
+
+
+
+.bubble-content h4 {
+  font-size: 0.9rem !important;
+}
+.bubble-content p, .bubble-content li {
+  font-size: 0.85rem !important;
+}
+}
+
+/* =============================================================
+   ACCESSIBILITY
+   ============================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+.info-bubble-horizontal, .bubble-header h3::before {
+  animation: none !important;
+  transition: none !important;
+}
+
+}
+
+@media (prefers-color-scheme: light) {
+
+}
+
+/* =============================================================
+   HIGH CONTRAST MODE
+   ============================================================= */
+
+@media (prefers-contrast: high) {
+.info-bubble-horizontal {
+  border: 3px solid var(--bubble-accent) !important;
+}
+
+
+.bubble-metric {
+  border-bottom: 2px solid rgba(139, 92, 246, 0.3) !important;
+}
+} 

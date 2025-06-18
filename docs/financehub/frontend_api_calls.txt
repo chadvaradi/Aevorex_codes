@@ -1,0 +1,11 @@
+Aevorex_codes/modules/financehub/frontend/static/js/core/api.js:626:            const response = await fetch(`${this.baseURL}/api/v1/stock/chart/${ticker.toUpperCase()}?period=${timeframe}&interval=${interval}`, {
+Aevorex_codes/modules/financehub/frontend/static/js/main_combined_financehub.js:1414:            const response = await fetch(`${this.baseURL}/api/v1/stock/chart/${ticker.toUpperCase()}?period=${timeframe}&interval=${interval}`, {
+Aevorex_codes/modules/financehub/frontend/static/js/services/API_DOCUMENTATION.md:233:const stockData = await fetch(`/api/v1/stock/AAPL`); // 404 Error
+Aevorex_codes/modules/financehub/frontend/static/js/services/API_DOCUMENTATION.md:237:  fetch(`/api/v1/stock/fundamentals/AAPL`), // ✅ 150ms
+Aevorex_codes/modules/financehub/frontend/static/js/services/API_DOCUMENTATION.md:238:  fetch(`/api/v1/stock/news/AAPL`),         // ✅ 200ms
+Aevorex_codes/modules/financehub/frontend/static/js/services/API_DOCUMENTATION.md:239:  fetch(`/api/v1/stock/ai-summary/AAPL`)    // ✅ 1500ms
+Aevorex_codes/modules/financehub/frontend/static/js/services/API_DOCUMENTATION.md:256:const stockData = await fetch(`/api/v1/stock/${ticker}`);
+Aevorex_codes/modules/financehub/frontend/static/js/services/API_DOCUMENTATION.md:260:  fetch(`/api/v1/stock/ticker-tape/`),
+Aevorex_codes/modules/financehub/frontend/static/js/services/API_DOCUMENTATION.md:261:  fetch(`/api/v1/stock/fundamentals/${ticker}`),
+Aevorex_codes/modules/financehub/frontend/static/js/services/API_DOCUMENTATION.md:262:  fetch(`/api/v1/stock/news/${ticker}`),
+Aevorex_codes/modules/financehub/frontend/static/js/services/API_DOCUMENTATION.md:263:  fetch(`/api/v1/stock/ai-summary/${ticker}`)

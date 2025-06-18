@@ -1,0 +1,13 @@
+component,file_path,line_number,note
+FinanceHubChat,static/js/services/module-loader.js,74,ModuleLoader createModule()
+FinanceHubChat,static/js/app/app-class.js,400,App-class loadChatInterface()
+FinanceHubChat,static/js/core/component-loader.js,457,ComponentLoader loadChatInterface()
+UnifiedChartManager,static/js/services/module-loader.js,106,ModuleLoader createModule()
+UnifiedChartManager,static/js/components/chart/chart.js,928,Chart.js self-instantiation
+UnifiedChartManager,static/js/core/component-loader.js,163,ComponentLoader loadChartWidget()
+AnalysisBubbles,static/js/services/module-loader.js,98,ModuleLoader createModule()
+AnalysisBubbles,static/js/core/component-loader.js,302,ComponentLoader loadAnalysisBubbles()
+TickerTapeUnified,static/js/services/module-loader.js,90,ModuleLoader createModule()
+TickerTapeUnified,static/js/core/component-loader.js,380,ComponentLoader loadTickerTape()
+StockHeaderManager,static/js/components/stock-header/stock-header-manager.js,547,self-instantiation
+StockHeaderManager,static/js/main_combined_financehub.js,18182,bundled duplicate 

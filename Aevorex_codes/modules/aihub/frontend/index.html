@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Enterprise SEO and Meta Tags -->
+    <title>AI HUB - Developer Platform | AEVOREX Enterprise AI Infrastructure</title>
+    <meta name="description" content="Enterprise AI development platform for software engineers. ML model deployment, API management, and production-ready AI infrastructure.">
+    <meta name="keywords" content="AI platform, ML deployment, developer tools, AI infrastructure, machine learning APIs, enterprise AI, model hosting">
+    
+    <!-- Import Shared CSS Framework -->
+    <link rel="stylesheet" href="../../shared/frontend/static/css/aevorex-core.css">
+    <link rel="stylesheet" href="../../shared/frontend/static/css/aevorex-components.css">
+    <link rel="stylesheet" href="static/css/aihub.css">
+    
+    <!-- Professional Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="aihub" data-theme="dark">
+    <!-- Professional Developer Header -->
+    <header class="header" role="banner">
+        <div class="header__container">
+            <div class="header__brand">
+                <a href="../mainpage/index.html" aria-label="AEVOREX Homepage" class="brand-link">
+                    <div class="header__logo">
+                        <svg width="36" height="36" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="aiLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#06b6d4"/>
+                                    <stop offset="100%" style="stop-color:#0891b2"/>
+                                </linearGradient>
+                            </defs>
+                            <rect x="4" y="4" width="32" height="32" rx="6" fill="url(#aiLogoGradient)"/>
+                            <path d="M12 16h16M12 20h16M12 24h12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="28" cy="12" r="3" fill="white"/>
+                        </svg>
+                    </div>
+                    <div class="header__brand-text">
+                        <div class="header__brand-name">AI HUB</div>
+                        <div class="header__brand-subtitle">Developer Platform</div>
+                    </div>
+                </a>
+            </div>
+
+            <nav class="header__nav" aria-label="Platform navigation">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="#platform" class="nav__link nav__link--active">
+                            <span>Platform</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#apis" class="nav__link">
+                            <span>APIs</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#models" class="nav__link">
+                            <span>Models</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#docs" class="nav__link">
+                            <span>Documentation</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="header__actions">
+                <div class="platform-status">
+                    <div class="status-indicator">
+                        <div class="status-dot status-dot--active"></div>
+                        <span>All Systems Operational</span>
+                    </div>
+                </div>
+                <a href="#playground" class="btn btn--outline btn--small">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                        <line x1="7" y1="2" x2="7" y2="22"></line>
+                        <line x1="17" y1="2" x2="17" y2="22"></line>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <line x1="2" y1="7" x2="7" y2="7"></line>
+                        <line x1="2" y1="17" x2="7" y2="17"></line>
+                        <line x1="17" y1="17" x2="22" y2="17"></line>
+                        <line x1="17" y1="7" x2="22" y2="7"></line>
+                    </svg>
+                    Open Playground
+                </a>
+                <button class="btn btn--icon" data-theme-toggle aria-label="Toggle theme">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content" role="main">
+        <!-- Hero Section - Developer Focused -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero__content">
+                    <div class="hero__badge">
+                        <div class="status-indicator">
+                            <div class="status-dot status-dot--active"></div>
+                            <span>Production Ready • API v2.1 • 99.9% Uptime</span>
+                        </div>
+                    </div>
+                    <h1 class="hero__title">
+                        Enterprise AI Infrastructure for <span class="gradient-text">Production Applications</span>
+                    </h1>
+                    <p class="hero__subtitle">
+                        Deploy, scale, and monitor machine learning models in production. 
+                        Built for software teams who need reliable AI infrastructure without vendor lock-in.
+                    </p>
+                    
+                    <!-- AI Search Interface -->
+                    <div class="ai-search-interface">
+                        <div class="search-container-ai">
+                            <!-- Chat Toggle (Minimalist) -->
+                            <button id="ai-chat-toggle" class="chat-toggle-minimal" title="Toggle AI Assistant">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z"></path>
+                                    <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"></path>
+                                </svg>
+                            </button>
+                            
+                            <!-- Search Input -->
+                            <div class="search-input-wrapper-ai">
+                                <input type="text" id="ai-search-input" class="search-input-ai" 
+                                       placeholder="Ask AI anything or search models..." 
+                                       autocomplete="off">
+                                <button id="ai-search-btn" class="search-btn-ai">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <path d="m21 21-4.35-4.35"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- AI Chat Interface (Initially Hidden) -->
+                        <div id="ai-chat-interface" class="ai-chat-interface hidden">
+                            <div class="ai-chat-messages" id="ai-chat-messages">
+                                <div class="ai-welcome-message">
+                                    <div class="ai-avatar">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                            <path d="M2 17l10 5 10-5"/>
+                                            <path d="M2 12l10 5 10-5"/>
+                                        </svg>
+                                    </div>
+                                    <div class="ai-message-content">
+                                        <p>Hello! I'm your AI assistant. I can help you with:</p>
+                                        <ul>
+                                            <li>Model recommendations and comparisons</li>
+                                            <li>API documentation and examples</li>
+                                            <li>Deployment strategies and best practices</li>
+                                            <li>Performance optimization tips</li>
+                                        </ul>
+                                        <p>What would you like to know?</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="ai-chat-input-area">
+                                <div class="ai-chat-input-container">
+                                    <textarea id="ai-chat-input" class="ai-chat-input" 
+                                              placeholder="Ask me anything about AI models, APIs, or deployment..."
+                                              rows="1"></textarea>
+                                    <button id="ai-chat-send" class="ai-chat-send-btn" disabled>
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 3.59l7.457 7.45-1.414 1.42L13 7.41V21h-2V7.41l-5.043 5.05-1.414-1.42L12 3.59z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero__actions">
+                        <a href="#playground" class="btn btn--primary btn--large">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                                <line x1="7" y1="2" x2="7" y2="22"></line>
+                                <line x1="17" y1="2" x2="17" y2="22"></line>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                            </svg>
+                            Launch Playground
+                        </a>
+                        <a href="#docs" class="btn btn--outline btn--large">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14,2 14,8 20,8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                            </svg>
+                            View Documentation
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero__visual">
+                    <!-- Live API Status Dashboard -->
+                    <div class="api-dashboard">
+                        <div class="dashboard-header">
+                            <h3>Live API Status</h3>
+                            <div class="api-health">
+                                <div class="health-indicator">
+                                    <div class="status-dot status-dot--active"></div>
+                                    <span>All Services Operational</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="api-metrics">
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"></polyline>
+                                    </svg>
+                                </div>
+                                <div class="metric-data">
+                                    <div class="metric-value">147ms</div>
+                                    <div class="metric-label">Avg Response Time</div>
+                                </div>
+                            </div>
+                            
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                                    </svg>
+                                </div>
+                                <div class="metric-data">
+                                    <div class="metric-value">99.94%</div>
+                                    <div class="metric-label">Uptime (30d)</div>
+                                </div>
+                            </div>
+                            
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                                    </svg>
+                                </div>
+                                <div class="metric-data">
+                                    <div class="metric-value">2.4M</div>
+                                    <div class="metric-label">Requests/day</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="api-endpoints">
+                            <div class="endpoint-item">
+                                <div class="endpoint-method">POST</div>
+                                <div class="endpoint-path">/api/v2/models/predict</div>
+                                <div class="endpoint-status">
+                                    <div class="status-dot status-dot--active"></div>
+                                </div>
+                            </div>
+                            <div class="endpoint-item">
+                                <div class="endpoint-method">GET</div>
+                                <div class="endpoint-path">/api/v2/models/status</div>
+                                <div class="endpoint-status">
+                                    <div class="status-dot status-dot--active"></div>
+                                </div>
+                            </div>
+                            <div class="endpoint-item">
+                                <div class="endpoint-method">POST</div>
+                                <div class="endpoint-path">/api/v2/fine-tune</div>
+                                <div class="endpoint-status">
+                                    <div class="status-dot status-dot--active"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Platform Capabilities -->
+        <section id="platform" class="platform">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Production-Ready AI Infrastructure</h2>
+                    <p class="section-subtitle">
+                        Deploy machine learning models at scale with enterprise-grade security, monitoring, and performance.
+                    </p>
+                </div>
+
+                <div class="platform-grid">
+                    <div class="platform-card">
+                        <div class="platform-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                                <line x1="7" y1="2" x2="7" y2="22"></line>
+                                <line x1="17" y1="2" x2="17" y2="22"></line>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <line x1="2" y1="7" x2="7" y2="7"></line>
+                                <line x1="2" y1="17" x2="7" y2="17"></line>
+                                <line x1="17" y1="17" x2="22" y2="17"></line>
+                                <line x1="17" y1="7" x2="22" y2="7"></line>
+                            </svg>
+                        </div>
+                        <h3 class="platform-title">Model Deployment</h3>
+                        <p class="platform-description">
+                            Deploy trained models to production with zero-downtime updates, A/B testing, and automatic scaling.
+                        </p>
+                        <ul class="platform-features">
+                            <li>Container-based deployment</li>
+                            <li>Auto-scaling & load balancing</li>
+                            <li>Blue-green deployments</li>
+                            <li>Health monitoring & alerts</li>
+                        </ul>
+                        <div class="platform-tech">
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Kubernetes</span>
+                            <span class="tech-tag">FastAPI</span>
+                        </div>
+                    </div>
+
+                    <div class="platform-card">
+                        <div class="platform-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z"></path>
+                                <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"></path>
+                            </svg>
+                        </div>
+                        <h3 class="platform-title">API Management</h3>
+                        <p class="platform-description">
+                            RESTful APIs with authentication, rate limiting, versioning, and comprehensive documentation.
+                        </p>
+                        <ul class="platform-features">
+                            <li>JWT authentication</li>
+                            <li>Rate limiting & quotas</li>
+                            <li>API versioning</li>
+                            <li>OpenAPI documentation</li>
+                        </ul>
+                        <div class="platform-tech">
+                            <span class="tech-tag">OAuth 2.0</span>
+                            <span class="tech-tag">OpenAPI</span>
+                            <span class="tech-tag">Redis</span>
+                        </div>
+                    </div>
+
+                    <div class="platform-card">
+                        <div class="platform-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="platform-title">Performance Monitoring</h3>
+                        <p class="platform-description">
+                            Real-time performance metrics, model drift detection, and predictive failure analysis.
+                        </p>
+                        <ul class="platform-features">
+                            <li>Real-time metrics & dashboards</li>
+                            <li>Model drift detection</li>
+                            <li>Performance alerting</li>
+                            <li>Usage analytics</li>
+                        </ul>
+                        <div class="platform-tech">
+                            <span class="tech-tag">Prometheus</span>
+                            <span class="tech-tag">Grafana</span>
+                            <span class="tech-tag">ELK Stack</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Model Repository -->
+        <section id="models" class="models">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Pre-trained Models & Custom Training</h2>
+                    <p class="section-subtitle">
+                        Production-ready models for common use cases, plus infrastructure for training custom models.
+                    </p>
+                </div>
+
+                <div class="models-grid">
+                    <div class="model-card">
+                        <div class="model-header">
+                            <div class="model-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z"></path>
+                                    <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"></path>
+                                </svg>
+                            </div>
+                            <div class="model-meta">
+                                <h3 class="model-name">Natural Language Processing</h3>
+                                <div class="model-type">Text Analysis & Generation</div>
+                            </div>
+                            <div class="model-status">
+                                <div class="status-badge status--deployed">
+                                    <div class="status-dot status-dot--active"></div>
+                                    <span>Production</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="model-description">
+                            Sentiment analysis, text classification, named entity recognition, and text generation capabilities.
+                        </p>
+                        <div class="model-stats">
+                            <div class="stat">
+                                <div class="stat-label">Accuracy</div>
+                                <div class="stat-value">94.2%</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Latency</div>
+                                <div class="stat-value">120ms</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Languages</div>
+                                <div class="stat-value">15+</div>
+                            </div>
+                        </div>
+                        <div class="model-actions">
+                            <button class="btn btn--primary btn--small">Try API</button>
+                            <button class="btn btn--outline btn--small">View Docs</button>
+                        </div>
+                    </div>
+
+                    <div class="model-card">
+                        <div class="model-header">
+                            <div class="model-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21,15 16,10 5,21"></polyline>
+                                </svg>
+                            </div>
+                            <div class="model-meta">
+                                <h3 class="model-name">Computer Vision</h3>
+                                <div class="model-type">Image Recognition & Analysis</div>
+                            </div>
+                            <div class="model-status">
+                                <div class="status-badge status--deployed">
+                                    <div class="status-dot status-dot--active"></div>
+                                    <span>Production</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="model-description">
+                            Object detection, image classification, facial recognition, and optical character recognition.
+                        </p>
+                        <div class="model-stats">
+                            <div class="stat">
+                                <div class="stat-label">Accuracy</div>
+                                <div class="stat-value">96.8%</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Latency</div>
+                                <div class="stat-value">200ms</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Classes</div>
+                                <div class="stat-value">1000+</div>
+                            </div>
+                        </div>
+                        <div class="model-actions">
+                            <button class="btn btn--primary btn--small">Try API</button>
+                            <button class="btn btn--outline btn--small">View Docs</button>
+                        </div>
+                    </div>
+
+                    <div class="model-card">
+                        <div class="model-header">
+                            <div class="model-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+                                </svg>
+                            </div>
+                            <div class="model-meta">
+                                <h3 class="model-name">Predictive Analytics</h3>
+                                <div class="model-type">Time Series & Forecasting</div>
+                            </div>
+                            <div class="model-status">
+                                <div class="status-badge status--deployed">
+                                    <div class="status-dot status-dot--active"></div>
+                                    <span>Production</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="model-description">
+                            Time series forecasting, anomaly detection, trend analysis, and predictive modeling.
+                        </p>
+                        <div class="model-stats">
+                            <div class="stat">
+                                <div class="stat-label">MAPE</div>
+                                <div class="stat-value">8.3%</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Latency</div>
+                                <div class="stat-value">80ms</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Horizon</div>
+                                <div class="stat-value">365d</div>
+                            </div>
+                        </div>
+                        <div class="model-actions">
+                            <button class="btn btn--primary btn--small">Try API</button>
+                            <button class="btn btn--outline btn--small">View Docs</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Playground -->
+        <section id="playground" class="playground">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Interactive AI Playground</h2>
+                    <p class="section-subtitle">
+                        Test models, experiment with APIs, and prototype solutions before implementing in production.
+                    </p>
+                </div>
+
+                <div class="playground-interface">
+                    <div class="playground-sidebar">
+                        <div class="sidebar-header">
+                            <h3>Available Models</h3>
+                            <div class="model-count">12 models loaded</div>
+                        </div>
+                        <div class="model-list">
+                            <div class="model-item model-item--active">
+                                <div class="model-icon">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="model-name">gpt-4-turbo</div>
+                                    <div class="model-status">Ready</div>
+                                </div>
+                            </div>
+                            <div class="model-item">
+                                <div class="model-icon">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="model-name">yolo-v8</div>
+                                    <div class="model-status">Ready</div>
+                                </div>
+                            </div>
+                            <div class="model-item">
+                                <div class="model-icon">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"></polyline>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="model-name">prophet-forecaster</div>
+                                    <div class="model-status">Ready</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="playground-main">
+                        <div class="playground-toolbar">
+                            <div class="toolbar-left">
+                                <select class="select-input">
+                                    <option>Text Generation</option>
+                                    <option>Image Analysis</option>
+                                    <option>Time Series Prediction</option>
+                                </select>
+                                <button class="btn btn--outline btn--small">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                        <polyline points="14,2 14,8 20,8"></polyline>
+                                    </svg>
+                                    Load Example
+                                </button>
+                            </div>
+                            <div class="toolbar-right">
+                                <button class="btn btn--primary">Run Inference</button>
+                            </div>
+                        </div>
+
+                        <div class="playground-workspace">
+                            <div class="workspace-input">
+                                <div class="input-header">
+                                    <h4>Input</h4>
+                                    <div class="input-type">Text</div>
+                                </div>
+                                <textarea class="code-input" placeholder="Enter your prompt or data here...">Analyze the following customer review for sentiment and key topics:
+
+"The product exceeded my expectations. Great build quality, fast shipping, and excellent customer service. Highly recommended!"</textarea>
+                            </div>
+
+                            <div class="workspace-output">
+                                <div class="output-header">
+                                    <h4>Output</h4>
+                                    <div class="output-status">
+                                        <div class="status-dot status-dot--active"></div>
+                                        <span>Ready</span>
+                                    </div>
+                                </div>
+                                <div class="code-output">
+                                    <pre class="json-output">{
+  "sentiment": {
+    "label": "positive",
+    "confidence": 0.94
+  },
+  "topics": [
+    { "topic": "product_quality", "relevance": 0.89 },
+    { "topic": "shipping", "relevance": 0.76 },
+    { "topic": "customer_service", "relevance": 0.82 }
+  ],
+  "summary": "Highly positive review highlighting product quality, shipping speed, and customer service excellence."
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="playground-inspector">
+                        <div class="inspector-header">
+                            <h4>Request Inspector</h4>
+                        </div>
+                        <div class="inspector-content">
+                            <div class="request-details">
+                                <div class="detail-group">
+                                    <label>Model</label>
+                                    <span>gpt-4-turbo</span>
+                                </div>
+                                <div class="detail-group">
+                                    <label>Latency</label>
+                                    <span>247ms</span>
+                                </div>
+                                <div class="detail-group">
+                                    <label>Tokens</label>
+                                    <span>156 in / 89 out</span>
+                                </div>
+                                <div class="detail-group">
+                                    <label>Cost</label>
+                                    <span>$0.0043</span>
+                                </div>
+                            </div>
+
+                            <div class="api-snippet">
+                                <h5>cURL Example</h5>
+                                <pre class="code-snippet">curl -X POST "https://api.aevorex.com/v2/models/predict" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-4-turbo",
+    "prompt": "Your input text...",
+    "max_tokens": 150
+  }'</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Documentation Section -->
+        <section id="docs" class="documentation">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Developer Resources</h2>
+                    <p class="section-subtitle">
+                        Comprehensive documentation, SDKs, and examples to get you started quickly.
+                    </p>
+                </div>
+
+                <div class="docs-grid">
+                    <div class="docs-card">
+                        <div class="docs-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14,2 14,8 20,8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                            </svg>
+                        </div>
+                        <h3 class="docs-title">API Reference</h3>
+                        <p class="docs-description">
+                            Complete API documentation with examples, parameters, and response schemas.
+                        </p>
+                        <a href="#api-docs" class="docs-link">
+                            View API Docs
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="7" y1="17" x2="17" y2="7"></line>
+                                <polyline points="7,7 17,7 17,17"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div class="docs-card">
+                        <div class="docs-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="docs-title">SDKs & Libraries</h3>
+                        <p class="docs-description">
+                            Official SDKs for Python, JavaScript, Go, and other popular languages.
+                        </p>
+                        <a href="#sdks" class="docs-link">
+                            Browse SDKs
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="7" y1="17" x2="17" y2="7"></line>
+                                <polyline points="7,7 17,7 17,17"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div class="docs-card">
+                        <div class="docs-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="docs-title">Tutorials & Examples</h3>
+                        <p class="docs-description">
+                            Step-by-step guides and real-world examples for common use cases.
+                        </p>
+                        <a href="#tutorials" class="docs-link">
+                            View Tutorials
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="7" y1="17" x2="17" y2="7"></line>
+                                <polyline points="7,7 17,7 17,17"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Start Code Example -->
+                <div class="quick-start">
+                    <h3>Quick Start</h3>
+                    <div class="code-example">
+                        <div class="code-tabs">
+                            <button class="code-tab code-tab--active">Python</button>
+                            <button class="code-tab">JavaScript</button>
+                            <button class="code-tab">cURL</button>
+                        </div>
+                        <div class="code-content">
+                            <pre class="code-block"><code class="language-python">import aevorex
+
+# Initialize the client
+client = aevorex.Client(api_key="your_api_key")
+
+# Make a prediction
+response = client.models.predict(
+    model="gpt-4-turbo",
+    prompt="Analyze this text for sentiment",
+    max_tokens=100
+)
+
+print(response.result)</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Professional Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <div class="footer__logo">
+                        <svg width="32" height="32" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="footerAiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#06b6d4"/>
+                                    <stop offset="100%" style="stop-color:#0891b2"/>
+                                </linearGradient>
+                            </defs>
+                            <rect x="4" y="4" width="32" height="32" rx="6" fill="url(#footerAiGradient)"/>
+                            <path d="M12 16h16M12 20h16M12 24h12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="28" cy="12" r="3" fill="white"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="footer__brand-name">AI HUB</div>
+                        <div class="footer__brand-subtitle">Developer Platform</div>
+                        <p class="footer__description">
+                            Enterprise AI infrastructure for production applications. 
+                            Deploy, scale, and monitor machine learning models at scale.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="footer__links">
+                    <div>
+                        <h4>Platform</h4>
+                        <a href="#models" class="footer__link">Model Repository</a>
+                        <a href="#apis" class="footer__link">API Management</a>
+                        <a href="#playground" class="footer__link">AI Playground</a>
+                        <a href="#monitoring" class="footer__link">Performance Monitoring</a>
+                    </div>
+                    <div>
+                        <h4>Developers</h4>
+                        <a href="#docs" class="footer__link">API Documentation</a>
+                        <a href="#sdks" class="footer__link">SDKs & Libraries</a>
+                        <a href="#tutorials" class="footer__link">Tutorials</a>
+                        <a href="https://github.com/aevorex" target="_blank" class="footer__link">GitHub</a>
+                    </div>
+                    <div>
+                        <h4>AEVOREX Platform</h4>
+                        <a href="../mainpage/index.html" class="footer__link">Platform Overview</a>
+                        <a href="http://localhost:8000" target="_blank" class="footer__link">Finance HUB</a>
+                        <a href="http://localhost:3001" target="_blank" class="footer__link">Health HUB</a>
+                        <a href="http://localhost:3002" target="_blank" class="footer__link">Content HUB</a>
+                    </div>
+                    <div>
+                        <h4>Support</h4>
+                        <a href="mailto:developers@aevorex.com" class="footer__link">Developer Support</a>
+                        <a href="#status" class="footer__link">System Status</a>
+                        <a href="#security" class="footer__link">Security</a>
+                        <a href="../../shared/frontend/pages/legal/terms.html" target="_blank" class="footer__link">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p>&copy; 2024 AEVOREX AI HUB - Enterprise AI Development Platform. All rights reserved.</p>
+                <div class="footer__status">
+                    <span class="status--success"></span>
+                    <span>All systems operational • API v2.1 • 99.9% uptime</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../../shared/frontend/static/js/aevorex-core.js"></script>
+    <script src="static/js/aihub.js"></script>
+</body>
+</html> 

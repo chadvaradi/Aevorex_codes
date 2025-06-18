@@ -1,0 +1,56 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Rule #008 – Teljes kódbázis- & dokumentum-szinkron, modul-refaktor ellenőrzés
+Rule-Type: Manual
+This rule needs to be mentioned to be included
+
+## Cél
+Biztosítani, hogy minden funkcionális vagy UX-szintű változtatás előtt **minden** érintett forrás – kódbázis, csatolt dokumentumok, backend-endpointok – teljes körűen át legyen vizsgálva,  
+és a frontend–backend illesztés, valamint a moduláris felépítés **premiumnak** és **szofisztikáltnak** megfelelő minőségben maradjon.
+
+---
+
+### 1 ▪ Teljes repó-szkennelés  
+- Minden új feladat elején (és nagyobb merge után) futtass:  
+  - for backend (FastAPI): `grep -R --line-number "@" ./backend | sort` - így listázódnak a `@router.*` endpointok;  
+  - for frontend (SPA/React vagy vanilla): keresd meg az összes `fetch(`/ / `axios.` / `api.*(` hívást.  
+- Szinkron-táblázatot készíts a talált **endpoint ⇔ API-hívás** párokról; jelöld, ha:  
+  - a frontend nem használ egy létező végpontot → **TODO**: törlés vagy implementálás;  
+  - a frontend hív olyan végpontot, ami a backendben nem létezik → **BLOCKER**.
+
+### 2 ▪ Dokumentum-összevetés  
+- Minden `.pdf`, `.docx`, `.md` (pl. *financehub frontend*, *AI használati terv*) tartalmából származó **adatmodell**-, **UX-flow**- vagy **design-irányelv** változást validálj a tényleges kód ellen.  
+- Eltérés esetén javasolj **reflektált módosítást** (változtatás ± indoklás).
+
+### 3 ▪ Front-/Backend adattérkép validálás  
+- A backend `pydantic` modellek vs. frontend felhasználás: minden mező kapjon:  
+  - **feltöltési státuszt** (✔ használt, ⚠ nem használt, ✘ hiányzik).  
+- A frontend NEM hagyhat rejtett mezőt, ami nincs renderelve → UX-hibának számít.  
+- A backend nem küldhet felesleges mezőt (payload-optimalizálás).  
+
+### 4 ▪ Modularizáció & fragmentáció-audit  
+- Minden frontend-fájlra (JS/TSX/JSX):  
+  - **>200 sor** vagy **>1 önálló React-komponens/funkció** → vizsgáld meg szétbontás lehetőségét a `components/<feature>/` vagy `hooks/` almappába.  
+  - Új fájl-/mappanév-szabály: `<feature>/<SubFeature>.tsx` + `index.ts` **re-export**.  
+- Több modul közötti közös logika → `shared/` mappába, de **strict dependency**: shared → modul, sosem fordítva.
+
+### 5 ▪ Prémium UX-kritériumok  
+- **Elegáns, letisztult, de egyedi** megjelenés → betartandó a *financehub frontend* PDF-ben szereplő tipográfia, spacing, színpaletta.  
+- Minden interakció: min. `150 ms`-es vizuális visszajelzés (hover, loading, üzenet-fade-in).  
+- Mobil-breakpoint: `< 768 px` teljes funkcionalitás, nincs „feature-parity gap”.
+
+### 6 ▪ Feladat-leadási checklist  
+1. Repo-szkennelés lefutott, szinkron-táblázat frissítve.  
+2. Dokumentum-eltérések review-zárókommentben dokumentálva.  
+3. Adattérkép-ellenőrzés ✔/⚠/✘ státuszjelentésben.  
+4. Modul-refaktor-javaslat(ok) commit-üzenetben röviden.  
+5. UX-koncepciók betartva, Lighthouse-score ≥ 90 (Accessibility + Performance).
+
+> **Megszegés esetén** az agent köteles **BLOCKER** jelzést adni, és nem folytathatja az automatikus változtatásokat, amíg a lista nem teljesül.
+
+---
+
+*Utolsó frissítés: 2025-06-01, szöveg HU v1.0*  

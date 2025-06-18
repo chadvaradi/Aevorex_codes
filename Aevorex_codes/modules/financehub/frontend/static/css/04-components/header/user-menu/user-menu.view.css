@@ -1,0 +1,66 @@
+/* ===================================================================
+   AEVOREX FINANCEHUB – HEADER › USER-MENU SUB-COMPONENT (v1)
+   =================================================================== */
+
+.fh-header__user-menu {
+  position: relative;
+}
+
+.fh-header__user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--fh-radius-full);
+  border: 2px solid var(--fh-border-light);
+  cursor: pointer;
+  transition: var(--fh-transition-fast);
+}
+
+.fh-header__user-avatar:hover {
+  border-color: var(--accent-primary);
+}
+
+/* Dropdown panel */
+.fh-user-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  background: var(--bg-primary);
+  border: 1px solid var(--fh-border-light);
+  border-radius: var(--fh-radius-md);
+  box-shadow: var(--fh-shadow-lg);
+  width: 220px;
+  z-index: var(--fh-z-dropdown);
+  padding: var(--fh-space-2) 0;
+  display: none;
+}
+
+.fh-user-dropdown--open { display: block; }
+
+.fh-user-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-2);
+  padding: var(--fh-space-2) var(--fh-space-4);
+  font-size: var(--fh-font-size-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--fh-transition-fast);
+}
+
+.fh-user-dropdown__item:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* Accessibility */
+.fh-user-dropdown__item:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fh-header__user-avatar { transition: none; }
+  .fh-user-dropdown__item { transition: none; }
+} 
+ 
+ 

@@ -1,0 +1,168 @@
+/* =================================================================== AEVOREX PREMIUM DARK THEME - V22.0.0 CLEAN ARCHITECTURE Consolidated dark theme - clean, scalable, maintainable =================================================================== */ /* ===== MASTER DARK THEME VARIABLES ===== */ :root[data-theme="dark"], .dark-theme {
+  --text-primary: var(--neutral-50);
+  --text-secondary: var(--neutral-300);
+  --text-muted: var(--neutral-500);
+  --text-inverse: var(--neutral-900);
+  --bg-primary: var(--neutral-900);
+  --bg-secondary: var(--neutral-800);
+  --bg-tertiary: var(--neutral-700);
+  --bg-inverse: var(--neutral-50);
+  --border-light: var(--neutral-700);
+  --border-medium: var(--neutral-600);
+  --border-strong: var(--neutral-500);
+  --shadow-light: rgba(0, 0, 0, 0.4);
+  --shadow-medium: rgba(0, 0, 0, 0.6);
+  --shadow-strong: rgba(0, 0, 0, 0.8);
+  --glass-background: rgba(0, 0, 0, 0.2);
+  --glass-border: rgba(212, 185, 150, 0.15);
+  --glass-backdrop: rgba(42, 36, 31, 0.9);
+  --gradient-surface: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+  --gradient-overlay: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  --form-bg: var(--bg-secondary);
+  --form-border: var(--border-light);
+  --form-border-focus: var(--aevorex-brand-primary);
+  --form-text: var(--text-primary);
+  --form-placeholder: var(--text-muted);
+  --scrollbar-track: var(--neutral-800);
+  --scrollbar-thumb: var(--neutral-600);
+  --scrollbar-thumb-hover: var(--neutral-500);
+}
+/* ===== COMPONENT STYLES ===== */ :root[data-theme="dark"] .bubble-container, .dark-theme .bubble-container {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--fh-shadow-premium);
+}
+:root[data-theme="dark"] .chart-container, .dark-theme .chart-container {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--fh-shadow-lg);
+}
+:root[data-theme="dark"] .ticker-tape, .dark-theme .ticker-tape {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: var(--fh-shadow-md);
+}
+:root[data-theme="dark"] .chat-container, .dark-theme .chat-container, :root[data-theme="dark"] .fh-chat, .dark-theme .fh-chat {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--fh-shadow-lg);
+}
+:root[data-theme="dark"] .ai-message, .dark-theme .ai-message, :root[data-theme="dark"] .chat-message--ai, .dark-theme .chat-message--ai {
+  background: rgba(93, 84, 79, 0.3);
+  border-left: 3px solid var(--aevorex-brand-primary);
+}
+:root[data-theme="dark"] .user-message, .dark-theme .user-message, :root[data-theme="dark"] .chat-message--user, .dark-theme .chat-message--user {
+  background: var(--gradient-primary);
+  color: var(--text-inverse);
+}
+:root[data-theme="dark"] .loading-skeleton, .dark-theme .loading-skeleton {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+  background-size: 200% 100%;
+}
+:root[data-theme="dark"] .tradingview-widget-container, .dark-theme .tradingview-widget-container {
+  background: var(--bg-secondary);
+  border-radius: var(--fh-radius-lg);
+  border: 1px solid var(--border-light);
+}
+:root[data-theme="dark"] .ticker-item, .dark-theme .ticker-item {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+}
+:root[data-theme="dark"] .ticker-item:hover, .dark-theme .ticker-item:hover {
+  background: var(--bg-secondary);
+  border-color: var(--aevorex-brand-primary);
+  transform: translateY(-1px);
+}
+/* ===== FORM STATES ===== */ :root[data-theme="dark"] .form-input:focus, .dark-theme .form-input:focus {
+  background: var(--form-bg);
+  border-color: var(--form-border-focus);
+  box-shadow: 0 0 0 3px rgba(212, 185, 150, 0.25);
+}
+:root[data-theme="dark"] .form-error, .dark-theme .form-error {
+  border-color: var(--aevorex-brand-error);
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+}
+:root[data-theme="dark"] .form-success, .dark-theme .form-success {
+  border-color: var(--aevorex-brand-success);
+  box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.2);
+}
+/* ===== PREMIUM EFFECTS ===== */ :root[data-theme="dark"] .premium-glow, .dark-theme .premium-glow {
+}
+:root[data-theme="dark"] .premium-pulse, .dark-theme .premium-pulse {
+  animation: darkThemeGlow 2s ease-in-out infinite;
+}
+:root[data-theme="dark"] .card-elevated, .dark-theme .card-elevated {
+  background: var(--bg-secondary);
+  box-shadow: var(--fh-shadow-xl);
+  border: 1px solid var(--border-light);
+}
+:root[data-theme="dark"] .card-elevated:hover, .dark-theme .card-elevated:hover {
+  transform: translateY(-2px);
+  border-color: var(--aevorex-brand-primary);
+}
+:root[data-theme="dark"] .premium-background, .dark-theme .premium-background {
+}
+/* ===== FOCUS STATES ===== */ :root[data-theme="dark"] a:focus, .dark-theme a:focus {
+  outline: 2px solid var(--aevorex-brand-primary);
+  outline-offset: 2px;
+}
+:root[data-theme="dark"] button:focus, .dark-theme button:focus {
+  outline: 2px solid var(--aevorex-brand-primary);
+  outline-offset: 2px;
+}
+/* ===== SELECTION STYLE ===== */ :root[data-theme="dark"] ::selection, .dark-theme ::selection {
+  background: rgba(212, 185, 150, 0.3);
+  color: var(--text-primary);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes darkThemeGlow {
+0%, 100% {
+  box-shadow: 0 0 25px var(--fh-shadow-premium);
+}
+50% {
+  box-shadow: 0 0 40px var(--fh-shadow-premium), 0 0 60px rgba(212, 185, 150, 0.2);
+}
+}
+
+/* ===== RESPONSIVE & ACCESSIBILITY ===== */
+@media (prefers-contrast: high) {
+:root[data-theme="dark"] {
+  --bg-primary: #000000;
+  --bg-secondary: #1a1a1a;
+  --text-primary: #ffffff;
+  --border-light: #ffffff;
+  --border-medium: #ffffff;
+  --border-strong: #ffffff;
+  --shadow-light: rgba(255, 255, 255, 0.3);
+  --shadow-medium: rgba(255, 255, 255, 0.5);
+  --shadow-strong: rgba(255, 255, 255, 0.7);
+}
+} @media (prefers-reduced-motion: reduce) {
+
+}
+
+/* === FinanceHub structural overrides (2025-06-15) === */
+[data-theme="dark"] .fh-header,
+.dark-theme .fh-header,
+[data-theme="dark"] .fh-footer,
+.dark-theme .fh-footer {
+  background: linear-gradient(180deg, #161b22 0%, #1e2633 80%);
+  backdrop-filter: blur(12px) saturate(140%);
+  border-color: var(--fh-border-light);
+}
+
+/* Subtle opal separator under header */
+[data-theme="dark"] .fh-header::after,
+.dark-theme .fh-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(156, 136, 255, 0.25) 50%, transparent 100%);
+  pointer-events: none;
+} 

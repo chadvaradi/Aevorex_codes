@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="hu" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 AEVOREX ContentHub - Comprehensive Debug Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .debug-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .debug-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            border-radius: 12px;
+            border: 1px solid #475569;
+        }
+
+        .debug-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .debug-section {
+            background: #1e293b;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #60a5fa;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .test-item {
+            margin: 10px 0;
+            padding: 12px;
+            background: #334155;
+            border-radius: 6px;
+            border-left: 4px solid #64748b;
+        }
+
+        .test-item.success {
+            border-left-color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .test-item.error {
+            border-left-color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .test-item.warning {
+            border-left-color: #f59e0b;
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .code-block {
+            background: #0f172a;
+            border: 1px solid #374151;
+            border-radius: 4px;
+            padding: 12px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 8px 0;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-online { background: #10b981; }
+        .status-offline { background: #ef4444; }
+        .status-warning { background: #f59e0b; }
+
+        .refresh-btn {
+            background: #3b82f6;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            margin: 10px 5px;
+            transition: background 0.2s;
+        }
+
+        .refresh-btn:hover {
+            background: #2563eb;
+        }
+
+        .logs-container {
+            background: #0f172a;
+            border: 1px solid #374151;
+            border-radius: 6px;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+
+        .log-entry {
+            margin: 2px 0;
+            padding: 2px 0;
+        }
+
+        .log-error { color: #fca5a5; }
+        .log-warning { color: #fcd34d; }
+        .log-success { color: #86efac; }
+        .log-info { color: #93c5fd; }
+
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+        .config-table th,
+        .config-table td {
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: 1px solid #475569;
+        }
+
+        .config-table th {
+            background: #334155;
+            font-weight: 600;
+        }
+
+        #realtime-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1e293b;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 15px;
+            min-width: 200px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <div class="debug-header">
+            <h1>🔍 AEVOREX ContentHub Debug Panel</h1>
+            <p>Comprehensive system diagnostic and testing suite</p>
+            <div style="margin-top: 15px;">
+                <button class="refresh-btn" onclick="runFullDiagnostic()">🔄 Full Diagnostic</button>
+                <button class="refresh-btn" onclick="testAPIConnections()">🌐 Test APIs</button>
+                <button class="refresh-btn" onclick="testCSS()">🎨 Test CSS</button>
+                <button class="refresh-btn" onclick="clearLogs()">🗑️ Clear Logs</button>
+            </div>
+        </div>
+
+        <div class="debug-grid">
+            <!-- System Status -->
+            <div class="debug-section">
+                <div class="section-title">🖥️ System Status</div>
+                <div id="system-status">
+                    <div class="test-item">
+                        <strong>URL:</strong> <span id="current-url"></span>
+                    </div>
+                    <div class="test-item">
+                        <strong>User Agent:</strong> <span id="user-agent"></span>
+                    </div>
+                    <div class="test-item">
+                        <strong>Viewport:</strong> <span id="viewport"></span>
+                    </div>
+                    <div class="test-item">
+                        <strong>Timestamp:</strong> <span id="timestamp"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Configuration -->
+            <div class="debug-section">
+                <div class="section-title">⚙️ API Configuration</div>
+                <div id="api-config">
+                    <table class="config-table">
+                        <tr>
+                            <th>Setting</th>
+                            <th>Value</th>
+                            <th>Status</th>
+                        </tr>
+                        <tbody id="config-tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- API Tests -->
+            <div class="debug-section">
+                <div class="section-title">🌐 API Connection Tests</div>
+                <div id="api-tests">
+                    <!-- Dynamic API test results -->
+                </div>
+            </div>
+
+            <!-- CSS/Theme Tests -->
+            <div class="debug-section">
+                <div class="section-title">🎨 CSS & Theme Tests</div>
+                <div id="css-tests">
+                    <!-- Dynamic CSS test results -->
+                </div>
+            </div>
+
+            <!-- Module Loading -->
+            <div class="debug-section">
+                <div class="section-title">📦 Module Loading Status</div>
+                <div id="module-status">
+                    <!-- Dynamic module status -->
+                </div>
+            </div>
+
+            <!-- Console Logs -->
+            <div class="debug-section">
+                <div class="section-title">📋 Real-time Console Logs</div>
+                <div class="logs-container" id="console-logs">
+                    <!-- Real-time console output -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Real-time info panel -->
+    <div id="realtime-info">
+        <div style="font-weight: 600; margin-bottom: 10px;">⚡ Live Status</div>
+        <div>Tests Run: <span id="tests-count">0</span></div>
+        <div>Success Rate: <span id="success-rate">0%</span></div>
+        <div>Last Update: <span id="last-update">Never</span></div>
+    </div>
+
+    <script>
+        // Global state
+        let testResults = [];
+        let logEntries = [];
+        let testsRun = 0;
+        let successfulTests = 0;
+
+        // Initialize debug panel
+        function initializeDebugPanel() {
+            updateSystemStatus();
+            checkAPIConfiguration();
+            interceptConsole();
+            runFullDiagnostic();
+
+            // Auto-refresh every 30 seconds
+            setInterval(() => {
+                updateSystemStatus();
+                updateLiveStatus();
+            }, 30000);
+        }
+
+        // System status updates
+        function updateSystemStatus() {
+            document.getElementById('current-url').textContent = window.location.href;
+            document.getElementById('user-agent').textContent = navigator.userAgent.substring(0, 100) + '...';
+            document.getElementById('viewport').textContent = `${window.innerWidth}x${window.innerHeight}`;
+            document.getElementById('timestamp').textContent = new Date().toISOString();
+        }
+
+        // API Configuration check
+        function checkAPIConfiguration() {
+            const config = window.ContentHubConfig || {};
+            const tbody = document.getElementById('config-tbody');
+            
+            const configItems = [
+                { key: 'Frontend Only', value: config.frontendOnly || 'false', status: config.frontendOnly ? 'info' : 'warning' },
+                { key: 'Backend Port', value: config.backendPort || '8085 (default)', status: config.backendPort ? 'success' : 'warning' },
+                { key: 'API Tests Disabled', value: config.disableAPITests || 'false', status: 'info' },
+                { key: 'Environment', value: window.location.hostname === 'localhost' ? 'Development' : 'Production', status: 'info' }
+            ];
+
+            tbody.innerHTML = configItems.map(item => `
+                <tr>
+                    <td>${item.key}</td>
+                    <td>${item.value}</td>
+                    <td><span class="status-indicator status-${item.status}"></span></td>
+                </tr>
+            `).join('');
+        }
+
+        // Full diagnostic test
+        async function runFullDiagnostic() {
+            logMessage('🔍 Starting full diagnostic...', 'info');
+            
+            await testModuleLoading();
+            await testAPIConnections();
+            await testCSS();
+            await testThemeManager();
+            
+            updateLiveStatus();
+            logMessage('✅ Full diagnostic completed', 'success');
+        }
+
+        // Test module loading
+        async function testModuleLoading() {
+            const moduleContainer = document.getElementById('module-status');
+            const requiredModules = ['APIClient', 'ThemeManager', 'ErrorHandler', 'PerformanceMonitor'];
+            
+            let moduleHTML = '';
+            
+            for (const module of requiredModules) {
+                const isLoaded = window.ContentHub && window.ContentHub[module];
+                const status = isLoaded ? 'success' : 'error';
+                const statusText = isLoaded ? '✅ Loaded' : '❌ Missing';
+                
+                moduleHTML += `
+                    <div class="test-item ${status}">
+                        <strong>${module}:</strong> ${statusText}
+                        ${isLoaded ? '' : '<br><small>Module not found in window.ContentHub</small>'}
+                    </div>
+                `;
+                
+                recordTest(`Module: ${module}`, isLoaded);
+            }
+            
+            moduleContainer.innerHTML = moduleHTML;
+        }
+
+        // Test API connections
+        async function testAPIConnections() {
+            const apiContainer = document.getElementById('api-tests');
+            let apiHTML = '';
+            
+            // Test different API endpoints
+            const endpoints = [
+                { name: 'ContentHub Health (8085)', url: 'http://localhost:8085/api/v1/health' },
+                { name: 'FinanceHub Health (8084)', url: 'http://localhost:8084/api/v1/health' },
+                { name: 'ContentHub Backend (8083)', url: 'http://localhost:8083/api/v1/health' },
+                { name: 'API Client Health Check', url: null, method: 'apiClient' }
+            ];
+            
+            for (const endpoint of endpoints) {
+                let status, message;
+                
+                try {
+                    if (endpoint.method === 'apiClient' && window.ContentHub?.APIClient) {
+                        const result = await window.ContentHub.APIClient.healthCheck();
+                        status = 'success';
+                        message = `✅ ${JSON.stringify(result, null, 2)}`;
+                    } else if (endpoint.url) {
+                        const response = await fetch(endpoint.url, { 
+                            method: 'GET',
+                            mode: 'cors',
+                            credentials: 'omit'
+                        });
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            status = 'success';
+                            message = `✅ HTTP ${response.status} - ${JSON.stringify(data, null, 2)}`;
+                        } else {
+                            status = 'error';
+                            message = `❌ HTTP ${response.status}: ${response.statusText}`;
+                        }
+                    }
+                } catch (error) {
+                    status = 'error';
+                    message = `❌ ${error.message}`;
+                    
+                    // Log specific error types
+                    if (error.message.includes('CORS')) {
+                        message += '<br><small>CORS Error: Check if backend allows cross-origin requests</small>';
+                    } else if (error.message.includes('Failed to fetch')) {
+                        message += '<br><small>Network Error: Backend may not be running</small>';
+                    }
+                }
+                
+                apiHTML += `
+                    <div class="test-item ${status}">
+                        <strong>${endpoint.name}:</strong><br>
+                        <div class="code-block">${message}</div>
+                    </div>
+                `;
+                
+                recordTest(`API: ${endpoint.name}`, status === 'success');
+                logMessage(`API Test: ${endpoint.name} - ${status}`, status === 'success' ? 'success' : 'error');
+            }
+            
+            apiContainer.innerHTML = apiHTML;
+        }
+
+        // Test CSS and themes
+        async function testCSS() {
+            const cssContainer = document.getElementById('css-tests');
+            let cssHTML = '';
+            
+            // Test CSS loading
+            const cssTests = [
+                {
+                    name: 'Main CSS Bundle',
+                    test: () => {
+                        const links = document.querySelectorAll('link[rel="stylesheet"]');
+                        return links.length > 0;
+                    }
+                },
+                {
+                    name: 'Background Color Applied',
+                    test: () => {
+                        const bodyStyle = window.getComputedStyle(document.body);
+                        const bgColor = bodyStyle.backgroundColor;
+                        return bgColor !== 'rgba(0, 0, 0, 0)' && bgColor !== 'transparent';
+                    }
+                },
+                {
+                    name: 'Theme Attribute Set',
+                    test: () => {
+                        return document.documentElement.hasAttribute('data-theme');
+                    }
+                },
+                {
+                    name: 'CSS Variables Available',
+                    test: () => {
+                        const rootStyle = window.getComputedStyle(document.documentElement);
+                        const bgPrimary = rootStyle.getPropertyValue('--ch-bg-primary');
+                        return bgPrimary && bgPrimary.trim() !== '';
+                    }
+                }
+            ];
+            
+            for (const test of cssTests) {
+                const result = test.test();
+                const status = result ? 'success' : 'error';
+                const statusText = result ? '✅ Pass' : '❌ Fail';
+                
+                // Additional debug info
+                let debugInfo = '';
+                if (test.name === 'Background Color Applied') {
+                    const bodyStyle = window.getComputedStyle(document.body);
+                    debugInfo = `<br><small>Detected: ${bodyStyle.backgroundColor}</small>`;
+                } else if (test.name === 'CSS Variables Available') {
+                    const rootStyle = window.getComputedStyle(document.documentElement);
+                    const bgPrimary = rootStyle.getPropertyValue('--ch-bg-primary');
+                    debugInfo = `<br><small>--ch-bg-primary: ${bgPrimary || 'Not found'}</small>`;
+                }
+                
+                cssHTML += `
+                    <div class="test-item ${status}">
+                        <strong>${test.name}:</strong> ${statusText}${debugInfo}
+                    </div>
+                `;
+                
+                recordTest(`CSS: ${test.name}`, result);
+            }
+            
+            cssContainer.innerHTML = cssHTML;
+        }
+
+        // Test theme manager
+        async function testThemeManager() {
+            if (!window.ContentHub?.ThemeManager) {
+                logMessage('❌ ThemeManager not available', 'error');
+                return;
+            }
+            
+            const themeManager = window.ContentHub.ThemeManager;
+            const currentTheme = themeManager.getCurrentTheme();
+            
+            logMessage(`🎨 Current theme: ${currentTheme}`, 'info');
+            recordTest('Theme Manager Available', true);
+        }
+
+        // Console interception
+        function interceptConsole() {
+            const originalLog = console.log;
+            const originalError = console.error;
+            const originalWarn = console.warn;
+            
+            console.log = function(...args) {
+                logMessage(args.join(' '), 'info');
+                originalLog.apply(console, args);
+            };
+            
+            console.error = function(...args) {
+                logMessage(args.join(' '), 'error');
+                originalError.apply(console, args);
+            };
+            
+            console.warn = function(...args) {
+                logMessage(args.join(' '), 'warning');
+                originalWarn.apply(console, args);
+            };
+        }
+
+        // Utility functions
+        function logMessage(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const entry = {
+                timestamp,
+                message,
+                type
+            };
+            
+            logEntries.push(entry);
+            
+            // Keep only last 100 entries
+            if (logEntries.length > 100) {
+                logEntries.shift();
+            }
+            
+            updateConsoleDisplay();
+        }
+
+        function updateConsoleDisplay() {
+            const container = document.getElementById('console-logs');
+            container.innerHTML = logEntries.map(entry => 
+                `<div class="log-entry log-${entry.type}">[${entry.timestamp}] ${entry.message}</div>`
+            ).join('');
+            
+            // Auto-scroll to bottom
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function recordTest(testName, success) {
+            testsRun++;
+            if (success) successfulTests++;
+            
+            testResults.push({
+                name: testName,
+                success,
+                timestamp: Date.now()
+            });
+        }
+
+        function updateLiveStatus() {
+            document.getElementById('tests-count').textContent = testsRun;
+            const successRate = testsRun > 0 ? Math.round((successfulTests / testsRun) * 100) : 0;
+            document.getElementById('success-rate').textContent = `${successRate}%`;
+            document.getElementById('last-update').textContent = new Date().toLocaleTimeString();
+        }
+
+        function clearLogs() {
+            logEntries = [];
+            testResults = [];
+            testsRun = 0;
+            successfulTests = 0;
+            updateConsoleDisplay();
+            updateLiveStatus();
+            logMessage('🗑️ Logs cleared', 'info');
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', initializeDebugPanel);
+    </script>
+</body>
+</html> 

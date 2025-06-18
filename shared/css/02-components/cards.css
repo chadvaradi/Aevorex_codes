@@ -1,0 +1,52 @@
+/* === CARDS COMPONENT === */ /* Card layouts */ .card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+/* Module Cards */ .module-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 200px;
+}
+.module-card__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.module-card__icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+/* === SVG ICON FIXES === */ .hero-feature__icon {
+  width: 24px !important;
+  height: 24px !important;
+  max-width: 24px !important;
+  max-height: 24px !important;
+  flex-shrink: 0;
+  display: block;
+}
+.hero-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  padding: 12px;
+}
+/* Universal SVG constraints */ svg {
+  max-width: 24px !important;
+  max-height: 24px !important;
+  width: auto;
+  height: auto;
+}
+/* Prevent oversized elements */ * {
+  max-width: 100%;
+  box-sizing: border-box;
+} 

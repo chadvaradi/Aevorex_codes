@@ -1,0 +1,479 @@
+/* =================================================================== AEVOREX COMPONENT LIBRARY Premium UI Components for Enterprise Applications =================================================================== */ /* =================================================================== 1. STATUS INDICATORS =================================================================== */ .status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.status-dot--active {
+  background: var(--color-success);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+  animation: pulse-glow 2s infinite;
+}
+.status-dot--warning {
+  background: var(--color-warning);
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+}
+.status-dot--error {
+  background: var(--color-error);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+}
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+@keyframes pulse-glow {
+0%, 100% {
+  opacity: 1;
+}
+50% {
+  opacity: 0.6;
+}
+} /* =================================================================== 2. GRADIENT UTILITIES =================================================================== */ .gradient-text {
+  background: linear-gradient(135deg, var(--aevorex-brand-primary), var(--aevorex-brand-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gradient-finance {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.gradient-health {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+.gradient-content {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+.gradient-ai {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+}
+.gradient-main {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #4facfe 100%);
+}
+/* =================================================================== 3. BUTTON SYSTEM =================================================================== */ .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  border: var(--border-width-1) solid transparent;
+  border-radius: var(--border-radius-lg);
+  transition: var(--transition-normal);
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--aevorex-brand-primary);
+  outline-offset: 2px;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+/* Button Sizes */ .btn--small {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-tight);
+}
+.btn--medium {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+  line-height: var(--line-height-tight);
+}
+.btn--large {
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--text-lg);
+  line-height: var(--line-height-tight);
+}
+.btn--icon {
+  padding: var(--space-2);
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.btn--icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+/* Button Variants */ .btn--primary {
+  background: var(--aevorex-brand-primary);
+  color: white;
+  border-color: var(--aevorex-brand-primary);
+}
+.btn--primary:hover {
+  background: var(--aevorex-brand-secondary);
+  border-color: var(--aevorex-brand-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+.btn--secondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-color: var(--border-primary);
+}
+.btn--secondary:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-secondary);
+  transform: translateY(-1px);
+}
+.btn--outline {
+  background: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-primary);
+}
+.btn--outline:hover {
+  background: var(--bg-card);
+  border-color: var(--aevorex-brand-primary);
+  color: var(--aevorex-brand-primary);
+  transform: translateY(-1px);
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: transparent;
+}
+.btn--ghost:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+.btn--success {
+  background: var(--color-success);
+  color: white;
+  border-color: var(--color-success);
+}
+.btn--warning {
+  background: var(--color-warning);
+  color: white;
+  border-color: var(--color-warning);
+}
+.btn--error {
+  background: var(--color-error);
+  color: white;
+  border-color: var(--color-error);
+}
+/* Gradient Buttons */ .btn--gradient {
+  background: linear-gradient(135deg, var(--aevorex-brand-primary), var(--aevorex-brand-accent));
+  color: white;
+  border: none;
+}
+.btn--gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+/* =================================================================== 4. HEADER SYSTEM =================================================================== */ .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-primary);
+  backdrop-filter: blur(16px);
+  z-index: var(--z-fixed);
+}
+.header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+.header__brand {
+  display: flex;
+  align-items: center;
+}
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition-normal);
+}
+.brand-link:hover {
+  transform: scale(1.02);
+}
+.header__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+.header__brand-text {
+  display: flex;
+  flex-direction: column;
+}
+.header__brand-name {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  line-height: var(--line-height-tight);
+}
+.header__brand-subtitle {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: var(--line-height-tight);
+}
+.header__nav {
+  display: block;
+}
+
+@media (min-width: 768px) {
+
+} .nav__list {
+  display: flex;
+  gap: var(--space-2);
+  list-style: none;
+}
+.nav__item {
+  position: relative;
+}
+.nav__link {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: var(--border-radius-lg);
+  transition: var(--transition-normal);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-sm);
+}
+.nav__link:hover, .nav__link--active {
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+}
+.nav__link--active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: var(--aevorex-brand-primary);
+  border-radius: var(--border-radius-full);
+}
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.platform-status {
+  display: block;
+}
+
+@media (min-width: 1024px) {
+
+} /* =================================================================== 5. SECTION HEADERS =================================================================== */ .section-header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+.section-title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+  position: relative;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -var(--space-2);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(135deg, var(--aevorex-brand-primary), var(--aevorex-brand-accent));
+  border-radius: var(--border-radius-full);
+}
+.section-subtitle {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+  max-width: 600px;
+  margin: 0 auto;
+}
+/* =================================================================== 6. FOOTER SYSTEM =================================================================== */ .footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-primary);
+  padding: var(--space-16) 0 var(--space-8);
+  margin-top: var(--space-20);
+}
+.footer__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  margin-bottom: var(--space-12);
+}
+.footer__brand {
+  display: flex;
+  gap: var(--space-4);
+  flex-direction: column;
+  text-align: center;
+}
+.footer__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+.footer__brand-name {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+}
+.footer__brand-subtitle {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+}
+.footer__description {
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+  font-size: var(--text-sm);
+}
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.footer__links h4 {
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+}
+.footer__link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  transition: var(--transition-normal);
+  line-height: var(--line-height-relaxed);
+}
+.footer__link:hover {
+  color: var(--aevorex-brand-primary);
+  transform: translateX(2px);
+}
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--border-primary);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  flex-direction: column;
+  text-align: center;
+}
+.footer__status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.status--success {
+  background: var(--color-success);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+/* =================================================================== 7. FORM COMPONENTS =================================================================== */ .form-group {
+  margin-bottom: var(--space-4);
+}
+.form-label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+.form-input, .select-input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--border-radius-lg);
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  transition: var(--transition-normal);
+}
+.form-input:focus, .select-input:focus {
+  outline: none;
+  border-color: var(--aevorex-brand-primary);
+  box-shadow: 0 0 0 3px rgba(var(--aevorex-brand-primary), 0.1);
+}
+.form-input::placeholder {
+  color: var(--text-muted);
+}
+/* =================================================================== 8. LOADING STATES =================================================================== */ .loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-primary);
+  border-radius: 50%;
+  border-top-color: var(--aevorex-brand-primary);
+  animation: spin 1s ease-in-out infinite;
+}
+.loading--large {
+  width: 40px;
+  height: 40px;
+  border-width: 4px;
+}
+
+/* ===================================================================
+   9. RESPONSIVE UTILITIES
+   =================================================================== */
+
+@media (max-width: 767px) {
+.mobile-hidden {
+  display: none !important;
+}
+
+
+
+
+.header__actions .btn--small {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-xs);
+}
+}
+
+@media (min-width: 768px) {
+.mobile-only {
+  display: none !important;
+}
+}
+
+@media (max-width: 1024px) {
+
+} /* =================================================================== 10. ACCESSIBILITY =================================================================== */ .focus-visible {
+  outline: 2px solid var(--aevorex-brand-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+*, *::before, *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+} 

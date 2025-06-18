@@ -1,0 +1,476 @@
+/* =================================================================== HEALTH HUB - ENTERPRISE HEALTHCARE ANALYTICS Premium Healthcare Intelligence Platform =================================================================== */ /* =================================================================== HEALTH HUB SPECIFIC OVERRIDES =================================================================== */ .healthhub {
+  --health-glow: 0 0 20px rgba(239, 68, 68, 0.2);
+  --health-gradient: linear-gradient(135deg, var(--health-primary) 0%, var(--health-secondary) 100%);
+  --health-gradient-subtle: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, transparent 70%);
+  --border-warning: rgba(245, 158, 11, 0.3);
+}
+/* =================================================================== LAYOUT ENHANCEMENTS =================================================================== */ .main-content {
+  padding-top: var(--header-height);
+  min-height: 100vh;
+}
+/* Healthcare Status Indicator */ .healthcare-status {
+  display: flex;
+  align-items: center;
+}
+.healthcare-status .status-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: var(--border-radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-success);
+  backdrop-filter: blur(8px);
+}
+.healthcare-status .status-text {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+/* =================================================================== HERO SECTION - MEDICAL BRANDING =================================================================== */ .hero {
+  background: var(--health-gradient-subtle), var(--bg-primary);
+  padding: var(--space-20) 0 var(--space-16);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--health-gradient);
+  opacity: 0.6;
+}
+.hero__content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid var(--border-warning);
+  border-radius: var(--border-radius-full);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-warning);
+  margin-bottom: var(--space-6);
+  backdrop-filter: blur(8px);
+}
+.hero__title {
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+  font-weight: var(--font-weight-black);
+  color: var(--text-primary);
+  margin-bottom: var(--space-6);
+  line-height: 1.1;
+}
+.gradient-text {
+  background: var(--health-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero__subtitle {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-8);
+  line-height: 1.6;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero__actions {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-8);
+  flex-direction: column;
+  align-items: center;
+}
+.hero__disclaimer {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid var(--border-warning);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto;
+  backdrop-filter: blur(8px);
+}
+.hero__disclaimer strong {
+  color: var(--color-warning);
+  font-weight: var(--font-weight-semibold);
+}
+/* =================================================================== DASHBOARD METRICS - HEALTHCARE FOCUSED =================================================================== */ .dashboard {
+  padding: var(--space-16) 0;
+  background: var(--bg-primary);
+}
+.dashboard__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-12);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  flex-direction: column;
+}
+.dashboard__title {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+.dashboard__controls {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+.select-input {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-2) var(--space-3);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  transition: var(--transition-normal);
+}
+.select-input:focus {
+  border-color: var(--health-primary);
+  outline: none;
+  box-shadow: var(--health-glow);
+}
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-16);
+}
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--border-radius-xl);
+  padding: var(--space-6);
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+.metric-card:hover {
+  border-color: var(--health-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--health-glow), var(--shadow-lg);
+}
+.metric-card--primary {
+  background: var(--health-gradient);
+  color: white;
+  border-color: var(--health-secondary);
+}
+.metric-card--primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+}
+.metric-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.metric-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-semibold);
+  color: inherit;
+  margin: 0;
+}
+.metric-trend {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--border-radius-sm);
+}
+.trend--positive {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--color-success);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+.metric-value {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+}
+.metric-number {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+.metric-unit {
+  font-size: var(--text-lg);
+  opacity: 0.8;
+}
+.metric-subtitle {
+  font-size: var(--text-sm);
+  opacity: 0.8;
+  margin: 0;
+}
+/* =================================================================== AI INSIGHTS SECTION =================================================================== */ .insights {
+  padding: var(--space-16) 0;
+  background: var(--bg-secondary);
+}
+.insights-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-12);
+}
+.insight-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--border-radius-xl);
+  padding: var(--space-6);
+  transition: var(--transition-normal);
+}
+.insight-card:hover {
+  border-color: var(--health-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+.insight-card--priority {
+  border-color: var(--color-warning);
+  background: rgba(245, 158, 11, 0.02);
+}
+.insight-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  gap: var(--space-3);
+}
+.insight-meta {
+  flex: 1;
+}
+.insight-type {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-1);
+}
+.insight-confidence {
+  font-size: var(--text-sm);
+  color: var(--color-success);
+  font-weight: var(--font-weight-medium);
+}
+.insight-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+  line-height: var(--line-height-tight);
+}
+.insight-description {
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-4);
+}
+.insight-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+.insight-metric {
+  text-align: center;
+}
+.insight-metric .metric-label {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-1);
+  display: block;
+}
+.insight-metric .metric-value {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+.text-warning {
+  color: var(--color-warning);
+}
+/* =================================================================== PLATFORM FEATURES =================================================================== */ .features {
+  padding: var(--space-16) 0;
+  background: var(--bg-primary);
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-12);
+}
+.feature-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--border-radius-xl);
+  padding: var(--space-6);
+  transition: var(--transition-normal);
+}
+.feature-card:hover {
+  border-color: var(--health-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--border-radius-lg);
+  background: var(--health-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-bottom: var(--space-4);
+}
+.feature-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+}
+.feature-description {
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-4);
+}
+.feature-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.feature-list li {
+  padding: var(--space-1) 0;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  position: relative;
+  padding-left: var(--space-4);
+}
+.feature-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--health-primary);
+  font-weight: var(--font-weight-bold);
+}
+/* =================================================================== COMPLIANCE SECTION =================================================================== */ .compliance {
+  padding: var(--space-16) 0;
+  background: var(--bg-secondary);
+}
+.compliance-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+.compliance-title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+}
+.compliance-description {
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-6);
+}
+.compliance-features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.compliance-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+.compliance-icon {
+  color: var(--health-primary);
+  flex-shrink: 0;
+  margin-top: var(--space-1);
+}
+.compliance-feature h4 {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+}
+.compliance-feature p {
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+.security-badge {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--border-radius-xl);
+  padding: var(--space-6);
+  text-align: center;
+}
+.badge-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+.badge-icon {
+  color: var(--health-primary);
+}
+.badge-text h4 {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+.badge-text p {
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* ===================================================================
+   RESPONSIVE DESIGN
+   =================================================================== */
+
+@media (max-width: 1024px) {
+
+
+
+}
+
+@media (max-width: 768px) {
+
+
+
+
+}
+
+@media (max-width: 480px) {
+.container {
+  padding: 0 var(--space-4);
+}
+.hero {
+  padding: var(--space-16) 0 var(--space-12);
+}
+.dashboard, .insights, .features, .compliance {
+  padding: var(--space-12) 0;
+}
+} 

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart Test - FinanceHub</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #1e1e1e;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        #tradingview-chart {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #333;
+            background: #2a2a2a;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success { background: #2d5a2d; }
+        .error { background: #5a2d2d; }
+        .info { background: #2d4a5a; }
+    </style>
+</head>
+<body>
+    <h1>FinanceHub Chart Test</h1>
+    
+    <div id="status-container">
+        <div class="status info" id="status">Initializing chart...</div>
+    </div>
+    
+    <div id="tradingview-chart"></div>
+    
+    <script>
+        function updateStatus(message, type = 'info') {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+            console.log(`[STATUS] ${message}`);
+        }
+        
+        // Test TradingView library loading
+        updateStatus('Loading TradingView library...');
+        
+        const script = document.createElement('script');
+        script.src = 'https://s3.tradingview.com/tv.js';
+        script.async = true;
+        
+        script.onload = () => {
+            updateStatus('TradingView library loaded successfully', 'success');
+            
+            // Test widget creation
+            setTimeout(() => {
+                try {
+                    updateStatus('Creating TradingView widget...');
+                    
+                    const widget = new TradingView.widget({
+                        container_id: 'tradingview-chart',
+                        width: '100%',
+                        height: '600',
+                        symbol: 'NASDAQ:AAPL',
+                        interval: '15',
+                        timezone: 'Etc/UTC',
+                        theme: 'dark',
+                        style: 1,
+                        locale: 'en',
+                        toolbar_bg: '#1E1E1E',
+                        enable_publishing: false,
+                        allow_symbol_change: true,
+                        hide_side_toolbar: false,
+                        hide_legend: false,
+                        hide_top_toolbar: false,
+                        hide_volume: false,
+                        studies: ['MACD@tv-basicstudies', 'RSI@tv-basicstudies'],
+                        disabled_features: [
+                            'study_templates',
+                            'use_localstorage_for_settings',
+                            'save_chart_properties_to_local_storage'
+                        ],
+                        enabled_features: [
+                            'side_toolbar_in_fullscreen_mode'
+                        ],
+                        overrides: {
+                            'paneProperties.background': '#1E1E1E',
+                            'paneProperties.vertGridProperties.color': '#2A2A2A',
+                            'paneProperties.horzGridProperties.color': '#2A2A2A'
+                        },
+                        autosize: true
+                    });
+                    
+                    updateStatus('TradingView widget created successfully!', 'success');
+                    
+                } catch (error) {
+                    updateStatus(`Widget creation failed: ${error.message}`, 'error');
+                    console.error('Widget creation error:', error);
+                }
+            }, 1000);
+        };
+        
+        script.onerror = (error) => {
+            updateStatus('Failed to load TradingView library', 'error');
+            console.error('TradingView library load error:', error);
+        };
+        
+        document.head.appendChild(script);
+    </script>
+</body>
+</html> 

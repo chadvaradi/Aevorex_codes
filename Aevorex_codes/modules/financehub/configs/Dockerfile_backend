@@ -1,0 +1,26 @@
+# Hivatalos Python alap image
+FROM python:3.11-slim-buster
+
+# Munkakönyvtár beállítása a konténeren belül
+WORKDIR /app # Egy általánosabb munkakönyvtár
+
+# Először a gyökérben lévő függőségi fájlt másoljuk
+COPY ./requirements.txt .
+
+# Telepítsd a függőségeket
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Most másold át a TELJES 'backend' alkönyvtárat a /app/backend alá
+COPY ./backend/ /app/backend/
+
+# Port, amin a backend alkalmazás figyelni fog
+EXPOSE 8000
+
+# Indítási parancs - az Uvicorn most a /app könyvtárból fut,
+# és a backend.main:app-ra hivatkozik
+# A PYTHONPATH beállítása is segíthet, de az Uvicorn --app-dir opciója jobb lehet
+# Vagy az Uvicorn-t a /app könyvtárból futtatva, a modul elérési útját kell megadni
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000", "--app-dir", "/app"]
+# Alternatív CMD, ha a PYTHONPATH-ot szeretnéd használni (kevésbé preferált):
+# ENV PYTHONPATH="/app"
+# CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]

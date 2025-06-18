@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="hu" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Premium Equity Research Platform - Professional AI-powered stock analysis with real-time data" />
+    <meta name="keywords" content="stock analysis, equity research, financial data, AI trading, market insights" />
+    <meta name="author" content="Aevorex" />
+    <meta name="theme-color" content="#1a1a1a" id="theme-color-meta" />
+
+    <title>FinanceHub - Premium Equity Research Platform (Optimized)</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- FinanceHub Global CSS Variables -->
+    <link rel="stylesheet" href="/static/css/01-base/variables.css?v=2.0">
+
+    <!-- Optimized CSS - Only used styles -->
+    <link rel="preload" href="/static/css/main_financehub.css?v=2.0" as="style">
+    <link rel="stylesheet" href="/static/css/main_financehub.css?v=2.0">
+    <noscript><link rel="stylesheet" href="/static/css/main_financehub.css?v=2.0"></noscript>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "FinanceHub",
+        "description": "Premium Equity Research Platform - Optimized",
+        "url": "http://localhost:8083",
+        "applicationCategory": "FinanceApplication"
+    }
+    </script>
+
+    <!-- Performance optimization -->
+    <style>
+        /* Critical CSS for loading screen - inline for immediate rendering */
+        #loading-screen { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: var(--bg-primary, #1a1a1a); 
+            z-index: 9999; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        #loading-screen.active { display: flex; }
+        .loading-content { text-align: center; color: var(--text-primary, #ffffff); }
+        .loading-spinner { 
+            width: 40px; 
+            height: 40px; 
+            border: 3px solid rgba(255,255,255,0.3); 
+            border-top: 3px solid var(--aevorex-brand-primary, #667eea); 
+            border-radius: 50%; 
+            animation: spin 1s linear infinite; 
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen active">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="loading-spinner"></div>
+                <h1>FinanceHub</h1>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p class="loading-text">Initializing premium equity research platform...</p>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app-container" class="app-container">
+        <!-- Header -->
+        <!-- ... keep existing code -->
+    </div>
+
+    <!-- JavaScript -->
+    <script src="static/js/core/modelRegistry.js?v=1.0"></script>
+    <script src="static/js/main_combined_financehub.js?v=2.0" defer></script>
+</body>
+</html> 

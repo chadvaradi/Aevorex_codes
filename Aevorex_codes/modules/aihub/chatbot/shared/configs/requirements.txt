@@ -1,0 +1,38 @@
+# requirements.txt
+
+# --- Core Web Framework & Server ---
+fastapi>=0.100.0       # A webes keretrendszer
+uvicorn[standard]>=0.20.0 # ASGI szerver (a 'standard' extra függőségeket is telepít, pl. websockets, ha kell)
+
+# --- HTTP Client ---
+# Aszinkron HTTP kérések küldéséhez (pl. más API-k hívása)
+httpx[http2]>=0.25.0
+anyio                   # Aszinkron programozáshoz szükséges (FastAPI, HTTPX használja)
+
+# --- Data Analysis & Indicators ---
+pandas>=1.5.0           # Adatmanipulációhoz (DataFrame-ek)
+numpy==1.23.5           # Alapvető numerikus műveletek (Figyeljünk a verzióra, ha más könyvtárak igénylik)
+scipy                   # Tudományos és műszaki számítások (néhány TA lib használhatja)
+pandas-ta>=0.3.14b0     # <<< ÚJ: Technikai analízis indikátorok DataFrame-ekhez (stabil verzió megadása)
+yfinance>=0.2.30        # Piaci adatok lekérése a Yahoo Finance-ből
+
+# --- Data Validation & Settings ---
+pydantic>=2.0.0         # Adatmodellezés és validáció
+pydantic-settings       # Beállítások kezelése (pl. környezeti változókból)
+
+# --- Environment Variables ---
+python-dotenv           # .env fájlok betöltése környezeti változókba
+
+# --- Opcionális, de hasznos lehet ---
+# TA-Lib (Ha pandas-ta helyett/mellett használnád - telepítése bonyolultabb lehet)
+# TA-Lib              # Figyelem: Telepítés előtt C könyvtárakat igényel!
+
+# Cache (Ha Redis-t használsz a deps.py-ben lévő get_cache-hez)
+# redis>=4.0.0
+
+# Logging (Ha alapértelmezettnél fejlettebb logolást szeretnél)
+# loguru
+tenacity
+
+# ... meglévő függőségek ...
+celery[redis]>=5.3.6  # Vagy a legfrissebb stabil verzió

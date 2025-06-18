@@ -1,0 +1,251 @@
+/* =================================================================== FINANCEHUB CHART COMPONENT - BEM + PREMIUM UX Comprehensive TradingView chart integration with premium styling ================================================================ */ .fh-chart {
+  background: var(--bg-card);
+  border-radius: var(--fh-radius-xl);
+  border: 1px solid var(--border-primary);
+  margin: 0 0 var(--fh-space-8) 0;
+  overflow: hidden;
+  position: relative;
+  transition: var(--fh-transition-all);
+  box-shadow: var(--fh-shadow-lg);
+}
+.fh-chart:hover {
+  border-color: var(--aevorex-brand-accent);
+  box-shadow: var(--fh-shadow-xl);
+}
+.fh-chart__container {
+  position: relative;
+  width: 100%;
+  min-height: 650px;
+}
+.fh-chart__header {
+  padding: var(--fh-space-3);
+  border-bottom: 1px solid var(--border-primary);
+  background: var(--bg-secondary);
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: var(--fh-space-4);
+  flex-direction: column;
+}
+.fh-chart__title {
+  font-size: var(--fh-font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-2);
+}
+.fh-chart__title::before {
+  content: '';
+}
+.fh-chart__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-4);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.fh-chart__timeframes {
+  display: flex;
+  background: var(--bg-tertiary);
+  border-radius: var(--fh-radius-lg);
+  padding: var(--fh-space-1);
+  border: 1px solid var(--border-primary);
+  justify-content: center;
+}
+.fh-chart__timeframe-btn {
+  background: none;
+  border: none;
+  padding: var(--fh-space-1) var(--fh-space-2);
+  border-radius: var(--fh-radius-md);
+  color: var(--text-secondary);
+  font-size: var(--fh-font-size-xs);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--fh-transition-all);
+  position: relative;
+}
+.fh-chart__timeframe-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-card);
+}
+.fh-chart__timeframe-btn--active {
+  background: var(--aevorex-brand-primary);
+  color: white;
+  box-shadow: var(--fh-shadow-sm);
+}
+.fh-chart__timeframe-btn--active:hover {
+  background: var(--aevorex-brand-secondary);
+  color: white;
+}
+.fh-chart__content {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  background: var(--bg-primary);
+}
+.fh-chart__tradingview {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.fh-chart__placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+  z-index: 1;
+}
+.fh-chart__placeholder-content {
+  text-align: center;
+  color: var(--text-secondary);
+}
+.fh-chart__placeholder-icon {
+  font-size: 4rem;
+  margin-bottom: var(--fh-space-4);
+  opacity: 0.6;
+}
+.fh-chart__placeholder h3 {
+  font-size: var(--fh-font-size-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--fh-space-2) 0;
+}
+.fh-chart__placeholder p {
+  font-size: var(--fh-font-size-base);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+.fh-chart__loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.fh-chart__loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--border-primary);
+  border-top-color: var(--aevorex-brand-primary);
+  border-radius: 50%;
+  animation: none;
+}
+.fh-chart__error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 3;
+  padding: var(--fh-space-8);
+  text-align: center;
+}
+.fh-chart__error-icon {
+  font-size: 3rem;
+  color: var(--color-error);
+  margin-bottom: var(--fh-space-4);
+}
+.fh-chart__error-title {
+  font-size: var(--fh-font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--fh-space-2) 0;
+}
+.fh-chart__error-message {
+  font-size: var(--fh-font-size-base);
+  color: var(--text-secondary);
+  margin: 0 0 var(--fh-space-4) 0;
+  line-height: 1.6;
+}
+.fh-chart__error-retry {
+  background: var(--aevorex-brand-primary);
+  color: white;
+  border: none;
+  padding: var(--fh-space-3) var(--fh-space-6);
+  border-radius: var(--fh-radius-lg);
+  font-size: var(--fh-font-size-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--fh-transition-all);
+}
+.fh-chart__error-retry:hover {
+  background: var(--aevorex-brand-secondary);
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+.fh-chart {
+  margin: var(--fh-space-6) 0;
+  border-radius: var(--fh-radius-lg);
+}
+} @media (max-width: 480px) {
+
+}
+
+/* Animations */
+@keyframes chartSpinner {
+0% {
+  transform: rotate(0deg);
+}
+100% {
+  transform: rotate(360deg);
+}
+}
+
+@keyframes chartGlow {
+0%, 100% {
+  box-shadow: var(--fh-shadow-lg);
+}
+50% {
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+}
+} /* TradingView Integration Styles */ .fh-chart .tv-chart {
+  border-radius: 0 !important;
+}
+.fh-chart .tv-chart__toolbar {
+  background: var(--bg-secondary) !important;
+  border-bottom: 1px solid var(--border-primary) !important;
+}
+/* Dark/Light Theme Support */ [data-theme="dark"] .fh-chart {
+  background: var(--dark-bg-card);
+  border-color: var(--dark-border-primary);
+}
+[data-theme="light"] .fh-chart {
+  background: var(--neutral-0);
+  border-color: var(--neutral-200);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+.fh-chart__timeframe-btn, .fh-chart, .fh-chart__error-retry {
+  transition: none;
+}
+} /* Focus states for accessibility */ .fh-chart__timeframe-btn:focus-visible {
+  outline: 2px solid var(--aevorex-brand-primary);
+  outline-offset: 2px;
+}
+.fh-chart__error-retry:focus-visible {
+  outline: 2px solid var(--aevorex-brand-primary);
+  outline-offset: 2px;
+} 
+ 

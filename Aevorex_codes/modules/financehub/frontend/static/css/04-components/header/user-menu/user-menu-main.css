@@ -1,0 +1,334 @@
+/* =================================================================== AEVOREX USER MENU - V20.0.0 Premium user authentication and profile menu =================================================================== */ /* ===== USER MENU CONTAINER ===== */ .user-menu-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-3);
+}
+/* ===== AUTHENTICATION PLACEHOLDER ===== */ .auth-placeholder {
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-2);
+}
+.auth-placeholder.logged-out .login-button, .auth-placeholder.logged-out .signup-button {
+  display: inline-flex;
+}
+.auth-placeholder.logged-in .login-button, .auth-placeholder.logged-in .signup-button {
+  display: none;
+}
+.auth-placeholder.logged-in .user-profile-trigger {
+  display: inline-flex;
+}
+.auth-placeholder.logged-out .user-profile-trigger {
+  display: none;
+}
+/* ===== LOGIN/SIGNUP BUTTONS ===== */ .login-button, .signup-button {
+  padding: var(--fh-space-2) var(--fh-space-4);
+  border-radius: var(--fh-radius-md);
+  font-size: var(--fh-font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+.login-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(212, 185, 150, 0.3);
+  color: var(--aevorex-brand-text);
+  display: none;
+}
+.login-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(212, 185, 150, 0.5);
+  transform: translateY(-1px);
+}
+.signup-button {
+  background: var(--aevorex-brand-text);
+  color: white;
+  border: 1px solid transparent;
+  box-shadow: 0 4px 12px rgba(212, 185, 150, 0.3);
+  padding: var(--fh-space-2);
+  font-size: var(--fh-font-size-xs);
+}
+.signup-button:hover {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);
+  box-shadow: 0 6px 16px rgba(212, 185, 150, 0.4);
+  transform: translateY(-2px);
+}
+.signup-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);
+  transition: left 0.5s ease;
+}
+.signup-button:hover::before {
+  left: 100%;
+}
+/* ===== USER PROFILE TRIGGER ===== */ .user-profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-2);
+  padding: var(--fh-space-2);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(212, 185, 150, 0.3);
+  border-radius: var(--fh-radius-md);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.user-profile-trigger:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(212, 185, 150, 0.5);
+}
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-premium) 0%, rgba(var(--color-premium-rgb), 0.85) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: var(--fh-font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  position: relative;
+  overflow: hidden;
+}
+.user-avatar.has-image {
+  background: none;
+}
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.user-avatar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.user-info {
+  display: none;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.user-name {
+  font-size: var(--fh-font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--aevorex-brand-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+.user-email {
+  font-size: var(--fh-font-size-xs);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+.dropdown-indicator {
+  width: 16px;
+  height: 16px;
+  color: var(--text-secondary);
+  transition: transform 0.3s ease;
+}
+.dropdown-indicator::after {
+  content: '▼';
+  font-size: 10px;
+}
+.user-profile-trigger[aria-expanded="true"] .dropdown-indicator {
+  transform: rotate(180deg);
+}
+/* ===== USER DROPDOWN MENU ===== */ .user-dropdown {
+  position: absolute;
+  top: calc(100% + var(--fh-space-2));
+  right: 0;
+  min-width: 220px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 185, 150, 0.3);
+  border-radius: var(--fh-radius-lg);
+  box-shadow: var(--fh-shadow-lg);
+  padding: var(--fh-space-3);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.user-dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.user-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 20px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid rgba(255, 255, 255, 0.95);
+  display: none;
+}
+/* ===== DROPDOWN SECTIONS ===== */ .dropdown-section {
+  padding: var(--fh-space-2) 0;
+  border-bottom: 1px solid rgba(212, 185, 150, 0.1);
+}
+.dropdown-section:last-child {
+  border-bottom: none;
+}
+.dropdown-section.user-info-section {
+  padding: var(--fh-space-3) 0;
+  text-align: center;
+}
+.dropdown-user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-premium) 0%, rgba(var(--color-premium-rgb), 0.85) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: var(--fh-font-size-base);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 auto var(--fh-space-2);
+}
+.dropdown-user-name {
+  font-size: var(--fh-font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--aevorex-brand-text);
+  margin-bottom: var(--fh-space-1);
+}
+.dropdown-user-email {
+  font-size: var(--fh-font-size-sm);
+  color: var(--text-secondary);
+}
+/* ===== DROPDOWN MENU ITEMS ===== */ .dropdown-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-3);
+  padding: var(--fh-space-2) var(--fh-space-3);
+  border-radius: var(--fh-radius-md);
+  color: var(--aevorex-brand-text);
+  text-decoration: none;
+  font-size: var(--fh-font-size-sm);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+.dropdown-menu-item:hover {
+  background: #f0f0f0;
+  color: black;
+}
+.dropdown-menu-item.danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--aevorex-brand-error);
+}
+.dropdown-menu-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+/* ===== NOTIFICATION BADGE ===== */ .notification-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 18px;
+  height: 18px;
+  background: var(--aevorex-brand-error);
+  color: white;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  animation: notificationPulse 2s ease-in-out infinite;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes notificationPulse {
+0%, 100% {
+  transform: scale(1);
+}
+50% {
+  transform: scale(1.1);
+}
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+.user-dropdown {
+  min-width: auto;
+  right: 0;
+  position: fixed;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  border-radius: var(--fh-radius-lg) var(--fh-radius-lg) 0 0;
+  transform: translateY(100%);
+  background: white;
+  border-color: var(--aevorex-brand-text);
+}
+.auth-placeholder {
+  gap: var(--fh-space-2);
+}
+.login-button, .signup-button {
+  padding: var(--fh-space-2) var(--fh-space-3);
+  font-size: var(--fh-font-size-xs);
+}
+} @media (max-width: 480px) {
+
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+.login-button, .signup-button, .user-profile-trigger, .user-dropdown, .dropdown-menu-item, .notification-badge {
+  animation: none;
+  transition: none;
+}
+.signup-button:hover, .login-button:hover {
+  transform: none;
+}
+}
+
+@media (prefers-contrast: high) {
+.login-button, .user-profile-trigger {
+  border-color: var(--aevorex-brand-text);
+  background: white;
+  color: black;
+}
+.dropdown-menu-item {
+  color: black;
+}
+
+} 

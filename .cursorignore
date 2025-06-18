@@ -1,0 +1,78 @@
+# === Cursor stabilizáláshoz ajánlott kizárások ===
+
+# Lokális virtuális környezetek
+**/venv/**
+**/.venv/**
+**/__pypackages__/**
+
+# Python cache-ek
+**/__pycache__/**
+
+# Statikus charting library replikációk (összes ismert típus)
+**/charting_library/**
+**/charting_library_OLD/**
+**/charting_library_old2/**
+**/charting_library-master/**
+**/frontend/static/charting_library/**
+**/frontend/static/charting_library_OLD/**
+**/frontend/static/charting_library_old2/**
+**/frontend/tv_udf_test/charting_library/**
+**/stockanalysis/tv_udf_test/charting_library/**
+**/stockanalysis/static/charting_library/**
+**/frontend_backup_*/static/charting_library/**
+
+# Node, dist, build
+**/node_modules/**
+**/dist/**
+**/build/**
+
+# Minified vagy CDN JS fájlok
+**/*.min.js
+
+# IDE vagy rendszer fájlok
+**/.DS_Store
+**/.git
+# Utolsó charting_library variánsok kizárása
+**/frontend/static/charting_library_old2/**
+**/stockanalysis/static/charting_library/**# Utolsó charting_library variánsok kizárása
+**/frontend/static/charting_library_old2/**
+# Charting library és statikus fájlok kizárása
+**/frontend/static/charting_library_OLD/**
+**/frontend/static/charting_library/**
+**/frontend/tv_udf_test/charting_library/**
+**/stockanalysis/tv_udf_test/charting_library/**
+**/stockanalysis/static/charting_library_old2/**
+**/charting_library-master/**
+**/*.min.js
+
+# Esetleges egyéb felesleges mappák
+**/node_modules/**
+**/dist/**
+**/build/**
+**/.venv/**
+**/__pycache__/**# Charting library és statikus fájlok kizárása
+**/frontend/static/charting_library_OLD/**
+**/frontend/static/charting_library/**
+**/frontend/tv_udf_test/charting_library/**
+**/stockanalysis/tv_udf_test/charting_library/**
+**/charting_library-master/**
+**/*.min.js
+
+# Esetleges egyéb felesleges mappák
+**/node_modules/**
+**/dist/**
+**/build/**
+**/.venv/**
+**/__pycache__/**# Charting library és statikus fájlok kizárása
+**/frontend/static/charting_library_OLD/**
+**/frontend/static/charting_library/**
+**/frontend/tv_udf_test/charting_library/**
+**/*.min.js
+
+# Esetleges egyéb felesleges mappák
+**/node_modules/**
+**/dist/**
+**/build/**
+**/.venv/**
+**/__pycache__/**
+

@@ -1,0 +1,86 @@
+/* ===================================================================
+   AEVOREX FINANCEHUB – HEADER COMPONENT (v3)
+   BEM methodology with fh-header__ prefix, token-based styling
+   =================================================================== */
+
+.fh-header {
+  background: var(--bg-primary);
+  border-bottom: none !important;
+  box-shadow: none !important;
+  position: sticky;
+  top: 0;
+  z-index: var(--fh-z-sticky);
+  backdrop-filter: blur(var(--fh-blur-sm));
+}
+
+.fh-header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--fh-space-6);
+  height: 64px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* NOTE: Brand, Navigation and User-Menu atomic styles were migrated to
+   04-components/header/*.view.css files.
+   The duplicate rules have been removed here to avoid override conflicts
+   and shrink bundle size. */
+
+/* --- MOBILE MENU --- */
+.fh-header__mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: var(--fh-space-2);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .fh-header__container {
+    padding: 0 var(--fh-space-4);
+    height: 56px;
+  }
+  
+  .fh-header__nav {
+    display: none;
+  }
+  
+  .fh-header__mobile-toggle {
+    display: block;
+  }
+  
+  .fh-header__brand {
+    font-size: var(--fh-font-size-base);
+  }
+}
+
+/* --- ACCESSIBILITY --- */
+@media (prefers-reduced-motion: reduce) {
+  .fh-header__nav-link,
+  .fh-header__search-toggle,
+  .fh-header__user-avatar {
+    transition: none;
+  }
+}
+
+/* --- FOCUS STATES --- */
+.fh-header__nav-link:focus-visible,
+.fh-header__search-toggle:focus-visible,
+.fh-header__user-avatar:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+.brand-logo, .search-button, .theme-toggle { transition: none; }
+.brand-logo:hover, .search-button:hover, .theme-toggle:hover { transform: none; }
+}
+/* === HIGH CONTRAST === */ @media (prefers-contrast: high) {
+
+}
+

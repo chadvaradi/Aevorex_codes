@@ -1,0 +1,10 @@
+/* ===================================================
+   AEVOREX FINANCEHUB – LAYOUT UTILITIES
+   Sticky helpers shared across modules (Rule #008 §4)
+   =================================================== */
+ 
+.fh-sticky-bottom {
+  position: sticky;
+  bottom: 0;
+  z-index: var(--fh-z-sticky, 50);
+} 

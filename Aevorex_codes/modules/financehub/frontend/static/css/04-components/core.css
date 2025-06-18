@@ -1,0 +1,204 @@
+/* =================================================================== AEVOREX ENTERPRISE PLATFORM - CORE CSS - V21.0.0 REFACTORED Modern, Professional, Enterprise-Grade Styling using variables.css =================================================================== */ /* All variables now inherited from 01-base/variables.css */ /* No :root blocks - modular approach */ /* ===== GLOBAL RESET & BASE STYLES ===== */ *, *::before, *::after {
+  box-sizing: border-box;
+}
+html {
+  line-height: var(--line-height-normal);
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  tab-size: 4;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition: var(--fh-transition-theme);
+}
+/* ===== TYPOGRAPHY SYSTEM - uses variables.css ===== */ h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--text-primary);
+  margin: 0;
+}
+h1 {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+}
+h2 {
+  font-size: var(--font-size-3xl);
+}
+h3 {
+  font-size: var(--font-size-2xl);
+}
+h4 {
+  font-size: var(--font-size-xl);
+}
+h5 {
+  font-size: var(--font-size-lg);
+}
+h6 {
+  font-size: var(--font-size-base);
+}
+p {
+  margin-bottom: var(--fh-space-md);
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+a {
+  color: var(--aevorex-brand-primary);
+  text-decoration: none;
+  transition: var(--fh-transition-fast);
+}
+a:hover {
+  color: var(--aevorex-brand-secondary);
+  text-decoration: underline;
+}
+a:focus {
+  outline: 2px solid var(--aevorex-brand-primary);
+  outline-offset: 2px;
+}
+/* Lists */ ul, ol {
+  margin: 0;
+  padding-left: var(--fh-space-lg);
+}
+li {
+  margin-bottom: var(--fh-space-xs);
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+/* ===== FORM ELEMENTS ===== */ input, textarea, select {
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: var(--fh-space-sm) var(--fh-space-md);
+  transition: var(--fh-transition-fast);
+  width: 100%;
+}
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--aevorex-brand-primary);
+  box-shadow: 0 0 0 3px rgba(var(--aevorex-brand-primary-rgb), 0.1);
+}
+input:disabled, textarea:disabled, select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+button {
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: var(--fh-space-sm) var(--fh-space-md);
+  cursor: pointer;
+  transition: var(--fh-transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--fh-space-xs);
+}
+button:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-medium);
+}
+button:focus {
+  outline: 2px solid var(--aevorex-brand-primary);
+  outline-offset: 2px;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: var(--bg-secondary);
+  border-color: var(--border-light);
+}
+/* ===== UTILITY COMPONENTS ===== */ /* Cards */ .card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--fh-space-lg);
+  box-shadow: var(--fh-shadow-sm);
+  transition: var(--fh-transition-standard);
+}
+.card:hover {
+  box-shadow: var(--fh-shadow-md);
+  transform: translateY(-2px);
+}
+.card.elevated {
+  box-shadow: var(--fh-shadow-lg);
+}
+.card.elevated:hover {
+  box-shadow: var(--fh-shadow-xl);
+}
+/* Containers */ .container-fluid {
+  width: 100%;
+  padding: 0 var(--fh-space-md);
+}
+/* Layout utilities */ .section {
+  padding: var(--fh-space-xl) 0;
+}
+.section-sm {
+  padding: var(--fh-space-lg) 0;
+}
+.section-lg {
+  padding: var(--fh-space-2xl) 0;
+}
+
+/* ===== PREMIUM EFFECTS - uses variables.css ===== */
+.glass-effect {
+  background: var(--glass-background);
+  backdrop-filter: blur(var(--blur-glass));
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+.gradient-primary {
+  background: var(--gradient-primary);
+}
+.gradient-accent {
+  background: var(--gradient-accent);
+}
+
+/* ===== ACCESSIBILITY ===== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin, .animate-pulse, .animate-fade-in {
+    animation: none !important;
+  }
+  .transition, .transition-fast, .loading-skeleton, .loading-spinner, .card {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ===== HIGH CONTRAST MODE ===== */
+@media (prefers-contrast: high) {
+  .glass-effect {
+    background: var(--bg-primary);
+    backdrop-filter: none;
+  }
+}

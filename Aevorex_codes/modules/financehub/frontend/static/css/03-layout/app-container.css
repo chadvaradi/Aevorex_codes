@@ -1,0 +1,507 @@
+/** * ========================================================================== * AEVOREX ENTERPRISE PLATFORM - APP CONTAINER CSS - V21.0.0 OPTIMIZED * Main Application Container & Layout System - Duplicates Consolidated * ========================================================================== */ /* =================================================================== 
+   03-LAYOUT: FinanceHub App Container - Premium Application Layout
+   Clean, modular, FinanceHub-specific app container system
+   ================================================================ */
+
+/* ===== BASE APP CONTAINER ===== */
+.app-container, 
+#app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--background-primary);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.app-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-subtle);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--fh-transition-smooth);
+  z-index: var(--z-backdrop);
+}
+
+body.sidebar-is-open .app-container::before {
+  opacity: 1;
+}
+
+/* ===== MAIN APP LAYOUT ===== */
+.main-app-container {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  min-height: 100vh;
+  transition: grid-template-columns var(--fh-transition-smooth);
+}
+
+.main-app-container.sidebar-hidden {
+  grid-template-columns: 0 1fr;
+}
+
+.main-app-container.sidebar-hidden .app-sidebar {
+  transform: translateX(-100%);
+}
+
+/* ===== CONTENT AREAS ===== */
+.app-content {
+  padding: var(--fh-space-lg);
+  overflow-y: auto;
+  background: var(--background-secondary);
+  min-height: 100vh;
+  position: relative;
+}
+
+.content-wrapper {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.static-page-container {
+  max-width: var(--container-lg);
+  margin: 0 auto;
+  padding: var(--fh-space-xl) var(--fh-space-lg);
+  min-height: 100vh;
+}
+
+/* ===== VIEW STATES ===== */
+.view-main-app .main-app-container {
+  display: grid;
+}
+
+.view-main-app .static-page-container {
+  display: none;
+}
+
+.view-static-page .main-app-container {
+  display: none;
+}
+
+.view-static-page .static-page-container {
+  display: block;
+}
+
+/* ===== LOADING STATES ===== */
+.app-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--background-primary);
+}
+
+.app-loading .loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-subtle);
+  border-top: 3px solid var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.app-loading .loading-text {
+  margin-top: var(--fh-space-md);
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+}
+
+/* ===== ERROR STATES ===== */
+.app-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--fh-space-xl);
+  text-align: center;
+  background: var(--background-primary);
+}
+
+.app-error .error-icon {
+  font-size: 48px;
+  color: var(--error-text);
+  margin-bottom: var(--fh-space-lg);
+}
+
+.app-error .error-title {
+  font-size: var(--font-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--fh-space-md);
+}
+
+.app-error .error-message {
+  color: var(--text-secondary);
+  margin-bottom: var(--fh-space-lg);
+  max-width: 500px;
+}
+
+.app-error .error-actions {
+  display: flex;
+  gap: var(--fh-space-md);
+}
+
+/* ===== SIDEBAR CONTROLS ===== */
+.sidebar-toggle-btn {
+  position: fixed;
+  top: var(--fh-space-lg);
+  left: var(--fh-space-lg);
+  z-index: var(--z-floating);
+  display: none;
+  background: var(--background-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--fh-space-sm);
+  cursor: pointer;
+  box-shadow: var(--fh-shadow-lg);
+  transition: all var(--fh-transition-smooth);
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-toggle-btn:hover {
+  background: var(--background-hover);
+  border-color: var(--accent-primary);
+  box-shadow: var(--fh-shadow-xl);
+}
+
+.sidebar-toggle-btn:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.sidebar-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+.sidebar-toggle-btn .icon-hamburger, 
+.sidebar-toggle-btn .icon-close {
+  transition: all var(--fh-transition-smooth);
+}
+
+body.sidebar-is-open .sidebar-toggle-btn .icon-hamburger {
+  display: none;
+}
+
+body.sidebar-is-open .sidebar-toggle-btn .icon-close {
+  display: block;
+}
+
+/* ===== FINANCEHUB SPECIFIC LAYOUTS ===== */
+.analysis-content {
+  padding: var(--fh-space-lg) 0;
+}
+
+.analysis-grid {
+  margin-top: var(--fh-space-xl);
+}
+
+.company-header {
+  margin-bottom: var(--fh-space-xl);
+}
+
+.company-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--fh-space-lg);
+}
+
+.company-identity h2 {
+  font-size: var(--font-2xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.company-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-md);
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+.symbol {
+  font-weight: var(--font-weight-bold);
+  color: var(--accent-primary);
+}
+
+.exchange {
+  opacity: 0.8;
+}
+
+.price-info {
+  text-align: right;
+}
+
+.current-price {
+  font-size: var(--font-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.company-actions {
+  display: flex;
+  gap: var(--fh-space-sm);
+}
+
+/* ===== LOADING OVERLAY ===== */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+}
+
+.loading-content {
+  background: var(--background-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--fh-space-xl);
+  text-align: center;
+  box-shadow: var(--fh-shadow-2xl);
+}
+
+.loading-text {
+  color: var(--text-secondary);
+  margin-top: var(--fh-space-md);
+}
+
+.loading-progress {
+  width: 200px;
+  height: 4px;
+  background: var(--border-subtle);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--accent-primary);
+  border-radius: var(--radius-full);
+  transition: width var(--fh-transition-smooth);
+}
+
+.progress-text {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+  margin-top: var(--fh-space-sm);
+}
+
+/* ===== WELCOME SCREEN ===== */
+.welcome-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--fh-space-xl);
+  text-align: center;
+  background: var(--background-primary);
+}
+
+.welcome-content h1 {
+  font-size: var(--font-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--fh-space-lg);
+}
+
+.welcome-content p {
+  color: var(--text-secondary);
+  margin-bottom: var(--fh-space-xl);
+  max-width: 600px;
+}
+
+.welcome-actions {
+  display: flex;
+  gap: var(--fh-space-md);
+}
+
+/* ===== UTILITY CLASSES ===== */
+.hidden {
+  display: none;
+}
+
+.skip-to-main {
+  position: absolute;
+  left: var(--fh-space-md);
+  top: var(--fh-space-md);
+  z-index: var(--z-floating);
+  padding: var(--fh-space-sm) var(--fh-space-md);
+  background: var(--background-primary);
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transform: translateY(-100px);
+  transition: transform var(--fh-transition-smooth);
+}
+
+.skip-to-main:focus {
+  transform: translateY(0);
+}
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+@media (min-width: 1400px) {
+  .content-wrapper {
+    max-width: var(--container-2xl);
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1399px) {
+  .content-wrapper {
+    max-width: var(--container-xl);
+  }
+}
+
+@media (max-width: 1023px) {
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: var(--z-sidebar);
+    transform: translateX(-100%);
+    transition: transform var(--fh-transition-smooth);
+  }
+
+  .sidebar-is-open .app-sidebar {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: var(--z-overlay);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--fh-transition-smooth);
+  }
+
+  .sidebar-is-open .sidebar-overlay {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .sidebar-toggle-btn {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-content {
+    padding: var(--fh-space-md);
+  }
+
+  .static-page-container {
+    padding: var(--fh-space-lg) var(--fh-space-md);
+  }
+
+  .company-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--fh-space-md);
+  }
+
+  .price-info {
+    text-align: left;
+  }
+
+  .welcome-actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-content {
+    padding: var(--fh-space-sm);
+  }
+
+  .static-page-container {
+    padding: var(--fh-space-md) var(--fh-space-sm);
+  }
+
+  .welcome-content h1 {
+    font-size: var(--font-2xl);
+  }
+
+  .error-actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .app-container::before,
+  .main-app-container,
+  .sidebar-toggle-btn,
+  .loading-spinner,
+  .progress-bar {
+    transition: none;
+  }
+
+  .loading-spinner {
+    animation: none;
+  }
+}
+
+/* ===== HIGH CONTRAST MODE ===== */
+@media (prefers-contrast: high) {
+  .app-container,
+  .loading-content,
+  .welcome-screen {
+    border: 2px solid var(--text-primary);
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .sidebar-toggle-btn,
+  .loading-overlay,
+  .app-sidebar {
+    display: none;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes subtle-glow {
+0%, 100% {
+  opacity: 0.03;
+}
+50% {
+  opacity: 0.06;
+}
+}

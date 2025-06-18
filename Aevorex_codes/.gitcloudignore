@@ -1,0 +1,24 @@
+.gcloudignore
+# Python virtual environment
+venv/
+.venv/
+
+# Environment variables file
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Git directory
+.git/
+
+# VS Code settings
+.vscode/
+
+# IDE specific files
+.idea/
+
+# MacOS files
+.DS_Store

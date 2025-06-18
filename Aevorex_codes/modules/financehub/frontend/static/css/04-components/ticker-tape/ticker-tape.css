@@ -1,0 +1,251 @@
+/* ------------------------------------------------------------------
+ * FinanceHub – Ticker Tape Component
+ * BEM-style selectors, premium minimalist UX
+ *------------------------------------------------------------------ */
+
+/* Unified gradient background for header & ticker (dark/light) */
+.fh-ticker-tape,
+.market-ticker {
+  background: var(--gradient-surface);
+  border-bottom: none; /* seamless merge */
+  overflow: hidden;
+  position: relative;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* Disabled the glow strip for seamless header integration */
+.market-ticker::before { display: none !important; }
+
+/* --------------------------------------------------
+ * Containers & items
+ *-------------------------------------------------- */
+.fh-ticker-tape__container,
+.market-ticker .ticker-content {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: max-content;
+  white-space: nowrap;
+}
+
+/* Ticker lane – items stretch full height */
+.fh-ticker-tape__content,
+.market-ticker .ticker-content {
+  display: flex;
+  align-items: stretch; /* let children (ticker-item) fill full bar height */
+  gap: 0;
+}
+
+/* Rectangular, gap-free chips */
+.fh-ticker-tape__item,
+.market-ticker .ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--fh-space-1);
+  margin: 0;               /* remove outer gap for full adjacency */
+  padding: 0 var(--fh-space-3);
+  font-size: var(--fh-font-size-sm);
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 0;         /* squared edges */
+  border-left: 1px solid var(--ticker-border);
+  border-right: 1px solid var(--ticker-border);
+  /* remove vertical borders to eliminate 1-px gaps at top/bottom */
+  border-top: none;
+  border-bottom: none;
+  height: 100%;             /* fill bar height */
+  box-sizing: border-box;   /* include borders in the 100% height calc */
+  transition: background 0.18s var(--fh-ease-out), transform 0.18s var(--fh-ease-out), box-shadow 0.18s;
+  position: relative;
+  align-self: stretch;      /* ensure flex cross-axis stretch even when parent aligns center */
+}
+
+/* Ensure seamless borders by collapsing double borders */
+.market-ticker .ticker-item + .ticker-item { margin-left: -1px; }
+
+.fh-ticker-tape__item:hover,
+.market-ticker .ticker-item:hover,
+.market-ticker .ticker-item:focus-visible {
+  background: var(--bg-glass);
+  box-shadow: var(--ticker-hover-elev);
+}
+
+.fh-ticker-tape__item:active,
+.market-ticker .ticker-item:active {
+  transform: translateY(1px);
+}
+
+/* --------------------------------------------------
+ * Text atoms
+ *-------------------------------------------------- */
+.fh-ticker-tape__symbol,
+.market-ticker .ticker-symbol {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.fh-ticker-tape__price,
+.market-ticker .ticker-price {
+  color: var(--text-primary);
+  opacity: 0.9;
+}
+
+.fh-ticker-tape__change,
+.market-ticker .ticker-change {
+  font-weight: 600;
+  font-size: 10px;
+  padding: 0 var(--fh-space-1);
+  border-radius: var(--fh-radius-sm);
+  transition: color 0.2s, background 0.2s;
+}
+
+.fh-ticker-tape__change--positive,
+.market-ticker .ticker-change.positive {
+  color: var(--ticker-pos);
+  background: var(--ticker-pos-bg);
+}
+
+.fh-ticker-tape__change--negative,
+.market-ticker .ticker-change.negative {
+  color: var(--ticker-neg);
+  background: var(--ticker-neg-bg);
+}
+
+.fh-ticker-tape__change--neutral,
+.market-ticker .ticker-change.neutral {
+  color: var(--text-muted);
+  background: var(--bg-tertiary);
+}
+
+/* --------------------------------------------------
+ * State modifiers
+ *-------------------------------------------------- */
+.fh-ticker-tape__item--selected,
+.market-ticker .ticker-item.selected {
+  background: rgba(255, 215, 0, 0.12);
+  box-shadow: 0 0 0 2px var(--premium-gold-accent);
+}
+
+.fh-ticker-tape__item--loading,
+.market-ticker .ticker-item.loading {
+  opacity: 0.6;
+}
+
+.fh-ticker-tape__item--loading::after,
+.market-ticker .ticker-item.loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+  animation: shimmer 1.5s infinite;
+}
+
+/* --------------------------------------------------
+ * Animations
+ *-------------------------------------------------- */
+@keyframes tickerGlow {
+  0%, 100% { opacity: 0.4; transform: scaleX(0.8); }
+  50%      { opacity: 1;   transform: scaleX(1);   }
+}
+
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%);  }
+}
+
+/* --------------------------------------------------
+ * Responsive helpers
+ *-------------------------------------------------- */
+/* Medium screens */
+@media (max-width: 768px) {
+  .fh-ticker-tape { height: 28px; font-size: 11px; }
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+  .fh-ticker-tape { height: 24px; font-size: 10px; }
+  .fh-ticker-tape__symbol,
+  .fh-ticker-tape__price { font-size: 10px; }
+  .fh-ticker-tape__change,
+  .market-ticker .ticker-change { font-size: 9px; }
+}
+
+/* --------------------------------------------------
+ * Reduced motion / accessibility
+ *-------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .fh-ticker-tape__item:hover,
+  .fh-ticker-tape__item--loading::after {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------
+ * Theme tweaks
+ *-------------------------------------------------- */
+[data-theme="light"] .market-ticker { border-bottom-color: var(--ticker-border-light); }
+[data-theme="dark"]  .market-ticker { border-bottom-color: var(--ticker-border); }
+
+/* --------------------------------------------------
+ * Controls (play/pause, refresh)
+ *-------------------------------------------------- */
+.market-ticker .ticker-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-2);
+  margin-left: auto;
+  padding-right: var(--fh-space-3);
+}
+
+.market-ticker .ticker-control-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--fh-space-1);
+  border-radius: var(--fh-radius-sm);
+  transition: background 0.2s, color 0.2s;
+}
+
+.market-ticker .ticker-control-btn:hover {
+  background: var(--bg-glass);
+  color: var(--text-primary);
+}
+
+.market-ticker .control-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.market-ticker .ticker-content {
+  display: inline-flex;
+  width: max-content; /* intrinsic width so transform moves entire row */
+}
+
+/* Dark-theme readability: keep items background transparent so bar colour is uniform
+   (only inner change pill is tinted). */
+.market-ticker .ticker-item.positive,
+.market-ticker .ticker-item.negative {
+  background: transparent;
+}
+
+/* Restore subtle glass hover without drastic tone shift */
+.market-ticker .ticker-item.positive:hover,
+.market-ticker .ticker-item.negative:hover,
+.market-ticker .ticker-item:hover {
+  background: var(--bg-glass);
+}
+
+/* Re-enable tint on the change pill itself */
+.market-ticker .ticker-change.positive { background: var(--ticker-pos-bg); }
+.market-ticker .ticker-change.negative { background: var(--ticker-neg-bg); }
+
+.market-ticker { /* root bar override for cramped gap removal */ margin: 0; } 

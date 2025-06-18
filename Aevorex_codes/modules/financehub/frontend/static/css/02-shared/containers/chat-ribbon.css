@@ -1,0 +1,23 @@
+/* ===================================================
+   AEVOREX FINANCEHUB – SHARED CONTAINERS
+   Chat ribbon (input bar) visual styles
+   =================================================== */
+
+.chat-ribbon {
+  height: 20vh;
+  padding: var(--fh-space-6) var(--fh-space-8);
+  background: color-mix(in srgb, var(--fh-bg-secondary) 80%, transparent);
+  backdrop-filter: blur(18px);
+  border-top: 1px solid color-mix(in srgb, var(--fh-border-subtle) 40%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 767px) {
+  .chat-ribbon {
+    height: 40vh;
+    padding: var(--fh-space-3) var(--fh-space-4);
+  }
+} 
