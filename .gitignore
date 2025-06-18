@@ -216,4 +216,7 @@ financehub_backend_routes.txt
 financehub_frontend_fetch.txt
 FINAL_REDUNDANCY_ELIMINATION_REPORT.md
 claude4 system prompt.jpeg
-env-vars-for-run.yaml 
+env-vars-for-run.yaml
+
+# Embedded git repositories
+Aevorex_codes/system-prompts-and-models-of-ai-tools/ 
